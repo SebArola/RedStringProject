@@ -1,5 +1,5 @@
 #!/bin/bash
-msg="auto commit by $USER"
+msg='auto commit by $USER'
 echo "Message ? (y/n):"
 read choix
 if [ "$choix" = "y" ];then
@@ -7,5 +7,5 @@ if [ "$choix" = "y" ];then
 	read msg
 fi
 git pull
-git commit -m $msg 
+git commit -m "auto commit by &USER" 
 git push

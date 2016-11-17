@@ -1,4 +1,5 @@
 #!/bin/bash
+
 msg="auto commit by "$USER
 echo "Message ? (y/n):"
 read choix

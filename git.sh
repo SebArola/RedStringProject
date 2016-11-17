@@ -7,5 +7,5 @@ if [ "$choix" = "y" ];then
 	read msg
 fi
 git pull
-git commit -m "auto commit by $USER" 
+git commit -m  "$msg"
 git push

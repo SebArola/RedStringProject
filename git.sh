@@ -1,5 +1,5 @@
 #!/bin/bash
-msg='auto commit by $USER'
+msg="auto commit by "$USER
 echo "Message ? (y/n):"
 read choix
 if [ "$choix" = "y" ];then

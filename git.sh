@@ -1,4 +1,4 @@
 #!/bin/bash
 git pull;
-git commit -m commit;
+git commit -m autocommit;
 git push;

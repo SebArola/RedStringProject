@@ -14,4 +14,3 @@ fi
 git pull
 git commit -m  "$msg"
 git push
-fi

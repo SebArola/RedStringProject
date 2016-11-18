@@ -1,4 +1,6 @@
 #!/bin/bash
+echo "Modifications éffectuées:"
+git diff
 if [ "$# -eq 0" ];then
 	git add *
 else

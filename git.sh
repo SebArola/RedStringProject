@@ -1,6 +1,7 @@
 #!/bin/bash
 echo "Modifications éffectuées:"
 dif=$(git diff)
+echo $dif
 if [ "$dif" = "" ];then
 	echo "Aucune modification"
 else

@@ -1,5 +1,9 @@
 #!/bin/bash
-
+if [ "$# -eq 0" ];then
+	git add *
+else
+	git add $*
+fi
 msg="auto commit by "$USER
 echo "Message ? (y/n):"
 read choix

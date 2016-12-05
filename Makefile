@@ -14,6 +14,7 @@ OBJS_TEST=$(SRC_TEST:.c=.o)
 
 all: clean $(EXEC) $(EXEC_TEST)
 	mv ./$(EXEC) $(DIREXEC)
+	mv ./$(EXEC_TEST) $(DIRTEST)
 
 test_main :$(OBJS_TEST)
 	$(CC) -o $@ $^ $(LDFLAGS)

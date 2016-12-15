@@ -4,5 +4,5 @@
 #include "pileDescripteur.h"
 
 void genDescripteurImage(t_Fichier fichier, t_PileDescripteur *ptrPileImage);
-
+//MODIF
 #endif

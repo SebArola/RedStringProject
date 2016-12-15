@@ -11,7 +11,7 @@ OBJS=$(SRC:.c=.o)
 SRC_TEST=$(wildcard ./Test/*.c)
 OBJS_TEST=$(SRC_TEST:.c=.o)
 
-
+#test
 all: clean $(EXEC) $(EXEC_TEST)
 	mv ./$(EXEC) $(DIREXEC)
 	mv ./$(EXEC_TEST) $(DIRTEST)

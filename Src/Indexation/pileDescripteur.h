@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <string.h>
 
+/*
+Cette pile contiendra tout les descripteurs d'un type de fichier(image, son ou texte)
+*/
 typedef struct CelluleDescripteur{
 	char *descripteur;
 	struct CelluleDescripteur *p_suivant;

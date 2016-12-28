@@ -10,3 +10,4 @@ crée le descripteur du fichier dans un string et l'enregistre dans la pile.
 void genDescripteurImage(t_Fichier fichier, t_PileDescripteur *ptrPileImage);
 //MODIF
 #endif
+testtest

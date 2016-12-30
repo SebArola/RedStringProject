@@ -4,6 +4,9 @@
 #include "../Indexation/Fichier.h"
 #include "../Indexation/pileDescripteur.h"
 
+/*
+Ces méthodes permettent de comparer un fichier a un autre de la base.
+*/
 int comparaisonImage(t_Fichier fichierCompare, t_PileDescripteur pileImage);
 
 int comparaisonSon(t_Fichier fichierCompare, t_PileDescripteur pileSon);

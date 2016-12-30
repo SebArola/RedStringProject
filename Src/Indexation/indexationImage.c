@@ -3,9 +3,46 @@
 #include <string.h>
 #include "indexationImage.h"
 
+void genDescripteurImage(t_Fichier fichier, t_PileDescripteur *ptrPileImage)
+{
+  FILE * ptr_ficImage;
+  char * descripteur=NULL;
+  int lig, col, nbCouleur, i, j, nb;
+  descripteur = malloc(400*sizeof(char));
+  ptr_ficImage = fopen (fichier.chemin, "r");
+  int tab[256]={0};
+  fscanf(ptr_ficImage, "%d %d %d", &lig, &col, &nbCouleur);
+  for(i=0; i<lig; i++)
+  {
+    for(j=0; j<col; j++)
+    {
+      fscanf(ptr_ficImage, "%d", &nb);
+      tab[nb]++;
+    }
+  }
+  int fclose(FILE * ptr_ficImage);
+  strcat(descripteur, fichier.chemin);
+  strcat(descripteur, "\n");
+  for(i=0; i<256; i++)
+  {
+    descripteur=descripteur + i;
+    strcat(descripteur, "\t");
+    descripteur=descripteur + tab[i];
+    strcat(descripteur, "\n");
+  }
+  empile(ptrPileImage, descripteur);
+}
+
 int main ()
 {
-  FILE * ptr_ficListe;
+  t_Fichier fichier;
+  t_PileDescripteur pile;
+  fichier.chemin=malloc(100*sizeof(char));
+  fichier.chemin="/home/etienne/projet/FICHIER_PROJET/IMG_NG/51.txt";
+  init_pile(&pile);
+  genDescripteurImage(fichier, &pile);
+  affiche_pile(pile);
+  /*FILE * ptr_ficListe;
   FILE * ptr_ficImage;
   FILE * ptr_ficDescripteur;
   char CHEMIN[100];
@@ -52,5 +89,5 @@ int main ()
     printf("%f\n", taux[0]);
   }
   int fclose(FILE * ptr_ficListe);
-  int fclose(FILE * ptr_ficDescripteur);
+  int fclose(FILE * ptr_ficDescripteur);*/
 }

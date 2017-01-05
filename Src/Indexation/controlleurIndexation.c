@@ -10,7 +10,7 @@
 void runIndexation(){
     char cmd_touch[150] ;
     char cmd_ls[150] ;
-    
+
     FILE * ptr_ficListe;
     // FILE * ptr_ficImage;
     // FILE * ptr_ficDescripteur;
@@ -33,7 +33,8 @@ void runIndexation(){
     strcat(cmd_ls,"/Data/all_textes.txt");
     system(cmd_ls);
     char alltxtPath[150];
-    strcat(alltxtPath,CHEMIN);
+    strcpy(alltxtPath,CHEMIN);
+    printf("%s\n",strcat(alltxtPath,"/Data/all_textes.txt") );
     ptr_ficListe = fopen(strcat(alltxtPath,"/Data/all_textes.txt"), "r");
     printf("HEY1\n");
 

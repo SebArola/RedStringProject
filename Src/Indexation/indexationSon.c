@@ -29,6 +29,7 @@ void genDecripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
     fscanf(ptr_fichSon, "%f", &val);
     for (int j=0; j<m; j++){
       if((val < ??) && (val > ??)) // intervalle des fenêtres entre -1 et +1
+	      tab_occurences[j]++;
 }
 
 int main(int argc, char *argv[]){

@@ -8,7 +8,8 @@
 void genDecripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
   FILE* ptr_fichSon;
   char* descripteur = NULL;
-  int nb_lignes;
+  const int n = 1024; //taille des fenêtres
+  const int m = 30; //nombre d'intervalles entre -1 et 1
   descripteur = malloc(nb_lignes*sizeof(int));
   ptr_fichSon = fopen(fichier.chemin,"r");
   float tab[];

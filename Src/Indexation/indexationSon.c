@@ -14,7 +14,7 @@ void genDecripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
   ptr_fichSon = fopen(fichier.chemin_info,"r");
   float val;
   int tab_occurences[m];
-  int nb_lignes; //nombre de ligne du fichier 
+  int nb_lignes; //nombre de ligne du fichier
   int c, c2 = '\0';
   ////////////////////
   while((c=fgetc(ptr_fichier)) != EOF){
@@ -23,7 +23,7 @@ void genDecripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
 	c2 = c;
   }
   if(c2 != '\n')
-	  nb_lignes++; 
+	  nb_lignes++;
   ////////// Récup le nombre de lignes du fichier
   for (int i=0; i<nb_lignes; i++){//parcourir tout le fichier .txt
     fscanf(ptr_fichSon, "%f", &val);

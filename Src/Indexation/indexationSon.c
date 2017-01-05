@@ -11,7 +11,7 @@ void genDecripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
   const int n = 1024; //taille des fenêtres
   const int m = 30; //nombre d'intervalles entre -1 et 1
   descripteur = malloc(nb_lignes*sizeof(int));
-  ptr_fichSon = fopen(fichier.chemin,"r");
+  ptr_fichSon = fopen(fichier.chemin_info,"r");
   float val;
   int tab_occurences[m];
   int nb_lignes; //nombre de ligne du fichier 
@@ -29,8 +29,8 @@ void genDecripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
 int main(int argc, char *argv[]){
   t_PileDescripteur pile;
   t_Fichier fichier;
-  fichier.chemin = malloc(100*sizeof(char));
-  fichier.chemin="/Test/fichiers_tests_son/jingle_m6.txt";
+  fichier.chemin_info = malloc(100*sizeof(char));
+  fichier.chemin_info = "/Test/fichiers_tests_son/jingle_m6.txt";
   init_pile(&pile);
   genDescripteurSon(fichier, &pile);
 }

@@ -12,14 +12,23 @@ void genDecripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
   const int m = 30; //nombre d'intervalles entre -1 et 1
   descripteur = malloc(nb_lignes*sizeof(int));
   ptr_fichSon = fopen(fichier.chemin,"r");
-  float tab[n];
+  float val;
+  int tab_occurences[m];
+  int nb_lignes; //nombre de ligne du fichier 
   
+  while ((c = getc(ptr_fichSon)) != EOF){ //
+    if (c == '\n') nb_lignes++;  // Récupérer le nombre de lignes du fichier texte fourni
+  }                              //
+  
+  for(int i=0; i<nb_lignes; i++){//parcourir tout le fichier .txt
+    fscanf(ptr_fichSon, "%f", &val);
+    if
 }
 
 int main(int argc, char *argv[]){
   t_PileDescripteur pile;
   t_Fichier fichier;
-  fichier.chemin = malloc(50*sizeof(char));
+  fichier.chemin = malloc(100*sizeof(char));
   fichier.chemin="/Test/fichiers_tests_son/jingle_m6.txt";
   init_pile(&pile);
   genDescripteurSon(fichier, &pile);

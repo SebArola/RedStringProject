@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "pileDescripteur.h"
-#include "pileFichier.h"
+#include "Fichier.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -12,6 +12,7 @@ void runIndexation(){
     FILE * ptr_ficListe;
     FILE * ptr_ficImage;
     FILE * ptr_ficDescripteur;
+    char nomFic[100];
     system(strcat(strcat("touch",CHEMIN),"/Data/base_descripteur_image.txt"));
     system(strcat(strcat("touch",CHEMIN),"/Data/base_descripteur_texte.txt"));
     system(strcat(strcat("touch",CHEMIN),"/Data/base_descripteur_son.txt"));
@@ -22,8 +23,12 @@ void runIndexation(){
     system(commande);
     system("cat base_fichiers.txt");
     ptr_ficListe = fopen(strcat(CHEMIN,"/Data/all_textes.txt"), "r");
-    while(!feof(ptr_ficListe))
-    {}
+    while(!feof(ptr_ficListe)){
+        fscanf(ptr_ficListe, "%s", nomFic);
+        t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
+        temp_fichier.
+
+    }
 
 }
 

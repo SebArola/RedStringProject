@@ -2,7 +2,8 @@
 #define  _FICHIER_H
 
 typedef struct Fichier{
-    char *chemin;
+    char *chemin_nom;
+    char *chemin_info;
     char *type;
 }t_Fichier;
 

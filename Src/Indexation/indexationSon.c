@@ -16,13 +16,14 @@ void genDecripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
   int tab_occurences[m];
   int nb_lignes; //nombre de ligne du fichier 
   
-  while ((c = getc(ptr_fichSon)) != EOF){ //
-    if (c == '\n') nb_lignes++;  // Récupérer le nombre de lignes du fichier texte fourni
-  }                              //
+  while ((getc(ptr_fichSon)) != EOF){           //
+    if (getc(ptr_fichSon) == '\n') nb_lignes++; // Récupérer le nombre de lignes du fichier texte fourni
+  }                                             //
   
-  for(int i=0; i<nb_lignes; i++){//parcourir tout le fichier .txt
+  for (int i=0; i<nb_lignes; i++){//parcourir tout le fichier .txt
     fscanf(ptr_fichSon, "%f", &val);
-    if
+    for (int j=0; j<m; j++){
+      if(val > 
 }
 
 int main(int argc, char *argv[]){

@@ -3,6 +3,8 @@
 #include <string.h>
 #include "indexationSon.h"
 
+#define chemin /home/sebastien/Documents/UPSSITECH/RedStringProject/
+
 void genDecripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
   FILE* ptr_fichSon;
   char* descripteur = NULL;
@@ -16,7 +18,7 @@ int main(int argc, char *argv[]){
   t_PileDescripteur pile;
   t_Fichier fichier;
   fichier.chemin=malloc(50*sizeof(char));
-  fichier.chemin="/home/matahi/documents/Roger_fils_rouge/fichiers_tests_son/jingle_m6.txt";
+  fichier.chemin="/Test/fichiers_tests_son/jingle_m6.txt";
   init_pile(&pile);
   genDescripteurSon(fichier, &pile);
 }

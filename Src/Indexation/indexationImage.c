@@ -6,10 +6,10 @@
 void genDescripteurImage(t_Fichier fichier, t_PileDescripteur *ptrPileImage)
 {
   FILE * ptr_ficImage;
-  char * descripteur=NULL;
+  char * descripteur=NULL, * nombreChar=NULL;
   int lig, col, nbCouleur, i, j, nb;
   descripteur = malloc(400*sizeof(char));
-  ptr_ficImage = fopen (fichier.chemin, "r");
+  ptr_ficImage = fopen (fichier.chemin_info, "r");
   int tab[256]={0};
   fscanf(ptr_ficImage, "%d %d %d", &lig, &col, &nbCouleur);
   for(i=0; i<lig; i++)
@@ -21,13 +21,17 @@ void genDescripteurImage(t_Fichier fichier, t_PileDescripteur *ptrPileImage)
     }
   }
   int fclose(FILE * ptr_ficImage);
-  strcat(descripteur, fichier.chemin);
+  strcat(descripteur, fichier.chemin_nom);
   strcat(descripteur, "\n");
   for(i=0; i<256; i++)
   {
-    descripteur=descripteur + i;
+  	nombreChar=malloc(sizeof(int));
+	sprintf(nombreChar, "%d", i);
+	strcat(descripteur, nombreChar);
     strcat(descripteur, "\t");
-    descripteur=descripteur + tab[i];
+    nombreChar=malloc(sizeof(int));
+    sprintf(nombreChar, "%d", tab[i]);
+    strcat(descripteur, nombreChar);
     strcat(descripteur, "\n");
   }
   empile(ptrPileImage, descripteur);
@@ -37,8 +41,10 @@ int main ()
 {
   t_Fichier fichier;
   t_PileDescripteur pile;
-  fichier.chemin=malloc(100*sizeof(char));
-  fichier.chemin="/home/etienne/projet/FICHIER_PROJET/IMG_NG/51.txt";
+  fichier.chemin_info=malloc(100*sizeof(char));
+  fichier.chemin_nom=malloc(100*sizeof(char));
+  fichier.chemin_info="/users/1anneesri/dlt1727a/projet/IMG_NG/51.txt";
+  fichier.chemin_nom="/users/1anneesri/dlt1727a/projet/IMG_NG/51.bmp";
   init_pile(&pile);
   genDescripteurImage(fichier, &pile);
   affiche_pile(pile);

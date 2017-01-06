@@ -5,6 +5,7 @@
 #include <string.h>
 
 #define CHEMIN "/home/sebastien/Documents/UPSSITECH/RedStringProject"
+#define DEBUG 1
 
 //Méthode gérant l'indexation de toute la base.
 void runIndexation(){
@@ -12,8 +13,6 @@ void runIndexation(){
     char cmd_ls[150] ;
 
     FILE * ptr_ficListe;
-    // FILE * ptr_ficImage;
-    // FILE * ptr_ficDescripteur;
     char nomFic[100];
     strcpy(cmd_touch, "touch ");
 
@@ -34,18 +33,15 @@ void runIndexation(){
     system(cmd_ls);
     char alltxtPath[150];
     strcpy(alltxtPath,CHEMIN);
-    printf("%s\n",strcat(alltxtPath,"/Data/all_textes.txt") );
-    ptr_ficListe = fopen(strcat(alltxtPath,"/Data/all_textes.txt"), "r");
-    printf("HEY1\n");
+    strcat(alltxtPath,"/Data/all_textes.txt");
 
+    //Ouverture du fichier contenant les noms de tous les textes
+    ptr_ficListe = fopen(alltxtPath, "r");
     while(!feof(ptr_ficListe)){
-        printf("HEYFIN\n");
-
         fscanf(ptr_ficListe, "%s", nomFic);
         t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
-        printf("%s\n",nomFic);
         temp_fichier->chemin_nom = nomFic;
-
+        printf("%s\n",temp_fichier->chemin_nom );
     }
 
 }

@@ -3,16 +3,40 @@
 #include <string.h>
 #include "indexationImage.h"
 
+void decimalToBinaire(int x, int *res, int bit)
+{
+  int i;
+  for(i=bit-1; i>=0; i--)
+  {
+    res[i]=x%2;
+    x=x/2;
+  }
+}
+
+int binaireToDecimal(int *bin, int bit)
+{
+  int res=0, i;
+  for(i=0; i<bit; i++)
+  {
+    res = res + (bin[i]*(int)pow(2, (bit-1-i)));
+  }
+  return res;
+}
+
+void quantif(int tab[][][], )
+
 void genDescripteurImage(t_Fichier fichier, t_PileDescripteur *ptrPileImage)
 {
   FILE * ptr_ficImage;
   char * descripteur=NULL, * nombreChar=NULL;
-  int lig, col, nbCouleur, i, j, nb;
+  int lig, col, nbCouleur, i, j, k, nombre, nbQuantif, *bin;
+  bin=malloc(8*sizeof(int));
   descripteur = malloc(10000*sizeof(char));
   nombreChar = malloc(sizeof(int));
   ptr_ficImage = fopen (fichier.chemin_info, "r");
   int tab[256]={0};
   fscanf(ptr_ficImage, "%d %d %d", &lig, &col, &nbCouleur);
+  int tabRVB[3][lig][col];
   if(nbCouleur==1)
   {
     for(i=0; i<lig; i++)
@@ -38,7 +62,18 @@ void genDescripteurImage(t_Fichier fichier, t_PileDescripteur *ptrPileImage)
   }
   if(nbCouleur==3)
   {
-    
+    for(k=0; k<3; k++)
+    {
+      for(i=0; i<lig; i++)
+      {
+        for(j=0; j<col; j++)
+        {
+          fscanf(ptr_ficImage, "%d", &nb);
+          tabRVB[k][i][j]=nb;
+        }
+      }
+    }
+    tabDesc[]=decimalToBinaire(tabRVB[k][i][j], bin, )
   }
   realloc(descripteur, strlen(descripteur)*sizeof(char));
   empile(ptrPileImage, descripteur);

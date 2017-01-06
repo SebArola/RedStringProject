@@ -8,32 +8,39 @@ void genDescripteurImage(t_Fichier fichier, t_PileDescripteur *ptrPileImage)
   FILE * ptr_ficImage;
   char * descripteur=NULL, * nombreChar=NULL;
   int lig, col, nbCouleur, i, j, nb;
-  descripteur = malloc(400*sizeof(char));
+  descripteur = malloc(10000*sizeof(char));
+  nombreChar = malloc(sizeof(int));
   ptr_ficImage = fopen (fichier.chemin_info, "r");
   int tab[256]={0};
   fscanf(ptr_ficImage, "%d %d %d", &lig, &col, &nbCouleur);
-  for(i=0; i<lig; i++)
+  if(nbCouleur==1)
   {
-    for(j=0; j<col; j++)
+    for(i=0; i<lig; i++)
     {
-      fscanf(ptr_ficImage, "%d", &nb);
-      tab[nb]++;
+      for(j=0; j<col; j++)
+      {
+        fscanf(ptr_ficImage, "%d", &nb);
+        tab[nb]++;
+      }
+    }
+    int fclose(FILE * ptr_ficImage);
+    strcat(descripteur, fichier.chemin_nom);
+    strcat(descripteur, "\n");
+    for(i=0; i<256; i++)
+    {
+  	  sprintf(nombreChar, "%d", i);
+  	  strcat(descripteur, nombreChar);
+      strcat(descripteur, " ");
+      sprintf(nombreChar, "%d", tab[i]);
+      strcat(descripteur, nombreChar);
+      strcat(descripteur, "\n");
     }
   }
-  int fclose(FILE * ptr_ficImage);
-  strcat(descripteur, fichier.chemin_nom);
-  strcat(descripteur, "\n");
-  for(i=0; i<256; i++)
+  if(nbCouleur==3)
   {
-  	nombreChar=malloc(sizeof(int));
-	sprintf(nombreChar, "%d", i);
-	strcat(descripteur, nombreChar);
-    strcat(descripteur, "\t");
-    nombreChar=malloc(sizeof(int));
-    sprintf(nombreChar, "%d", tab[i]);
-    strcat(descripteur, nombreChar);
-    strcat(descripteur, "\n");
+    
   }
+  realloc(descripteur, strlen(descripteur)*sizeof(char));
   empile(ptrPileImage, descripteur);
 }
 
@@ -43,9 +50,18 @@ int main ()
   t_PileDescripteur pile;
   fichier.chemin_info=malloc(100*sizeof(char));
   fichier.chemin_nom=malloc(100*sizeof(char));
-  fichier.chemin_info="/users/1anneesri/dlt1727a/projet/IMG_NG/51.txt";
-  fichier.chemin_nom="/users/1anneesri/dlt1727a/projet/IMG_NG/51.bmp";
+  fichier.chemin_info="/home/etienne/projet/FICHIER_PROJET/IMG_NG/51.txt";
+  fichier.chemin_nom="/home/etienne/projet/FICHIER_PROJET/IMG_NG/51.bmp";
   init_pile(&pile);
+  genDescripteurImage(fichier, &pile);
+  fichier.chemin_info="/home/etienne/projet/FICHIER_PROJET/IMG_NG/52.txt";
+  fichier.chemin_nom="/home/etienne/projet/FICHIER_PROJET/IMG_NG/52.bmp";
+  genDescripteurImage(fichier, &pile);
+  fichier.chemin_info="/home/etienne/projet/FICHIER_PROJET/IMG_NG/61.txt";
+  fichier.chemin_nom="/home/etienne/projet/FICHIER_PROJET/IMG_NG/61.bmp";
+  genDescripteurImage(fichier, &pile);
+  fichier.chemin_info="/home/etienne/projet/FICHIER_PROJET/IMG_NG/62.txt";
+  fichier.chemin_nom="/home/etienne/projet/FICHIER_PROJET/IMG_NG/62.bmp";
   genDescripteurImage(fichier, &pile);
   affiche_pile(pile);
   /*FILE * ptr_ficListe;

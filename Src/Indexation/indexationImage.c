@@ -23,7 +23,24 @@ int binaireToDecimal(int *bin, int bit)
   return res;
 }
 
-void quantif(int tab[][][], )
+int quantif(int *binR, int *binV, int *binB, int nbQuantif)
+{
+  int *binRVB, i, j;
+  binRVB=malloc(3*nbQuantif*sizeof(int));
+  for(i=0; i<3; i++)
+  {
+    for(j=0; j<nbQuantif; j++)
+    {
+      if(i==0)
+        binRVB[j]=binR[j];
+      if(i==1)
+        binRVB[j+nbQuantif]=binV[j];
+      if(i==2)
+        binRVB[j+(2*nbQuantif)]=binB[j];
+    }
+  }
+  return binaireToDecimal(binRVB, nbQuantif*3);
+}
 
 void genDescripteurImage(t_Fichier fichier, t_PileDescripteur *ptrPileImage)
 {
@@ -73,7 +90,6 @@ void genDescripteurImage(t_Fichier fichier, t_PileDescripteur *ptrPileImage)
         }
       }
     }
-    tabDesc[]=decimalToBinaire(tabRVB[k][i][j], bin, )
   }
   realloc(descripteur, strlen(descripteur)*sizeof(char));
   empile(ptrPileImage, descripteur);

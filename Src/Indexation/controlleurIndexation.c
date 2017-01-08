@@ -60,7 +60,7 @@ void runIndexation(){
         temp_fichier->chemin_nom = nomFic;//Création du fichier
         //Ajout du fichier dans la pile_texte. Voir indexationImage.h pour
         //des détails sur la méthode.
-        //genDescripteurTexte(*temp_fichier, &pile_texte);
+        genDescripteurTexte(*temp_fichier, &pile_texte);
     }
 
     //Descripteur image

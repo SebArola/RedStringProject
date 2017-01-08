@@ -5,11 +5,15 @@
 #include <string.h>
 #include "indexationTexte.h"
 #include "indexationImage.h"
-//#include "indexationSon.h"
+#include "indexationSon.h"
 
 //Constante contenant le chemin en local. Sera remplacé par le fichier de
 //configuration.
 #define CHEMIN "/home/sebastien/Documents/UPSSITECH/RedStringProject"
+//Méthode ecrivant les déscripteur dans le fichier de la base descripteur
+void ecrireDescripteur(t_PileDescripteur pileDescripteur, char * type){
+    //TODO
+}
 
 //Méthode gérant l'indexation de toute la base.
 void runIndexation(){
@@ -63,6 +67,7 @@ void runIndexation(){
         //des détails sur la méthode.
         genDescripteurTexte(*temp_fichier, &pile_texte);
     }
+    fclose(ptr_ficListe);
 
     //Descripteur image
     strcpy(cmd_ls, "ls ");
@@ -120,14 +125,14 @@ void runIndexation(){
     strcat(cmd_ls,"/Data/SON_REQUETE/*");
     strcat(cmd_ls," > ");
     strcat(cmd_ls,CHEMIN);
-    strcat(cmd_ls,"/Data/all_IMG_RGB.txt");
+    strcat(cmd_ls,"/Data/all_SON.txt");
     system(cmd_ls); //Copie
 
-    char all_SON[150];//Chemin vers le fichier all_IMG_NG
-    strcpy(all_IMG_RGB_Path,CHEMIN);
-    strcat(all_IMG_RGB_Path,"/Data/all_IMG_RGB.txt");
+    char all_SON_Path[150];//Chemin vers le fichier all_SON
+    strcpy(all_SON_Path,CHEMIN);
+    strcat(all_SON_Path,"/Data/all_SON.txt");
 
-    ptr_ficListe = fopen(all_IMG_RGB_Path, "r");
+    ptr_ficListe = fopen(all_SON_Path, "r");
     while(!feof(ptr_ficListe)){//Tant qu'on est pas a la fin du document
         fscanf(ptr_ficListe, "%s", nomFic);//On recupère la ligne courante
         t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
@@ -138,12 +143,14 @@ void runIndexation(){
         //des détails sur la méthode.
         genDescripteurSon(*temp_fichier, &pile_son);
     }
+
+    //Enregistrement des déscripteur dans les fichiers base_descripteur_*
+    ecrireDescripteur(pile_texte, "texte");
+    ecrireDescripteur(pile_img,"image");
+    ecrireDescripteur(pile_son,"son");
 }
 
-//Méthode ecrivant les déscripteur dans le fichier de la base descripteur
-void ecrireDescripteur(t_PileDescripteur pileDescripteur, char * type){
-    //TODO
-}
+
 
 //Main de test.
 int main(){

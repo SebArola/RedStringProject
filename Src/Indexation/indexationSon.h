@@ -3,6 +3,6 @@
 #include "Fichier.h"
 #include "pileDescripteur.h"
 
-void genDecripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon);
+void genDescripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon);
 
 #endif

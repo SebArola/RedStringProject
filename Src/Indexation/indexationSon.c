@@ -5,7 +5,7 @@
 
 #define chemin /home/sebastien/Documents/UPSSITECH/RedStringProject/
 
-void genDecripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
+void genDescripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
   FILE* ptr_fichSon;
   char* descripteur = NULL;
   const int n = 1024; //taille des fenêtres

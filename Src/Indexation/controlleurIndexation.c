@@ -12,7 +12,20 @@
 #define CHEMIN "/home/sebastien/Documents/UPSSITECH/RedStringProject"
 //Méthode ecrivant les déscripteur dans le fichier de la base descripteur
 void ecrireDescripteur(t_PileDescripteur pileDescripteur, char * type){
-    //TODO
+    char chemin[50];
+    char * descripteur = malloc(sizeof(char)*150);
+    FILE * base_descripteur;
+    strcpy(chemin,CHEMIN);
+    strcat(chemin,"/Data");
+    strcat(chemin,"base_descripteur_");
+    strcat(chemin,type);
+    strcat(chemin,".txt");
+    base_descripteur = fopen(chemin,"w");
+
+    while(depile(&pileDescripteur,descripteur)){
+        fprintf(base_descripteur, "%s\n",descripteur );
+        descripteur = malloc(sizeof(char)*150);
+    }
 }
 
 //Méthode gérant l'indexation de toute la base.
@@ -94,6 +107,7 @@ void runIndexation(){
         //des détails sur la méthode.
         genDescripteurImage(*temp_fichier, &pile_image);
     }
+    fclose(ptr_ficListe);
 
     strcpy(cmd_ls, "ls ");
     strcat(cmd_ls,CHEMIN) ;
@@ -118,6 +132,7 @@ void runIndexation(){
         //des détails sur la méthode.
         genDescripteurImage(*temp_fichier, &pile_image);
     }
+    fclose(ptr_ficListe);
 
     //Son
     strcpy(cmd_ls, "ls ");
@@ -143,10 +158,11 @@ void runIndexation(){
         //des détails sur la méthode.
         genDescripteurSon(*temp_fichier, &pile_son);
     }
+    fclose(ptr_ficListe);
 
     //Enregistrement des déscripteur dans les fichiers base_descripteur_*
     ecrireDescripteur(pile_texte, "texte");
-    ecrireDescripteur(pile_img,"image");
+    ecrireDescripteur(pile_image,"image");
     ecrireDescripteur(pile_son,"son");
 }
 

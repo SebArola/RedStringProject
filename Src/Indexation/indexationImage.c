@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "indexationImage.h"
 
 void decimalToBinaire(int x, int *res, int bit)
@@ -23,22 +24,40 @@ int binaireToDecimal(int *bin, int bit)
   return res;
 }
 
-void quantif(int tab[][][], )
+int quantif(int *binR, int *binV, int *binB, int nbQuantif)
+{
+  int *binRVB, i, j;
+  binRVB=malloc(3*nbQuantif*sizeof(int));
+  for(i=0; i<3; i++)
+  {
+    for(j=0; j<nbQuantif; j++)
+    {
+      if(i==0)
+        binRVB[j]=binR[j];
+      if(i==1)
+        binRVB[j+nbQuantif]=binV[j];
+      if(i==2)
+        binRVB[j+(2*nbQuantif)]=binB[j];
+    }
+  }
+  return binaireToDecimal(binRVB, nbQuantif*3);
+}
 
 void genDescripteurImage(t_Fichier fichier, t_PileDescripteur *ptrPileImage)
 {
   FILE * ptr_ficImage;
   char * descripteur=NULL, * nombreChar=NULL;
-  int lig, col, nbCouleur, i, j, k, nombre, nbQuantif, *bin;
-  bin=malloc(8*sizeof(int));
+  int lig, col, nbCouleur, i, j, k, nombre, nbQuantif=2, nb;
+  int dim=pow(2, (3*nbQuantif));
+  int * tabDesc;
+  tabDesc=malloc(dim*sizeof(int));
   descripteur = malloc(10000*sizeof(char));
   nombreChar = malloc(sizeof(int));
   ptr_ficImage = fopen (fichier.chemin_info, "r");
-  int tab[256]={0};
   fscanf(ptr_ficImage, "%d %d %d", &lig, &col, &nbCouleur);
-  int tabRVB[3][lig][col];
   if(nbCouleur==1)
   {
+    int tab[256]={0};
     for(i=0; i<lig; i++)
     {
       for(j=0; j<col; j++)
@@ -47,7 +66,6 @@ void genDescripteurImage(t_Fichier fichier, t_PileDescripteur *ptrPileImage)
         tab[nb]++;
       }
     }
-    int fclose(FILE * ptr_ficImage);
     strcat(descripteur, fichier.chemin_nom);
     strcat(descripteur, "\n");
     for(i=0; i<256; i++)
@@ -62,6 +80,12 @@ void genDescripteurImage(t_Fichier fichier, t_PileDescripteur *ptrPileImage)
   }
   if(nbCouleur==3)
   {
+    int tabRVB[3][lig][col];
+
+    int *ptr_R, *ptr_V, *ptr_B;
+    ptr_R=malloc(8*sizeof(int));
+    ptr_V=malloc(8*sizeof(int));
+    ptr_B=malloc(8*sizeof(int));
     for(k=0; k<3; k++)
     {
       for(i=0; i<lig; i++)
@@ -73,8 +97,29 @@ void genDescripteurImage(t_Fichier fichier, t_PileDescripteur *ptrPileImage)
         }
       }
     }
-    tabDesc[]=decimalToBinaire(tabRVB[k][i][j], bin, )
+    for(i=0; i<lig; i++)
+    {
+      for(j=0; j<col; j++)
+      {
+        decimalToBinaire(tabRVB[0][i][j], ptr_R, 8);
+        decimalToBinaire(tabRVB[1][i][j], ptr_V, 8);
+        decimalToBinaire(tabRVB[2][i][j], ptr_B, 8);
+        tabDesc[quantif(ptr_R, ptr_V, ptr_B, nbQuantif)]++;
+      }
+    }
+    strcat(descripteur, fichier.chemin_nom);
+    strcat(descripteur, "\n");
+    for(i=0; i<dim; i++)
+    {
+  	  sprintf(nombreChar, "%d", i);
+  	  strcat(descripteur, nombreChar);
+      strcat(descripteur, " ");
+      sprintf(nombreChar, "%d", tabDesc[i]);
+      strcat(descripteur, nombreChar);
+      strcat(descripteur, "\n");
+    }
   }
+  int fclose(FILE * ptr_ficImage);
   realloc(descripteur, strlen(descripteur)*sizeof(char));
   empile(ptrPileImage, descripteur);
 }
@@ -85,9 +130,12 @@ int main ()
   t_PileDescripteur pile;
   fichier.chemin_info=malloc(100*sizeof(char));
   fichier.chemin_nom=malloc(100*sizeof(char));
-  fichier.chemin_info="/home/etienne/projet/FICHIER_PROJET/IMG_NG/51.txt";
-  fichier.chemin_nom="/home/etienne/projet/FICHIER_PROJET/IMG_NG/51.bmp";
   init_pile(&pile);
+  fichier.chemin_info="/home/etienne/projet/FICHIER_PROJET/IMG_RGB/01.txt";
+  fichier.chemin_nom="/home/etienne/projet/FICHIER_PROJET/IMG_RGB/01.jpg";
+  genDescripteurImage(fichier, &pile);
+  /*fichier.chemin_info="/home/etienne/projet/FICHIER_PROJET/IMG_NG/51.txt";
+  fichier.chemin_nom="/home/etienne/projet/FICHIER_PROJET/IMG_NG/51.bmp";
   genDescripteurImage(fichier, &pile);
   fichier.chemin_info="/home/etienne/projet/FICHIER_PROJET/IMG_NG/52.txt";
   fichier.chemin_nom="/home/etienne/projet/FICHIER_PROJET/IMG_NG/52.bmp";
@@ -97,7 +145,7 @@ int main ()
   genDescripteurImage(fichier, &pile);
   fichier.chemin_info="/home/etienne/projet/FICHIER_PROJET/IMG_NG/62.txt";
   fichier.chemin_nom="/home/etienne/projet/FICHIER_PROJET/IMG_NG/62.bmp";
-  genDescripteurImage(fichier, &pile);
+  genDescripteurImage(fichier, &pile);*/
   affiche_pile(pile);
   /*FILE * ptr_ficListe;
   FILE * ptr_ficImage;

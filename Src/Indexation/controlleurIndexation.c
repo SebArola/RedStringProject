@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "indexationTexte.h"
+#include "indexationImage.h"
+#include "indexationSon.h"
 
 //Constante contenant le chemin en local. Sera remplacé par le fichier de
 //configuration.
@@ -61,6 +63,28 @@ void runIndexation(){
         genDescripteurTexte(*temp_fichier, &pile_texte);
     }
 
+    //Descripteur image
+    strcpy(cmd_ls, "ls ");
+    strcat(cmd_ls,CHEMIN) ;
+    strcat(cmd_ls,"/Data/IMG_NG/");
+    strcat(cmd_ls," > ");
+    strcat(cmd_ls,CHEMIN);
+    strcat(cmd_ls,"/Data/all_IMG_NG.txt");
+    system(cmd_ls); //Copie
+
+    char allimgPath[150];//Chemin vers le fichier all_IMG_NG
+    strcpy(allimgPath,CHEMIN);
+    strcat(allimgPath,"/Data/all_IMG_NG.txt");
+
+    ptr_ficListe = fopen(allimgPath, "r");
+    while(!feof(ptr_ficListe)){//Tant qu'on est pas a la fin du document
+        fscanf(ptr_ficListe, "%s", nomFic);//On recupère la ligne courante
+        t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
+        temp_fichier->chemin_nom = nomFic;//Création du fichier
+        //Ajout du fichier dans la pile_texte. Voir indexationImage.h pour
+        //des détails sur la méthode.
+        genDescripteurImage(*temp_fichier, &pile_texte);
+    }
 }
 
 //Méthode ecrivant les déscripteur dans le fichier de la base descripteur

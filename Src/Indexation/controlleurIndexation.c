@@ -26,6 +26,7 @@ void ecrireDescripteur(t_PileDescripteur pileDescripteur, char * type){
         fprintf(base_descripteur, "%s\n",descripteur );
         descripteur = malloc(sizeof(char)*150);
     }
+    fclose(base_descripteur);
 }
 
 //Méthode gérant l'indexation de toute la base.

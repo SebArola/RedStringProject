@@ -26,7 +26,8 @@ void runIndexation(){
     init_pile(&pile_son);
 
     FILE * ptr_ficListe;
-    char nomFic[100];
+    char nomFic[50];
+    char infoFic[50];
 
     //Création des fichiers base_descripteur_*
     strcpy(cmd_touch, "touch ");
@@ -66,7 +67,7 @@ void runIndexation(){
     //Descripteur image
     strcpy(cmd_ls, "ls ");
     strcat(cmd_ls,CHEMIN) ;
-    strcat(cmd_ls,"/Data/IMG_NG/");
+    strcat(cmd_ls,"/Data/IMG_NG/*");
     strcat(cmd_ls," > ");
     strcat(cmd_ls,CHEMIN);
     strcat(cmd_ls,"/Data/all_IMG_NG.txt");
@@ -78,17 +79,20 @@ void runIndexation(){
 
     ptr_ficListe = fopen(allimgPath, "r");
     while(!feof(ptr_ficListe)){//Tant qu'on est pas a la fin du document
-        fscanf(ptr_ficListe, "%s", nomFic);//On recupère la ligne courante
+        fscanf(ptr_ficListe, "%s", nomFic);//On recupère le nom du fichier
         t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
         temp_fichier->chemin_nom = nomFic;//Création du fichier
+        fscanf(ptr_ficListe, "%s", infoFic);//On recupère le nom du fichier info
+        temp_fichier->chemin_info = infoFic;
+
         //Ajout du fichier dans la pile_texte. Voir indexationImage.h pour
         //des détails sur la méthode.
-        genDescripteurImage(*temp_fichier, &pile_texte);
+        genDescripteurImage(*temp_fichier, &pile_image);
     }
 
     strcpy(cmd_ls, "ls ");
     strcat(cmd_ls,CHEMIN) ;
-    strcat(cmd_ls,"/Data/IMG_RGB/");
+    strcat(cmd_ls,"/Data/IMG_RGB/*");
     strcat(cmd_ls," > ");
     strcat(cmd_ls,CHEMIN);
     strcat(cmd_ls,"/Data/all_IMG_RGB.txt");
@@ -103,9 +107,36 @@ void runIndexation(){
         fscanf(ptr_ficListe, "%s", nomFic);//On recupère la ligne courante
         t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
         temp_fichier->chemin_nom = nomFic;//Création du fichier
-        //Ajout du fichier dans la pile_texte. Voir indexationImage.h pour
+        fscanf(ptr_ficListe, "%s", infoFic);//On recupère le nom du fichier info
+        temp_fichier->chemin_info = infoFic;
+        //Ajout du fichier dans la pile_img. Voir indexationImage.h pour
         //des détails sur la méthode.
-        genDescripteurImage(*temp_fichier, &pile_texte);
+        genDescripteurImage(*temp_fichier, &pile_image);
+    }
+
+    //Son
+    strcpy(cmd_ls, "ls ");
+    strcat(cmd_ls,CHEMIN) ;
+    strcat(cmd_ls,"/Data/SON_REQUETE/*");
+    strcat(cmd_ls," > ");
+    strcat(cmd_ls,CHEMIN);
+    strcat(cmd_ls,"/Data/all_IMG_RGB.txt");
+    system(cmd_ls); //Copie
+
+    char all_SON[150];//Chemin vers le fichier all_IMG_NG
+    strcpy(all_IMG_RGB_Path,CHEMIN);
+    strcat(all_IMG_RGB_Path,"/Data/all_IMG_RGB.txt");
+
+    ptr_ficListe = fopen(all_IMG_RGB_Path, "r");
+    while(!feof(ptr_ficListe)){//Tant qu'on est pas a la fin du document
+        fscanf(ptr_ficListe, "%s", nomFic);//On recupère la ligne courante
+        t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
+        temp_fichier->chemin_nom = nomFic;//Création du fichier
+        fscanf(ptr_ficListe, "%s", infoFic);//On recupère le nom du fichier info
+        temp_fichier->chemin_info = infoFic;
+        //Ajout du fichier dans la pile_img. Voir indexationImage.h pour
+        //des détails sur la méthode.
+        genDescripteurSon(*temp_fichier, &pile_son);
     }
 }
 

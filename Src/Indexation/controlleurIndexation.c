@@ -5,7 +5,7 @@
 #include <string.h>
 #include "indexationTexte.h"
 #include "indexationImage.h"
-#include "indexationSon.h"
+//#include "indexationSon.h"
 
 //Constante contenant le chemin en local. Sera remplacé par le fichier de
 //configuration.
@@ -60,7 +60,7 @@ void runIndexation(){
         temp_fichier->chemin_nom = nomFic;//Création du fichier
         //Ajout du fichier dans la pile_texte. Voir indexationImage.h pour
         //des détails sur la méthode.
-        genDescripteurTexte(*temp_fichier, &pile_texte);
+        //genDescripteurTexte(*temp_fichier, &pile_texte);
     }
 
     //Descripteur image
@@ -77,6 +77,28 @@ void runIndexation(){
     strcat(allimgPath,"/Data/all_IMG_NG.txt");
 
     ptr_ficListe = fopen(allimgPath, "r");
+    while(!feof(ptr_ficListe)){//Tant qu'on est pas a la fin du document
+        fscanf(ptr_ficListe, "%s", nomFic);//On recupère la ligne courante
+        t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
+        temp_fichier->chemin_nom = nomFic;//Création du fichier
+        //Ajout du fichier dans la pile_texte. Voir indexationImage.h pour
+        //des détails sur la méthode.
+        genDescripteurImage(*temp_fichier, &pile_texte);
+    }
+
+    strcpy(cmd_ls, "ls ");
+    strcat(cmd_ls,CHEMIN) ;
+    strcat(cmd_ls,"/Data/IMG_RGB/");
+    strcat(cmd_ls," > ");
+    strcat(cmd_ls,CHEMIN);
+    strcat(cmd_ls,"/Data/all_IMG_RGB.txt");
+    system(cmd_ls); //Copie
+
+    char all_IMG_RGB_Path[150];//Chemin vers le fichier all_IMG_NG
+    strcpy(all_IMG_RGB_Path,CHEMIN);
+    strcat(all_IMG_RGB_Path,"/Data/all_IMG_RGB.txt");
+
+    ptr_ficListe = fopen(all_IMG_RGB_Path, "r");
     while(!feof(ptr_ficListe)){//Tant qu'on est pas a la fin du document
         fscanf(ptr_ficListe, "%s", nomFic);//On recupère la ligne courante
         t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));

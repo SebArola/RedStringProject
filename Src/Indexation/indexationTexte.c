@@ -36,13 +36,18 @@ void ajout_rc_chaine(){
   NB_CHAINE_DESCRIPTEUR++;
 }
 
+void ajout_chiffre_chaine(int nombre){
+  char nb_char[TAILLE_MOT];
+  sprintf(nb_char,"%d",nombre );
+  ajout_mot_chaine(nb_char);
+}
+
 void ajout_mot_important_chaine(){
   int cpt;
-  char nb_char[TAILLE_MOT];
+
   for(cpt=0;cpt<NB_MOT_IMPORTANT_CHOISI;cpt++){
-    ajout_mot_chaine(TAB_RECURRENCE[cpt].mot);
-    sprintf(nb_char," %d",TAB_RECURRENCE[cpt].nb_recurrence );
-    ajout_mot_chaine(nb_char);
+    ajout_mot_chaine(strcat (TAB_RECURRENCE[cpt].mot," "));
+    ajout_chiffre_chaine(TAB_RECURRENCE[cpt].nb_recurrence);
     ajout_rc_chaine();
   }
 }
@@ -56,7 +61,6 @@ void afficher_tab_ligne(){
 
 void afficher_tab_recurrence(){
   int cpt;
-//  printf("\nTAB RECURRENCE:\n");
   for(cpt=0;cpt<NB_MOT_RECU;cpt++)
     printf("%s\t\t%d \n",TAB_RECURRENCE[cpt].mot ,TAB_RECURRENCE[cpt].nb_recurrence);
 }
@@ -106,7 +110,6 @@ void lire_ligne(char* ligne,char* nom_fichier,int num_lig){
   int cpt;
 
   fichier=fopen(nom_fichier,"r");
-//  printf("\nLecture dans fichier :");
   if (fichier != NULL)
     for(cpt=0;cpt<num_lig;cpt++)
       lecture2=fgets(lecture,TAILLE_MAX,fichier);
@@ -151,17 +154,23 @@ void ligne_tableau(char* ligne, int* retour){
   char balise[TAILLE_BALISE]="";
   char mot[TAILLE_MOT]="";
   char lettre;
+  int test=0;
 
 
   cpt=0;
   do {
     lettre =ligne[cpt];
-    balise[cpt] = lettre;
-    cpt++;
-  } while(lettre != '>');
- longeur_balise=strlen(balise);
- //printf("BALISE => %s",balise);
- suppr_carac(ligne,longeur_balise);
+    if(cpt==0 && lettre !='<')
+      test=1;//ERREUR BALISE
+    else{
+      balise[cpt] = lettre;
+      cpt++;
+    }
+  } while(lettre != '>' && test==0);
+  if(test==0){
+     longeur_balise=strlen(balise);
+     suppr_carac(ligne,longeur_balise);
+   }
 
 
   if(strcmp(balise,"<article>")==0){
@@ -185,7 +194,7 @@ void ligne_tableau(char* ligne, int* retour){
   else if(strcmp(balise,"<texte>")==0){
     //printf("Ne rien faire2");
   }
-  else if(strcmp(balise,"<phrase>")==0 || strcmp(balise,"<resume>")==0 || strcmp(balise,"<titre>")==0){
+  else if(strcmp(balise,"<phrase>")==0 || strcmp(balise,"<resume>")==0 || strcmp(balise,"<titre>")==0 || test==1){
      do{
       cpt=0;
       do {
@@ -237,22 +246,24 @@ void conception_descripteur(char* nom_fichier){
   }while(fin!=1);
 
   calcul_recurrence(); // CALCUL DES MOTS RECURENTS
+  ajout_chiffre_chaine(TOTAL_MOT);//AJOUTE LE NOMBRE TOTAL DE MOT DANS LE DESCRIPTEUR
+  ajout_rc_chaine();
   ajout_mot_important_chaine(); // AJOUT DES MOTS RÉCURRENTS DANS LE DESCRIPTEUR
   ajout_mot_chaine("</descripteur>"); // BALISE FIN DESCRIPTEUR
 
 }
 
 int main(){
-  char nom_fichier[]= "22-Sursaut_des_Monégasques_après_le.xml";
+  char nom_fichier[]="jj.xml"; //"22-Sursaut_des_Monégasques_après_le.xml";
   conception_descripteur(nom_fichier);
 printf("\n\n%s\n",CHAINE_DESCRIPTEUR);
 
 
 
   // AFFICHAGE POUR LE DEBUG
-/*  int cpt;
+/*int cpt;
   int val=0;
-
+  printf("\n\n");
   afficher_tab_ligne();
   printf("\n\n");
   afficher_tab_recurrence();
@@ -267,3 +278,32 @@ printf("\n\n%s\n",CHAINE_DESCRIPTEUR);
   printf(" DESCRIPTEUR => \n\n%s\n",CHAINE_DESCRIPTEUR);*/
 
 }
+
+
+
+//////FORMA DESCRIPETEUR/////////
+/*
+<descripteur>NOM_FICHIER
+NB_MOT_DU_TEXTE
+NOM_AUTEUR
+MOT_RECURENT_1 Nb_recurrence
+MOT_RECURENT_2 Nb_recurrence
+MOT_RECURENT_3 Nb_recurrence
+MOT_RECURENT_4 Nb_recurrence
+..etc..
+MOT_RECURENT_X Nb_recurrence
+</descripteur>
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/

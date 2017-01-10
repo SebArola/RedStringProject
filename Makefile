@@ -1,28 +1,34 @@
 CC=gcc
-CFLAGS= -std=c99 -lm -W -Wall -ansi -pedantic
+CFLAGS= -std=c99 -lm
 LDFLAGS=
 EXEC=main
+EXEC_INDEX = index
 EXEC_TEST=test_pile
 DIREXEC=./Exec/
 DIRSRC=./Src/
 DIRTEST=./Test/
-SRC=$(wildcard ./Src/*.c)
+SRC=
 OBJS=$(SRC:.c=.o)
+SRC_INDEXATION=$(wildcard ./Src/Indexation/*.c)
+OBJS_INDEXATION=$(SRC_INDEXATION:.c=.o)
 SRC_TEST=$(DIRTEST)test_pileDescripteur.c $(wildcard ./Src/*.c)
 OBJS_TEST=$(SRC_TEST:.c=.o)
 
-all: clean $(EXEC) $(EXEC_TEST)
-	mv ./$(EXEC) $(DIREXEC)
+all: clean $(EXEC_INDEX) $(EXEC_TEST)
+	mv ./$(EXEC_INDEX) $(DIREXEC)
 	mv ./$(EXEC_TEST) $(DIRTEST)
 
 test_pile :$(OBJS_TEST)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
-main: $(OBJS)
-			$(CC) -o $@ $^ $(LDFLAGS)
+index: $(OBJS_INDEXATION)
+	$(CC) -o $@ $^ $(LDFLAGS)
 
-%.o: %.c %.h
-	$(CC) -o $@ -c $< $(CFLAGS)
+main: $(OBJS)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
 		rm -rf *.o

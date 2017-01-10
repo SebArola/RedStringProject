@@ -253,50 +253,46 @@ void conception_descripteur(char* nom_fichier){
 
 }
 
-int main(){
-  char nom_fichier[]="jj.xml"; //"22-Sursaut_des_Monégasques_après_le.xml";
-  conception_descripteur(nom_fichier);
-printf("\n\n%s\n",CHAINE_DESCRIPTEUR);
-
-
-
-  // AFFICHAGE POUR LE DEBUG
-/*int cpt;
-  int val=0;
-  printf("\n\n");
-  afficher_tab_ligne();
-  printf("\n\n");
-  afficher_tab_recurrence();
-
-
-  printf("\n  TOTAL MOT TABLEAU = %d\n  ",NB_MOT);
-  printf("TOTAL MOT = %d\n  ",TOTAL_MOT);
-  printf("TOTAL MOT RECU = %d\n  ",NB_MOT_RECU);
-  for(cpt=0;cpt<NB_MOT_RECU;cpt++)
-    val=val+TAB_RECURRENCE[cpt].nb_recurrence;
-  printf("TOTAL MOT RECU ADD = %d\n  ",val);
-  printf(" DESCRIPTEUR => \n\n%s\n",CHAINE_DESCRIPTEUR);*/
-
-}
-
-
-
-//////FORMA DESCRIPETEUR/////////
-/*
-<descripteur>NOM_FICHIER
-NB_MOT_DU_TEXTE
-NOM_AUTEUR
-MOT_RECURENT_1 Nb_recurrence
-MOT_RECURENT_2 Nb_recurrence
-MOT_RECURENT_3 Nb_recurrence
-MOT_RECURENT_4 Nb_recurrence
-..etc..
-MOT_RECURENT_X Nb_recurrence
-</descripteur>
-
-
-
-
+// int main(){
+//   char nom_fichier[]="jj.xml"; //"22-Sursaut_des_Monégasques_après_le.xml";
+//   conception_descripteur(nom_fichier);
+// printf("\n\n%s\n",CHAINE_DESCRIPTEUR);
+//
+//
+//
+//   // AFFICHAGE POUR LE DEBUG
+// /*int cpt;
+//   int val=0;
+//   printf("\n\n");
+//   afficher_tab_ligne();
+//   printf("\n\n");
+//   afficher_tab_recurrence();
+//
+//
+//   printf("\n  TOTAL MOT TABLEAU = %d\n  ",NB_MOT);
+//   printf("TOTAL MOT = %d\n  ",TOTAL_MOT);
+//   printf("TOTAL MOT RECU = %d\n  ",NB_MOT_RECU);
+//   for(cpt=0;cpt<NB_MOT_RECU;cpt++)
+//     val=val+TAB_RECURRENCE[cpt].nb_recurrence;
+//   printf("TOTAL MOT RECU ADD = %d\n  ",val);
+//   printf(" DESCRIPTEUR => \n\n%s\n",CHAINE_DESCRIPTEUR);*/
+//
+// }
+//
+//
+//
+// //////FORMA DESCRIPETEUR/////////
+// /*
+// <descripteur>NOM_FICHIER
+// NB_MOT_DU_TEXTE
+// NOM_AUTEUR
+// MOT_RECURENT_1 Nb_recurrence
+// MOT_RECURENT_2 Nb_recurrence
+// MOT_RECURENT_3 Nb_recurrence
+// MOT_RECURENT_4 Nb_recurrence
+// ..etc..
+// MOT_RECURENT_X Nb_recurrence
+// </descripteur>
 
 
 
@@ -306,4 +302,8 @@ MOT_RECURENT_X Nb_recurrence
 
 
 
-*/
+
+
+
+
+//*/

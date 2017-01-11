@@ -12,20 +12,24 @@
 #define CHEMIN "/home/sebastien/Documents/UPSSITECH/RedStringProject"
 //Méthode ecrivant les déscripteur dans le fichier de la base descripteur
 void ecrireDescripteur(t_PileDescripteur pileDescripteur, char * type){
-    char chemin[50];
-    char * descripteur = malloc(sizeof(char)*150);
+    char chemin[80];
     FILE * base_descripteur;
+
     strcpy(chemin,CHEMIN);
     strcat(chemin,"/Data");
-    strcat(chemin,"base_descripteur_");
+    strcat(chemin,"/base_descripteur_");
     strcat(chemin,type);
     strcat(chemin,".txt");
-    base_descripteur = fopen(chemin,"w");
 
-    while(depile(&pileDescripteur,descripteur)){
-        fprintf(base_descripteur, "%s\n",descripteur );
-        descripteur = malloc(sizeof(char)*150);
+    base_descripteur = fopen(chemin,"w");
+    t_CellDescripteur *suivant;
+    suivant = pileDescripteur.premier;;
+    while(suivant->p_suivant!=NULL){
+        fprintf(base_descripteur,"%s ; ",suivant->descripteur);
+        suivant = suivant->p_suivant;
     }
+    fprintf(base_descripteur,"%s", suivant->descripteur);
+
     fclose(base_descripteur);
 }
 
@@ -73,14 +77,16 @@ void runIndexation(){
 
     //Ouverture du fichier contenant les noms de tous les textes
     ptr_ficListe = fopen(alltxtPath, "r");
+
     while(!feof(ptr_ficListe)){//Tant qu'on est pas a la fin du document
         fscanf(ptr_ficListe, "%s", nomFic);//On recupère la ligne courante
         t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
         temp_fichier->chemin_nom = nomFic;//Création du fichier
         //Ajout du fichier dans la pile_texte. Voir indexationImage.h pour
         //des détails sur la méthode.
-        genDescripteurTexte(*temp_fichier, &pile_texte);
+        //genDescripteurTexte(*temp_fichier, &pile_texte);
     }
+
     fclose(ptr_ficListe);
 
     //Descripteur image
@@ -97,6 +103,7 @@ void runIndexation(){
     strcat(allimgPath,"/Data/all_IMG_NG.txt");
 
     ptr_ficListe = fopen(allimgPath, "r");
+
     while(!feof(ptr_ficListe)){//Tant qu'on est pas a la fin du document
         fscanf(ptr_ficListe, "%s", nomFic);//On recupère le nom du fichier
         t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
@@ -107,8 +114,11 @@ void runIndexation(){
         //Ajout du fichier dans la pile_texte. Voir indexationImage.h pour
         //des détails sur la méthode.
         genDescripteurImage(*temp_fichier, &pile_image);
+
     }
+
     fclose(ptr_ficListe);
+
 
     strcpy(cmd_ls, "ls ");
     strcat(cmd_ls,CHEMIN) ;
@@ -123,6 +133,7 @@ void runIndexation(){
     strcat(all_IMG_RGB_Path,"/Data/all_IMG_RGB.txt");
 
     ptr_ficListe = fopen(all_IMG_RGB_Path, "r");
+
     while(!feof(ptr_ficListe)){//Tant qu'on est pas a la fin du document
         fscanf(ptr_ficListe, "%s", nomFic);//On recupère la ligne courante
         t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
@@ -132,7 +143,9 @@ void runIndexation(){
         //Ajout du fichier dans la pile_img. Voir indexationImage.h pour
         //des détails sur la méthode.
         genDescripteurImage(*temp_fichier, &pile_image);
+
     }
+
     fclose(ptr_ficListe);
 
     //Son
@@ -149,7 +162,9 @@ void runIndexation(){
     strcat(all_SON_Path,"/Data/all_SON.txt");
 
     ptr_ficListe = fopen(all_SON_Path, "r");
+
     while(!feof(ptr_ficListe)){//Tant qu'on est pas a la fin du document
+
         fscanf(ptr_ficListe, "%s", nomFic);//On recupère la ligne courante
         t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
         temp_fichier->chemin_nom = nomFic;//Création du fichier
@@ -159,18 +174,21 @@ void runIndexation(){
         //des détails sur la méthode.
         //genDescripteurSon(*temp_fichier, &pile_son);
     }
+
     fclose(ptr_ficListe);
 
     //Enregistrement des déscripteur dans les fichiers base_descripteur_*
-    ecrireDescripteur(pile_texte, "texte");
+//    ecrireDescripteur(pile_texte, "texte");
+
     ecrireDescripteur(pile_image,"image");
-    ecrireDescripteur(pile_son,"son");
+
+//    ecrireDescripteur(pile_son,"son");
 }
 
 
 
 //Main de test.
 int main(){
-    printf("HEYDEBUT\n");
+    printf("Lancement indexation. RETIREZ MOI AVANT LA RECETTE\n");
     runIndexation();
 }

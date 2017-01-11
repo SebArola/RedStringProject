@@ -19,7 +19,7 @@ int binaireToDecimal(int *bin, int bit)
   int res=0, i;
   for(i=0; i<bit; i++)
   {
-    res = res + (bin[i]*(int)pow(2, (bit-1-i)));
+    res = res + (bin[i]*(int) pow(2, (bit-1-i)));
   }
   return res;
 }
@@ -119,7 +119,7 @@ void genDescripteurImage(t_Fichier fichier, t_PileDescripteur *ptrPileImage)
       strcat(descripteur, "\n");
     }
   }
-  int fclose(FILE * ptr_ficImage);
+  fclose(ptr_ficImage);
   realloc(descripteur, strlen(descripteur)*sizeof(char));
   empile(ptrPileImage, descripteur);
 }

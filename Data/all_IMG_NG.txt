@@ -1,0 +1,8 @@
+/home/sebastien/Documents/UPSSITECH/RedStringProject/Data/IMG_NG/51.bmp
+/home/sebastien/Documents/UPSSITECH/RedStringProject/Data/IMG_NG/51.txt
+/home/sebastien/Documents/UPSSITECH/RedStringProject/Data/IMG_NG/52.bmp
+/home/sebastien/Documents/UPSSITECH/RedStringProject/Data/IMG_NG/52.txt
+/home/sebastien/Documents/UPSSITECH/RedStringProject/Data/IMG_NG/61.bmp
+/home/sebastien/Documents/UPSSITECH/RedStringProject/Data/IMG_NG/61.txt
+/home/sebastien/Documents/UPSSITECH/RedStringProject/Data/IMG_NG/62.bmp
+/home/sebastien/Documents/UPSSITECH/RedStringProject/Data/IMG_NG/62.txt

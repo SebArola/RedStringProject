@@ -1,0 +1,4 @@
+/home/sebastien/Documents/UPSSITECH/RedStringProject/Data/SON_REQUETE/jingle_m6.bin
+/home/sebastien/Documents/UPSSITECH/RedStringProject/Data/SON_REQUETE/jingle_m6.bin2
+/home/sebastien/Documents/UPSSITECH/RedStringProject/Data/SON_REQUETE/jingle_m6.txt
+/home/sebastien/Documents/UPSSITECH/RedStringProject/Data/SON_REQUETE/jingle_m6.wav

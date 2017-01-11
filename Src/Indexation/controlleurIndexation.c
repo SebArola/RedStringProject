@@ -178,10 +178,12 @@ void runIndexation(){
     fclose(ptr_ficListe);
 
     //Enregistrement des déscripteur dans les fichiers base_descripteur_*
+    printf("ecrireDescripteurTexte non activé\n");
 //    ecrireDescripteur(pile_texte, "texte");
 
     ecrireDescripteur(pile_image,"image");
 
+    printf("ecrireDescripteurSon non activé\n");
 //    ecrireDescripteur(pile_son,"son");
 }
 

@@ -1,0 +1,8 @@
+pileDescripteur.o: pileDescripteur.h pileDescripteur.c
+	gcc -c pileDescripteur.c -o pileDescripteur.o
+
+indexationImage.o: Fichier.h pileDescripteur.h indexationImage.c
+	gcc -c indexationImage.c -o indexationImage.o -lm
+
+test.out: indexationImage.o pileDescripteur.o
+	gcc indexationImage.o pileDescripteur.o -o test.out -lm

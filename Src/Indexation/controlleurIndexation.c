@@ -9,10 +9,10 @@
 
 //Constante contenant le chemin en local. Sera remplacé par le fichier de
 //configuration.
-#define CHEMIN "/home/sebastien/Documents/UPSSITECH/RedStringProject"
+#define CHEMIN "/users/1anneesri/dlt1727a/RedStringProject-master"
 //Méthode ecrivant les déscripteur dans le fichier de la base descripteur
 void ecrireDescripteur(t_PileDescripteur pileDescripteur, char * type){
-    char chemin[80];
+    char chemin[100];
     FILE * base_descripteur;
 
     strcpy(chemin,CHEMIN);
@@ -23,9 +23,10 @@ void ecrireDescripteur(t_PileDescripteur pileDescripteur, char * type){
 
     base_descripteur = fopen(chemin,"w");
     t_CellDescripteur *suivant;
-    suivant = pileDescripteur.premier;;
+    suivant = pileDescripteur.premier;
+    //affiche_pile(pileDescripteur);
     while(suivant->p_suivant!=NULL){
-        fprintf(base_descripteur,"%s ; ",suivant->descripteur);
+        fprintf(base_descripteur,"%s;\n",suivant->descripteur);
         suivant = suivant->p_suivant;
     }
     fprintf(base_descripteur,"%s", suivant->descripteur);
@@ -48,8 +49,8 @@ void runIndexation(){
     init_pile(&pile_son);
 
     FILE * ptr_ficListe;
-    char nomFic[50];
-    char infoFic[50];
+    char nomFic[100];
+    char infoFic[100];
 
     //Création des fichiers base_descripteur_*
     strcpy(cmd_touch, "touch ");
@@ -103,10 +104,10 @@ void runIndexation(){
     strcat(allimgPath,"/Data/all_IMG_NG.txt");
 
     ptr_ficListe = fopen(allimgPath, "r");
-
+	t_Fichier *temp_fichier;
     while(!feof(ptr_ficListe)){//Tant qu'on est pas a la fin du document
         fscanf(ptr_ficListe, "%s", nomFic);//On recupère le nom du fichier
-        t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
+        temp_fichier= malloc(sizeof(t_Fichier));
         temp_fichier->chemin_nom = nomFic;//Création du fichier
         fscanf(ptr_ficListe, "%s", infoFic);//On recupère le nom du fichier info
         temp_fichier->chemin_info = infoFic;
@@ -114,7 +115,6 @@ void runIndexation(){
         //Ajout du fichier dans la pile_texte. Voir indexationImage.h pour
         //des détails sur la méthode.
         genDescripteurImage(*temp_fichier, &pile_image);
-
     }
 
     fclose(ptr_ficListe);

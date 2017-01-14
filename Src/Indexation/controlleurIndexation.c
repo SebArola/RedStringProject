@@ -9,7 +9,8 @@
 
 //Constante contenant le chemin en local. Sera remplacé par le fichier de
 //configuration.
-#define CHEMIN "/users/1anneesri/dlt1727a/RedStringProject-master"
+//#define CHEMIN "/users/1anneesri/dlt1727a/RedStringProject-master"
+#define CHEMIN "/home/sebastien/Documents/UPSSITECH/RedStringProject"
 //Méthode ecrivant les déscripteur dans le fichier de la base descripteur
 void ecrireDescripteur(t_PileDescripteur pileDescripteur, char * type){
     char chemin[100];

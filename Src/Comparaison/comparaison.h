@@ -12,12 +12,13 @@
 /*
 Ces méthodes permettent de comparer un fichier a un autre de la base.
 */
-int comparaisonImage(t_Fichier fichierDonne, t_PileDescripteur pileImage);
+int comparaisonImage(t_Fichier fichierDonne, t_PileDescripteur pileImage, t_PileDescripteur *descripteur_similaire);
 
-int comparaisonSon(t_Fichier fichierDonne, t_PileDescripteur pileSon);
+int comparaisonSon(t_Fichier fichierDonne, t_PileDescripteur pileSon,t_PileDescripteur *descripteur_similaire);
 
-int comparaisonTexte(t_Fichier fichierDonne, t_PileDescripteur pileTexte);
+int comparaisonTexte(t_Fichier fichierDonne, t_PileDescripteur pileTexte,t_PileDescripteur *descripteur_similaire);
 
+//On utilise les méthodes suivantes pour comparer deux fichier en particulier.
 int compareFichierImage(char * fichierDonne , char * fichierCompare);
 
 int compareFichierSon(char * fichierDonne , char * fichierCompare);

@@ -28,4 +28,6 @@ void empile( t_PileDescripteur *p_pileDescripteur, char * descripteur);
 
 int depile( t_PileDescripteur *p_pileDescripteur,char *descripteurDepile);
 
+int taille_pile(t_PileDescripteur pileDescripteur);
+
 #endif

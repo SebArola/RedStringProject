@@ -8,6 +8,20 @@ void init_pile(t_PileDescripteur* p_pileDescripteur){
 	p_pileDescripteur->premier = NULL;
 }
 
+int taille_pile(t_PileDescripteur pileDescripteur){
+	int taille = 0;
+	if(!pile_est_vide(pileDescripteur)){
+		t_CellDescripteur *suivant;
+		suivant = pileDescripteur.premier;;
+		while(suivant->p_suivant!=NULL){
+			taille ++;
+			suivant = suivant->p_suivant;
+		}
+		taille ++;
+	}
+	return taille;
+}
+
 int pile_est_vide(t_PileDescripteur pileDescripteur){
 	return pileDescripteur.premier==NULL;
 }

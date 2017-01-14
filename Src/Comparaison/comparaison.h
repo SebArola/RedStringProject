@@ -3,6 +3,11 @@
 
 #include "../Indexation/Fichier.h"
 #include "../Indexation/pileDescripteur.h"
+#include "../Indexation/indexationImage.h"
+#include "../Indexation/indexationTexte.h"
+#include "../Indexation/indexationSon.h"
+
+
 
 /*
 Ces méthodes permettent de comparer un fichier a un autre de la base.
@@ -13,11 +18,11 @@ int comparaisonSon(t_Fichier fichierDonne, t_PileDescripteur pileSon);
 
 int comparaisonTexte(t_Fichier fichierDonne, t_PileDescripteur pileTexte);
 
-int compareFichierImage(t_Fichier fichierDonne , t_Fichier fichierCompare);
+int compareFichierImage(char * fichierDonne , char * fichierCompare);
 
-int compareFichierSon(t_Fichier fichierDonne , t_Fichier fichierCompare);
+int compareFichierSon(char * fichierDonne , char * fichierCompare);
 
-int compareFichierTexte(t_Fichier fichierDonne , t_Fichier fichierCompare);
+int compareFichierTexte(char * fichierDonne , char * fichierCompare);
 
 
 #endif

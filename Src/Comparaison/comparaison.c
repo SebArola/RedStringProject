@@ -3,7 +3,11 @@
 #include "comparaison.h"
 
 int comparaisonImage(t_Fichier fichierCompare, t_PileDescripteur pileImage){
-    //TODO
+    char * descript_ficC;
+    t_PileDescripteur descripteurs_ficCompare;
+    init_pile(&descripteurs_ficCompare);
+    genDescripteurImage(fichierCompare, & descripteurs_ficCompare);
+
     return 0;
 }
 
@@ -17,16 +21,16 @@ int comparaisonTexte(t_Fichier fichierCompare, t_PileDescripteur pileTexte){
     return 0;
 }
 
-int compareFichierImage(t_Fichier fichierDonne , t_Fichier fichierCompare){
+int compareFichierImage(char * fichierDonne , char * fichierCompare){
     //TODO
     return 0;
 }
 
-int compareFichierSon(t_Fichier fichierDonne , t_Fichier fichierCompare){
+int compareFichierSon(char * fichierDonne , char * fichierCompare){
     //TODO
     return 0;
 }
-int compareFichierTexte(t_Fichier fichierDonne , t_Fichier fichierCompare){
+int compareFichierTexte(char * fichierDonne , char * fichierCompare){
     //TODO
     return 0;
 }

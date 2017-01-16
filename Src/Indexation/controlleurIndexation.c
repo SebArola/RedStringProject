@@ -86,7 +86,7 @@ void runIndexation(){
         temp_fichier->chemin_nom = nomFic;//Création du fichier
         //Ajout du fichier dans la pile_texte. Voir indexationImage.h pour
         //des détails sur la méthode.
-        //genDescripteurTexte(*temp_fichier, &pile_texte);
+        genDescripteurTexte(*temp_fichier, &pile_texte);
     }
 
     fclose(ptr_ficListe);
@@ -179,8 +179,8 @@ void runIndexation(){
     fclose(ptr_ficListe);
 
     //Enregistrement des déscripteur dans les fichiers base_descripteur_*
-    printf("ecrireDescripteurTexte non activé\n");
-//    ecrireDescripteur(pile_texte, "texte");
+//    printf("ecrireDescripteurTexte non activé\n");
+    ecrireDescripteur(pile_texte, "texte");
 
     ecrireDescripteur(pile_image,"image");
 

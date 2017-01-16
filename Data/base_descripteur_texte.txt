@@ -1,0 +1,765 @@
+<descripteur>29-Ligue_des_champions___Lyon.xml
+
+88
+champions 2
+Lyon 2
+Ligue 2
+visualiser 2
+Desk 2
+</descripteur>;
+<descripteur>29-Ligue_des_champions___Lyon.xml
+
+88
+Lyon 2
+Ligue 2
+champions 2
+visualiser 2
+Desk 2
+</descripteur>;
+<descripteur>29-Forte_rÃ©duction_de_la_calotte.xml
+Avec AFP et AP
+522
+Arctique 7
+superficie 7
+NSIDC 5
+dernières 5
+glace 5
+</descripteur>;
+<descripteur>28-_Å’dipe_Ã _Colone_,_la_rage.xml
+Informations pratiques et spectacles à l affiche
+910
+Œdipe 13
+Colone 8
+scène 7
+avec 6
+Mario 5
+</descripteur>;
+<descripteur>28-Festival___OsosphÃ¨re,_un_week-end.xml
+Odile de Plas
+669
+Ososphère 8
+Strasbourg 5
+festival 5
+musique 4
+deux 4
+</descripteur>;
+<descripteur>28-Danse___Robyn_Orlin_et.xml
+Rosita Boisseau
+815
+sida 6
+Robyn 6
+Orlin 5
+tournée 4
+aussi 4
+</descripteur>;
+<descripteur>28-A_Hossegor,_Kelly_Slater_peut.xml
+Fanny Connan
+651
+avait 7
+était 6
+Hossegor 5
+septième 5
+Kelly 5
+</descripteur>;
+<descripteur>27-Voyager_1_s_aventure_dans_l_au-delÃ .xml
+Jérôme Fenoglio
+1481
+Voyager 13
+solaire 10
+système 9
+choc 9
+cette 7
+</descripteur>;
+<descripteur>27-Martin_Scorsese_inaugure_la_CinÃ©mathÃ¨que.xml
+Jacques Mandelbaum
+344
+Cinémathèque 5
+Scorsese 4
+Martin 3
+ministre 3
+Bercy 2
+</descripteur>;
+<descripteur>27-Le_Stade_de_France_s_ouvre.xml
+Mathieu Prével
+1297
+Stade 20
+France 16
+Lille 14
+Saint 10
+français 8
+</descripteur>;
+<descripteur>27-A_Lens,_le_Louvre_sera.xml
+Emmanuel de Roux
+1047
+Lens 10
+Louvre 9
+région 8
+musée 4
+être 4
+</descripteur>;
+<descripteur>26-Tom_Boonen_sacrÃ©_champion_du.xml
+Olivier Zilbertin
+521
+avait 5
+Tour 5
+était 4
+Boonen 4
+champion 3
+</descripteur>;
+<descripteur>26-Lyon_prend_ses_aises_en.xml
+Pierre Lepidi
+661
+tête 5
+mais 5
+entraîneur 4
+journée 4
+lors 3
+</descripteur>;
+<descripteur>26-Jazz___Manu_KatchÃ©,_haut.xml
+Sylvain Siclier
+456
+Katché 7
+jazz 7
+Manu 5
+avec 5
+disque 4
+</descripteur>;
+<descripteur>26-Grippe_aviaire___une_sixiÃ¨me.xml
+
+355
+aviaire 5
+homme 4
+grippe 4
+Indonésie 3
+mort 3
+</descripteur>;
+<descripteur>24-Canicules_et_sÃ©cheresses_menacent_de.xml
+Pierre Le Hir
+969
+effet 8
+2003 5
+végétation 5
+carbone 5
+serre 5
+</descripteur>;
+<descripteur>23-Les_Bleus,_tombeurs_de_la.xml
+
+491
+points 6
+finale 4
+basket 4
+France 4
+Lituanie 4
+</descripteur>;
+<descripteur>22-Ted_Stanger,_l_AmÃ©ricain_de_service.xml
+Alain Abellard
+1286
+France 13
+avec 12
+Stanger 5
+Américain 5
+tout 5
+</descripteur>;
+<descripteur>22-Sursaut_des_MonÃ©gasques_aprÃ¨s_le.xml
+  et Lopez Segurra Gerard  68
+412
+leur 4
+journée 3
+septembre 3
+face 3
+Didier 2
+</descripteur>;
+<descripteur>22-Les_clubs_de_football_anglais.xml
+The Times
+1078
+saison 12
+football 10
+matches 7
+prix 7
+2004 6
+</descripteur>;
+<descripteur>22-Grippe_aviaire___la_course.xml
+Jean Yves Nau
+1086
+virus 12
+contre 9
+vaccin 7
+H5N1 6
+pandémie 5
+</descripteur>;
+<descripteur>22-Exposition___les_mÃ©tamorphoses_picturales.xml
+Philippe Dagen
+1398
+Girodet 16
+Louvre 8
+David 5
+jusqu 5
+même 5
+</descripteur>;
+<descripteur>22-Dominique_NoÃ«l____Les_architectes.xml
+Propos recueillis par Grégoire Allix
+1071
+architectes 14
+architecture 10
+postes 6
+profession 6
+agence 5
+</descripteur>;
+<descripteur>22-Des_laboureurs,_des_OGM..._et.xml
+Evolution entre 1995 et 2003 
+1339
+même 6
+Mais 6
+sont 6
+agricole 5
+autre 5
+</descripteur>;
+<descripteur>22-Danse___quarante_jeunes_de.xml
+Véronique Mortaigne
+810
+Paulo 7
+sont 5
+Bertazzo 4
+Cartoucherie 4
+Ivaldo 4
+</descripteur>;
+<descripteur>21-MatiÃ¨res_plastiques_et_pesticides_pourraient.xml
+Stéphane Foucart
+534
+sont 9
+exposition 6
+doses 4
+présents 4
+masculine 4
+</descripteur>;
+<descripteur>21-La_France_se_rÃ©veille_pour.xml
+Fabien Friconnet
+667
+champions 6
+Europe 5
+équipe 5
+nous 5
+Tony 5
+</descripteur>;
+<descripteur>18-Ligue_1___Lyon_a.xml
+
+98
+visualiser 2
+Desk 2
+faut 2
+navigateur 2
+affiche 2
+</descripteur>;
+<descripteur>18-Les_22e_JournÃ©es_du_Patrimoine.xml
+Informations pratiques et programme des expositions
+236
+visiteurs 5
+septembre 3
+français 3
+Patrimoine 2
+Vedette 2
+</descripteur>;
+<descripteur>18-L_Ã©quipe_de_France_de_tennis.xml
+
+58
+visualiser 2
+Desk 2
+faut 2
+navigateur 2
+affiche 2
+</descripteur>;
+<descripteur>18-Battue_par_la_SlovÃ©nie,_l_Ã©quipe.xml
+Avec AFP et Reuters
+645
+deuxième 6
+avec 5
+très 5
+Français 5
+barrage 4
+</descripteur>;
+<descripteur>17-Une_Ã©quipe_franÃ§aise_a_rÃ©ussi.xml
+Paul Benkimoun
+1173
+cellules 30
+souches 16
+cardiaque 12
+chez 12
+embryonnaires 11
+</descripteur>;
+<descripteur>17-La_voix_envoÃ»tante_de_Girija.xml
+Véronique Mortaigne
+843
+Girija 9
+Devi 9
+Théâtre 6
+Ville 6
+musique 5
+</descripteur>;
+<descripteur>17-De_la_difficultÃ©_d_anticiper_les.xml
+Hervé Morin
+764
+prévision 9
+France 9
+Météo 6
+inondations 5
+ministère 4
+</descripteur>;
+<descripteur>17-Anouk_AimÃ©e_et_Philippe_Noiret.xml
+Michel Cournot
+659
+sont 7
+elle 6
+deux 5
+Anouk 4
+Aimée 4
+</descripteur>;
+<descripteur>16-Une_sonde_japonaise_va_tenter.xml
+Jérôme Fenoglio
+1308
+sonde 9
+Terre 8
+Itokawa 7
+mission 6
+Hayabusa 6
+</descripteur>;
+<descripteur>15-Un_quasar_solitaire_bouleverse_les.xml
+Jérôme Fenoglio
+593
+comme 9
+quasar 7
+sans 6
+leur 5
+galaxie 5
+</descripteur>;
+<descripteur>15-_Si_on_veut_aller_trop.xml
+Propos recueillis par Guillaume Lainé
+935
+nous 14
+équipe 9
+basket 8
+France 8
+joueurs 5
+</descripteur>;
+<descripteur>15-Lille_s_incline_dans_les.xml
+Mathieu Prével  avec AFP et Reuters 
+900
+Lille 6
+Puel 4
+Juventus 4
+Turin 4
+Arsenal 4
+</descripteur>;
+<descripteur>15-Le_ThÃ©Ã¢tre_des_Champs-ElysÃ©es_s_offre.xml
+Renaud Machart
+601
+acoustique 6
+scène 5
+être 5
+Champs 4
+travaux 4
+</descripteur>;
+<descripteur>15-La_mort_de_Robert_Wise,.xml
+Thomas Sotinel
+1025
+avec 18
+Robert 15
+film 14
+Wise 13
+Side 5
+</descripteur>;
+<descripteur>15-Danse___Preljocaj_emmÃ¨ne_l_OpÃ©ra.xml
+Rosita Boisseau
+460
+Preljocaj 5
+Opéra 4
+Angelin 3
+comme 3
+corps 3
+</descripteur>;
+<descripteur>15-Capturer_et_emprisonner_le_CO.xml
+Hervé Morin
+1177
+capture 6
+stockage 5
+charbon 4
+effet 4
+géologiques 4
+</descripteur>;
+<descripteur>15-Capturer_et_emprisonner_le_CO2,.xml
+Hervé Morin
+1176
+capture 6
+stockage 5
+charbon 4
+effet 4
+géologiques 4
+</descripteur>;
+<descripteur>14-Grippe_aviaire___l_OMS_exhorte.xml
+Jean Yves Nau
+513
+pays 8
+grippe 6
+docteur 5
+Stohr 5
+pandémie 4
+</descripteur>;
+<descripteur>13-L_inattendue_lÃ©vitation_de_la_goutte.xml
+Hervé Morin
+375
+goutte 5
+huile 4
+phénomène 3
+comme 3
+surface 2
+</descripteur>;
+<descripteur>13-Ligue_des_champions____Si.xml
+Propos recueillis par Bruno Caussé
+907
+nous 10
+club 9
+vous 6
+football 5
+communication 5
+</descripteur>;
+<descripteur>13-Les_accidents_vasculaires_cÃ©rÃ©braux,_Ã .xml
+Paul Benkimoun
+1259
+sont 9
+cérébrale 8
+troubles 8
+moins 7
+cérébraux 5
+</descripteur>;
+<descripteur>13-Des_astronomes_dÃ©tectent_l_explosion_cosmique.xml
+Jérôme Fenoglio
+651
+explosion 6
+milliards 6
+années 6
+univers 6
+lumière 5
+</descripteur>;
+<descripteur>12-SuccÃ¨s_sur_les_tatamis,_polÃ©mique.xml
+
+793
+équipe 6
+championnats 4
+Caire 4
+Stéphane 4
+Traineau 4
+</descripteur>;
+<descripteur>12-Musiques_du_monde___les.xml
+Patrick Labesse
+675
+Raman 10
+Susheela 9
+Mills 6
+Music 5
+Crocodiles 5
+</descripteur>;
+<descripteur>12-Musique_classique___un__Oberon_.xml
+Marie Aude Roux
+471
+Oberon 5
+avait 3
+Weber 3
+toujours 3
+John 3
+</descripteur>;
+<descripteur>12-Jean-Marie_Sevestre,_libraire_et_PDG.xml
+Catherine Bédarida
+1199
+Marie 11
+Sevestre 10
+Jean 10
+librairie 10
+avec 9
+</descripteur>;
+<descripteur>12-Fernando_Alonso_n_est_plus_qu_Ã .xml
+Jean Jacques Larrochelle
+728
+Michelin 6
+Renault 4
+septembre 4
+fait 4
+pilote 4
+</descripteur>;
+<descripteur>12-Agassi_plie_face_au_meilleur.xml
+Adeline Cordon
+1171
+Federer 11
+Roger 10
+Agassi 10
+Andre 8
+tournoi 8
+</descripteur>;
+<descripteur>11-La_troposphÃ¨re_paie,_au_prix.xml
+Stéphane Foucart
+709
+Granier 6
+directement 4
+combustion 4
+polluants 4
+deux 4
+</descripteur>;
+<descripteur>10-Le_cyclone_Katrina_complique_le.xml
+Jérôme Fenoglio
+803
+NASA 6
+2006 5
+navette 5
+Katrina 4
+vols 4
+</descripteur>;
+<descripteur>10-La_rÃ©alitÃ©_virtuelle_et_l_informatique.xml
+Stéphane Foucart
+922
+virtuelle 5
+réalité 5
+archéologiques 5
+être 5
+données 5
+</descripteur>;
+<descripteur>09-Miracle___le_cricket_est.xml
+Marc Roche
+504
+Angleterre 5
+cricket 3
+équipe 3
+devenu 2
+depuis 2
+</descripteur>;
+<descripteur>08-US_Open___Pierce_Ã©limine.xml
+
+101
+finale 3
+Open 2
+Mauresmo 2
+Agassi 2
+demi 2
+</descripteur>;
+<descripteur>08-ThÃ©Ã¢tre___l_Ã©chappÃ©e_belle,_peu.xml
+Michel Cournot
+576
+comme 5
+Jules 4
+scène 4
+deux 3
+aussi 3
+</descripteur>;
+<descripteur>08-Sous_l_effet_du_rÃ©chauffement,_les.xml
+Stéphane Foucart
+1200
+carbone 18
+sols 12
+effet 9
+sont 7
+réchauffement 6
+</descripteur>;
+<descripteur>08-PavÃ©,_tour_ou_silo,_cinq.xml
+Agenda et programmation
+448
+paysagiste 5
+tour 3
+lecture 3
+mètres 3
+espaces 3
+</descripteur>;
+<descripteur>08-L_Ã©quipe_de_France_victime_d_un.xml
+
+456
+France 6
+président 4
+demandé 4
+joueurs 4
+sujet 4
+</descripteur>;
+<descripteur>08-La_mission_Deep_Impact_permet.xml
+Jérôme Fenoglio
+1193
+comète 10
+Tempel 8
+sonde 6
+avec 5
+Deep 5
+</descripteur>;
+<descripteur>08-Carlos_do_Carmo____Le.xml
+Propos recueillis par Véronique Mortaigne
+1107
+fado 28
+Carmo 6
+Carlos 5
+Amalia 5
+sans 5
+</descripteur>;
+<descripteur>07-Un_dÃ©putÃ©_UMP_lance_une.xml
+Jean Louis Aragon
+649
+Francis 7
+Delattre 6
+sports 5
+ministère 5
+Serge 5
+</descripteur>;
+<descripteur>06-US_Open___Mauresmo_et.xml
+
+47
+visualiser 2
+Desk 2
+faut 2
+navigateur 2
+affiche 2
+</descripteur>;
+<descripteur>06-Sensibiliser_Ã _la_vaccination_grippale.xml
+Jean Yves Nau
+1268
+personnes 11
+virus 11
+vaccination 10
+grippe 9
+aviaire 8
+</descripteur>;
+<descripteur>06-Les_mauvais_comptes_d_une_Ã©limination.xml
+Stéphane Mandard
+1258
+elle 9
+Coupe 8
+équipe 7
+match 6
+monde 6
+</descripteur>;
+<descripteur>06-La_contamination_du_maÃ¯s_par.xml
+Evolution entre 1995 et 2003 
+1023
+maïs 9
+transgènes 6
+région 5
+transgéniques 5
+sont 5
+</descripteur>;
+<descripteur>05-Tours_d_honneur_pour_les_athlÃ¨tes.xml
+Pierre Jaxel Truer
+873
+athlètes 7
+saut 5
+euros 5
+DécaNation 4
+leurs 4
+</descripteur>;
+<descripteur>05-Rock___l_Illinois_magique_de.xml
+Stéphane Davet
+752
+Stevens 5
+Sufjan 5
+disque 4
+Feel 4
+Illinois 4
+</descripteur>;
+<descripteur>05-Prague_inaugure_les_JournÃ©es_europÃ©ennes.xml
+Martin Plichta
+850
+Prague 6
+patrimoine 6
+septembre 6
+tchèque 6
+palais 6
+</descripteur>;
+<descripteur>05-Photographie___Philip_Blenkinsop_a.xml
+Claire Guillot
+406
+Visa 6
+festival 4
+septembre 3
+prix 3
+reportage 3
+</descripteur>;
+<descripteur>05-Musique_Ã©lectronique___l_Ã©lan_collectif.xml
+Sylvain Siclier
+587
+SACD 8
+groupe 5
+Landed 5
+quatre 4
+musique 4
+</descripteur>;
+<descripteur>05-Le_thÃ©Ã¢tre_de_texte_confrontÃ©.xml
+Propos recueillis par Fabienne Darge
+1730
+théâtre 30
+public 15
+Avignon 13
+Festival 10
+cette 8
+</descripteur>;
+<descripteur>05-Le_Colombien_Juan_Pablo_Montoya.xml
+Jean Jacques Larrochelle
+1509
+Renault 11
+McLaren 11
+points 9
+monde 7
+saison 7
+</descripteur>;
+<descripteur>05-L_apnÃ©iste_franÃ§ais_Guillaume_NÃ©ry_plonge.xml
+Jean Louis Aragon
+929
+mètres 8
+Néry 6
+Guillaume 6
+monde 6
+record 5
+</descripteur>;
+<descripteur>05-La_circoncision_pourrait_rÃ©duire_le.xml
+Paul Benkimoun
+1187
+circoncision 11
+circoncis 9
+hommes 9
+infection 8
+étude 7
+</descripteur>;
+<descripteur>05-Jean-Christophe_Bette_a_dÃ»_attendre.xml
+Paul Miquel
+802
+Jean 6
+Christophe 6
+Bette 5
+bateau 5
+Cette 4
+</descripteur>;
+<descripteur>05-Edition___les_mots_et.xml
+Bénédicte Mathieu
+569
+étude 5
+mots 3
+expressions 3
+femmes 3
+question 3
+</descripteur>;
+<descripteur>05-Au_stade_d_Abidjan,_la_dÃ©faite.xml
+Jean Philippe Rémy
+533
+victoire 5
+Abidjan 5
+pays 4
+rêve 4
+Côte 3
+</descripteur>;
+<descripteur>03-Mimer_un_signal_nerveux_pour.xml
+Analyses et résultats du sondage SOFRES
+532
+hôte 4
+comportement 4
+suicide 3
+pousser 3
+parasite 3
+</descripteur>;
+<descripteur>03-Des_chercheurs_parviennent_Ã _rÃ©gÃ©nÃ©rer.xml
+Jean Yves Nau
+592
+cellules 21
+souches 10
+musculaires 7
+chercheurs 6
+adultes 6
+</descripteur>

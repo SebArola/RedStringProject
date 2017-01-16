@@ -1,12 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define TAILLE_MAX 2000   //taille des chaine content les mots,
+#include "indexationTexte.h"
+
+
+#define TAILLE_MAX 5000   //taille des chaine content les mots,
 #define TAILLE_BALISE 100 // Taille des chaine comptenant les balises
-#define TAILLE_MOT 26   // Taille max des mot lu
+#define TAILLE_MOT 50   // Taille max des mot lu
 #define LONGEUR_MOT_MIN 3 // Longeur minium des mot selectionné dnas le texte. (nb-1)
-#define TAILLE_CHAINE 10000 //Longeur des lignes max.(et du descipteur)
+#define TAILLE_CHAINE 5000 //Longeur des lignes max.(et du descipteur)
 #define NB_MOT_IMPORTANT_CHOISI 5 // Nombre de mot gardé dans le top recurrence.
+#define CHEMIN "/home/aurelien/Bureau/projet/RedStringProject"
 
 typedef struct{
   char mot[TAILLE_MOT];
@@ -15,12 +19,13 @@ typedef struct{
 
 MOT_RECURRENCE TAB_RECURRENCE[TAILLE_MAX];  // Tab des mot recurrent
 
-char TAB_LIGNE[TAILLE_MAX][TAILLE_MAX];  // tab content la ligne lu
-char CHAINE_DESCRIPTEUR[TAILLE_CHAINE]; // Le descripteur
+char** TAB_LIGNE;  // tab content la ligne lu
+char* CHAINE_DESCRIPTEUR; // Le descripteur
 int TOTAL_MOT=0; // Total mot dans le TEXTE
 int NB_MOT=0; // Nombre de mot lu et gardé
 int NB_MOT_RECU=0; // Nombre de mot dans le tableau recurrent
 int NB_CHAINE_DESCRIPTEUR=0; //Nombre de caractere dans le descripteur
+
 
 void ajout_mot_chaine(char* mot){
   int cpt,longeur;
@@ -44,11 +49,16 @@ void ajout_chiffre_chaine(int nombre){
 
 void ajout_mot_important_chaine(){
   int cpt;
+  int fin= NB_MOT_IMPORTANT_CHOISI;
 
-  for(cpt=0;cpt<NB_MOT_IMPORTANT_CHOISI;cpt++){
-    ajout_mot_chaine(strcat (TAB_RECURRENCE[cpt].mot," "));
-    ajout_chiffre_chaine(TAB_RECURRENCE[cpt].nb_recurrence);
-    ajout_rc_chaine();
+  for(cpt=0;cpt<fin;cpt++){
+    if((strcmp(TAB_RECURRENCE[cpt].mot,"dans")==0) || (strcmp(TAB_RECURRENCE[cpt].mot,"plus")==0) || (strcmp(TAB_RECURRENCE[cpt].mot,"pour")==0) || (strcmp(TAB_RECURRENCE[cpt].mot,"Pour")==0) || (strcmp(TAB_RECURRENCE[cpt].mot,"avoir")==0))
+        fin++;
+    else{
+      ajout_mot_chaine(strcat (TAB_RECURRENCE[cpt].mot," "));
+      ajout_chiffre_chaine(TAB_RECURRENCE[cpt].nb_recurrence);
+      ajout_rc_chaine();
+    }
   }
 }
 
@@ -107,16 +117,20 @@ void lire_ligne(char* ligne,char* nom_fichier,int num_lig){
   FILE* fichier = NULL;
   char lecture[TAILLE_MAX];
   char *lecture2;
+  char chemin[100];
   int cpt;
-
-  fichier=fopen(nom_fichier,"r");
+  strcpy(chemin,CHEMIN);
+  strcat(chemin,"/Data/Textes/");
+  strcat(chemin,nom_fichier);
+  fichier=fopen(chemin,"r");
   if (fichier != NULL)
     for(cpt=0;cpt<num_lig;cpt++)
       lecture2=fgets(lecture,TAILLE_MAX,fichier);
   else
-      printf("\nImpossible d'ouvrir le fichier %s\n",nom_fichier);
+      printf("\nImpossible d'ouvrir le fichier %s\n",chemin);
   fclose(fichier);
   strcpy (ligne, lecture2);
+  //printf("\n\nCpt=>%d\nLigne => \n%s\n",num_lig,ligne );
 }
 
 void inser_mot(char* mot, int longeur_mot){
@@ -156,8 +170,9 @@ void ligne_tableau(char* ligne, int* retour){
   char lettre;
   int test=0;
 
-
   cpt=0;
+  //printf("Valeur => %c\n",ligne[1]);
+  //printf("Ligne => \n%s\n",ligne );
   do {
     lettre =ligne[cpt];
     if(cpt==0 && lettre !='<')
@@ -195,32 +210,34 @@ void ligne_tableau(char* ligne, int* retour){
     //printf("Ne rien faire2");
   }
   else if(strcmp(balise,"<phrase>")==0 || strcmp(balise,"<resume>")==0 || strcmp(balise,"<titre>")==0 || test==1){
-     do{
-      cpt=0;
-      do {
-        lettre =ligne[cpt];
-        mot[cpt] = lettre;
-        cpt++;
-      } while(lettre != ' ' && lettre !='<');
-      mot[cpt] = '\0';
-      longeur_mot=strlen(mot);
-      if (longeur_mot>LONGEUR_MOT_MIN+1)
-        inser_mot(mot,longeur_mot);
-      TOTAL_MOT++;
-      suppr_carac( ligne,longeur_mot);
+    if((ligne[0]>=65  && ligne[0] <=90) || (ligne[0]>=97  && ligne[0] <=122) || ligne[0]==' '){
+      do{
+        cpt=0;
+        do {
+          lettre =ligne[cpt];
+          mot[cpt] = lettre;
+          cpt++;
+        } while(lettre != ' ' && lettre !='<');
+        mot[cpt] = '\0';
+        longeur_mot=strlen(mot);
+        if (longeur_mot>LONGEUR_MOT_MIN+1)
+          inser_mot(mot,longeur_mot);
+        TOTAL_MOT++;
 
-      longeur_ligne=strlen(ligne);
+        suppr_carac( ligne,longeur_mot);
+        longeur_ligne=strlen(ligne);
 
-    }while(lettre !='<' && longeur_ligne!=1);
-    if(lettre == '<')
-      TOTAL_MOT--;
+      }while(lettre !='<' && longeur_ligne!=1);
+      if(lettre == '<')
+        TOTAL_MOT--;
+      }
   }
   else if(strcmp(balise,"< article>")==0){
     //printf("\nFIN");
     *retour=1;
   }
   else {
-  //  printf("Ne rien faire3");
+    //printf("Ne rien faire3");
   }
 }
 
@@ -253,6 +270,39 @@ void conception_descripteur(char* nom_fichier){
 
 }
 
+void genDescripteurTexte(t_Fichier fichier, t_PileDescripteur *ptrPileTexte){
+
+  TOTAL_MOT=0;
+  NB_MOT=0;
+  NB_MOT_RECU=0;
+  NB_CHAINE_DESCRIPTEUR=0;
+
+  CHAINE_DESCRIPTEUR=malloc(sizeof(char)*TAILLE_MAX);
+  TAB_LIGNE=malloc(sizeof(char*)*TAILLE_MAX);
+  for (int i =0; i< TAILLE_MAX;i++)
+    TAB_LIGNE[i]=malloc(sizeof(char)* TAILLE_MAX);
+
+
+  conception_descripteur(fichier.chemin_nom);
+  printf("\n\n%s\n",CHAINE_DESCRIPTEUR);
+  empile(ptrPileTexte,CHAINE_DESCRIPTEUR);
+
+}
+
+
+
+/*int main(){
+  t_Fichier fichier1;
+  fichier1.chemin_nom="/Bureau/projet/FICHIER_PROJET/Textes/29-Ligue_des_champions___Lyon.xml";
+  fichier1.chemin_info=" ";
+  fichier1.type="xml";
+  printf("COUCOUCOCUCOUCOU");
+
+  t_PileDescripteur *ptrPileTexte1;
+  init_pile(ptrPileTexte1);
+  genDescripteurTexte(fichier1, ptrPileTexte1);
+
+}*/
 // int main(){
 //   char nom_fichier[]="jj.xml"; //"22-Sursaut_des_Monégasques_après_le.xml";
 //   conception_descripteur(nom_fichier);
@@ -293,17 +343,5 @@ void conception_descripteur(char* nom_fichier){
 // ..etc..
 // MOT_RECURENT_X Nb_recurrence
 // </descripteur>
-
-
-
-
-
-
-
-
-
-
-
-
 
 //*/

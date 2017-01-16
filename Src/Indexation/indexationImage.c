@@ -48,18 +48,19 @@ int quantif(int *binR, int *binV, int *binB, int nbQuantif)
 
 void genDescripteurImage(t_Fichier fichier, t_PileDescripteur *ptrPileImage)
 {
+
   FILE * ptr_ficImage;
   char * descripteur=NULL, * nombreChar=NULL, * temp_descripteur=NULL;
   int lig, col, nbCouleur, i, j, k, nombre, nbQuantif=2, nb;
   int dim=pow(2, (3*nbQuantif));
   int * tabDesc;
   tabDesc=malloc(dim*sizeof(int));
-  descripteur = malloc(4000*sizeof(char));
   nombreChar = malloc(sizeof(int));
   ptr_ficImage = fopen (fichier.chemin_info, "r");
   fscanf(ptr_ficImage, "%d %d %d", &lig, &col, &nbCouleur);
   if(nbCouleur==1)	//pour une image NB
   {
+    descripteur = malloc(4000*sizeof(char));
     int tab[256]={0};	//initialise l'histogramme
     for(i=0; i<lig; i++)
     {
@@ -83,6 +84,7 @@ void genDescripteurImage(t_Fichier fichier, t_PileDescripteur *ptrPileImage)
   }
   if(nbCouleur==3)	//pour une image couleur
   {
+    descripteur = malloc(4000*sizeof(char));
     int tabRVB[3][lig][col];
     int *ptr_R, *ptr_V, *ptr_B;
     ptr_R=malloc(8*sizeof(int));	//valeur rouge binaire

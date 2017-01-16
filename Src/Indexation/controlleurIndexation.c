@@ -10,7 +10,7 @@
 //Constante contenant le chemin en local. Sera remplacé par le fichier de
 //configuration.
 //#define CHEMIN "/users/1anneesri/dlt1727a/RedStringProject-master"
-#define CHEMIN "/home/sebastien/Documents/UPSSITECH/RedStringProject"
+#define CHEMIN "/home/etienne/RedStringProject"
 //Méthode ecrivant les déscripteur dans le fichier de la base descripteur
 void ecrireDescripteur(t_PileDescripteur pileDescripteur, char * type){
     char chemin[100];
@@ -79,10 +79,10 @@ void runIndexation(){
 
     //Ouverture du fichier contenant les noms de tous les textes
     ptr_ficListe = fopen(alltxtPath, "r");
-
+    t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
     while(!feof(ptr_ficListe)){//Tant qu'on est pas a la fin du document
         fscanf(ptr_ficListe, "%s", nomFic);//On recupère la ligne courante
-        t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
+
         temp_fichier->chemin_nom = nomFic;//Création du fichier
         //Ajout du fichier dans la pile_texte. Voir indexationImage.h pour
         //des détails sur la méthode.
@@ -90,7 +90,7 @@ void runIndexation(){
     }
 
     fclose(ptr_ficListe);
-
+    free(temp_fichier);
     //Descripteur image
     strcpy(cmd_ls, "ls ");
     strcat(cmd_ls,CHEMIN) ;
@@ -105,21 +105,18 @@ void runIndexation(){
     strcat(allimgPath,"/Data/all_IMG_NG.txt");
 
     ptr_ficListe = fopen(allimgPath, "r");
-	t_Fichier *temp_fichier;
+    temp_fichier= malloc(sizeof(t_Fichier));
     while(!feof(ptr_ficListe)){//Tant qu'on est pas a la fin du document
         fscanf(ptr_ficListe, "%s", nomFic);//On recupère le nom du fichier
-        temp_fichier= malloc(sizeof(t_Fichier));
         temp_fichier->chemin_nom = nomFic;//Création du fichier
         fscanf(ptr_ficListe, "%s", infoFic);//On recupère le nom du fichier info
         temp_fichier->chemin_info = infoFic;
-
         //Ajout du fichier dans la pile_texte. Voir indexationImage.h pour
         //des détails sur la méthode.
         genDescripteurImage(*temp_fichier, &pile_image);
     }
 
     fclose(ptr_ficListe);
-
 
     strcpy(cmd_ls, "ls ");
     strcat(cmd_ls,CHEMIN) ;
@@ -134,10 +131,9 @@ void runIndexation(){
     strcat(all_IMG_RGB_Path,"/Data/all_IMG_RGB.txt");
 
     ptr_ficListe = fopen(all_IMG_RGB_Path, "r");
-
+    temp_fichier= malloc(sizeof(t_Fichier));
     while(!feof(ptr_ficListe)){//Tant qu'on est pas a la fin du document
         fscanf(ptr_ficListe, "%s", nomFic);//On recupère la ligne courante
-        t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
         temp_fichier->chemin_nom = nomFic;//Création du fichier
         fscanf(ptr_ficListe, "%s", infoFic);//On recupère le nom du fichier info
         temp_fichier->chemin_info = infoFic;
@@ -148,7 +144,6 @@ void runIndexation(){
     }
 
     fclose(ptr_ficListe);
-
     //Son
     strcpy(cmd_ls, "ls ");
     strcat(cmd_ls,CHEMIN) ;
@@ -167,7 +162,7 @@ void runIndexation(){
     while(!feof(ptr_ficListe)){//Tant qu'on est pas a la fin du document
 
         fscanf(ptr_ficListe, "%s", nomFic);//On recupère la ligne courante
-        t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
+        //t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
         temp_fichier->chemin_nom = nomFic;//Création du fichier
         fscanf(ptr_ficListe, "%s", infoFic);//On recupère le nom du fichier info
         temp_fichier->chemin_info = infoFic;

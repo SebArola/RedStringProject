@@ -49,8 +49,8 @@ void runIndexation(){
     fclose(ptr_ficChemin);
     system("rm temp.txt");
     strtok(chemin,":");
-    for(int i=0; i<strlen(chemin);++i){
-        CHEMIN[i]=chemin[i];
+    for(int i=0; i<strlen(chemin)-1;++i){
+        CHEMIN[i]=chemin[i+1];
     }
     //Variable pour les commandes
     char cmd_touch[150] ;

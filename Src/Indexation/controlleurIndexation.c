@@ -9,13 +9,14 @@
 
 //Constante contenant le chemin en local. Sera remplacé par le fichier de
 //configuration.
+//#define CHEMIN "/home/sebastien/Documents/UPSSITECH/RedStringProject"
 //#define CHEMIN "/users/1anneesri/dlt1727a/RedStringProject-master"
-#define CHEMIN "/home/etienne/RedStringProject"
+//#define CHEMIN "/home/etienne/RedStringProject"
+char CHEMIN[100];
 //Méthode ecrivant les déscripteur dans le fichier de la base descripteur
 void ecrireDescripteur(t_PileDescripteur pileDescripteur, char * type){
     char chemin[100];
     FILE * base_descripteur;
-
     strcpy(chemin,CHEMIN);
     strcat(chemin,"/Data");
     strcat(chemin,"/base_descripteur_");
@@ -37,6 +38,20 @@ void ecrireDescripteur(t_PileDescripteur pileDescripteur, char * type){
 
 //Méthode gérant l'indexation de toute la base.
 void runIndexation(){
+    //Variable pour le chemin et recupération dans le fichier config.txt
+    char chemin[150];
+    system("cat ../config.txt | grep chemin>temp.txt");
+    FILE * ptr_ficChemin;
+    ptr_ficChemin = fopen("temp.txt","r");
+    while(!feof(ptr_ficChemin)){
+        fscanf(ptr_ficChemin,"%s",chemin);
+    }
+    fclose(ptr_ficChemin);
+    system("rm temp.txt");
+    strtok(chemin,":");
+    for(int i=0; i<strlen(chemin)-1;++i){
+        CHEMIN[i]=chemin[i+1];
+    }
     //Variable pour les commandes
     char cmd_touch[150] ;
     char cmd_ls[150] ;
@@ -86,7 +101,7 @@ void runIndexation(){
         temp_fichier->chemin_nom = nomFic;//Création du fichier
         //Ajout du fichier dans la pile_texte. Voir indexationImage.h pour
         //des détails sur la méthode.
-        genDescripteurTexte(*temp_fichier, &pile_texte);
+        genDescripteurTexte(*temp_fichier, &pile_texte, CHEMIN);
     }
 
     fclose(ptr_ficListe);
@@ -142,8 +157,8 @@ void runIndexation(){
         genDescripteurImage(*temp_fichier, &pile_image);
 
     }
-
     fclose(ptr_ficListe);
+
     //Son
     strcpy(cmd_ls, "ls ");
     strcat(cmd_ls,CHEMIN) ;

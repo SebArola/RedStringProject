@@ -6,6 +6,6 @@
 Méthode prenant un Fichier ainsi que la pile de descripteur texte. Cette méthode
 crée le descripteur du fichier dans un string et l'enregistre dans la pile.
 */
-void genDescripteurTexte(t_Fichier fichier, t_PileDescripteur *ptrPileImage);
-//MODIFezfzeeeeeeeee
+void genDescripteurTexte(t_Fichier fichier, t_PileDescripteur *ptrPileImage, char * chemin);
+
 #endif

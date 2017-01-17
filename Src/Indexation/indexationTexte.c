@@ -10,8 +10,8 @@
 #define LONGEUR_MOT_MIN 3 // Longeur minium des mot selectionné dnas le texte. (nb-1)
 #define TAILLE_CHAINE 5000 //Longeur des lignes max.(et du descipteur)
 #define NB_MOT_IMPORTANT_CHOISI 5 // Nombre de mot gardé dans le top recurrence.
-#define CHEMIN "/home/aurelien/Bureau/projet/RedStringProject"
-
+//#define CHEMIN "/home/sebastien/Documents/UPSSITECH/RedStringProject"
+char CHEMIN[100];
 typedef struct{
   char mot[TAILLE_MOT];
   int nb_recurrence;
@@ -164,7 +164,7 @@ void suppr_carac(char* ligne,int nb){
 }
 
 void ligne_tableau(char* ligne, int* retour){
-  int cpt,i,longeur_balise,longeur_mot,longeur_ligne;
+  int cpt,longeur_balise,longeur_mot,longeur_ligne;
   char balise[TAILLE_BALISE]="";
   char mot[TAILLE_MOT]="";
   char lettre;
@@ -270,7 +270,8 @@ void conception_descripteur(char* nom_fichier){
 
 }
 
-void genDescripteurTexte(t_Fichier fichier, t_PileDescripteur *ptrPileTexte){
+void genDescripteurTexte(t_Fichier fichier, t_PileDescripteur *ptrPileTexte, char * chemin){
+    strcpy(CHEMIN,chemin);
 
   TOTAL_MOT=0;
   NB_MOT=0;
@@ -284,7 +285,7 @@ void genDescripteurTexte(t_Fichier fichier, t_PileDescripteur *ptrPileTexte){
 
 
   conception_descripteur(fichier.chemin_nom);
-  printf("\n\n%s\n",CHAINE_DESCRIPTEUR);
+  //printf("\n\n%s\n",CHAINE_DESCRIPTEUR);
   empile(ptrPileTexte,CHAINE_DESCRIPTEUR);
 
 }

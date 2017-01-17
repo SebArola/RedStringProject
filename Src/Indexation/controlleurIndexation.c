@@ -88,16 +88,26 @@ void runIndexation(){
     strcat(cmd_ls,"/Data/all_textes.txt");
     system(cmd_ls); //Copie
 
-    char alltxtPath[150];//Chemin vers le fichier all_textes
+    char alltxtPath[100];//Chemin vers le fichier all_textes
     strcpy(alltxtPath,CHEMIN);
     strcat(alltxtPath,"/Data/all_textes.txt");
+
+    char cmd_wc[110];
+    int nbLigne;
+    strcpy(cmd_wc,"wc -l ");
+    strcat(cmd_wc,alltxtPath);
+    system(strcat(cmd_wc," > temp_wc.txt"));
+    FILE * temp_file;
+    temp_file = fopen("temp_wc.txt","r");
+    fscanf(temp_file,"%d",&nbLigne);
+    fclose(temp_file);
+    system("rm temp_wc.txt");
 
     //Ouverture du fichier contenant les noms de tous les textes
     ptr_ficListe = fopen(alltxtPath, "r");
     t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
-    while(!feof(ptr_ficListe)){//Tant qu'on est pas a la fin du document
+    for(int i=0; i< nbLigne;i++){//Tant qu'on est pas a la fin du document
         fscanf(ptr_ficListe, "%s", nomFic);//On recupère la ligne courante
-
         temp_fichier->chemin_nom = nomFic;//Création du fichier
         //Ajout du fichier dans la pile_texte. Voir indexationImage.h pour
         //des détails sur la méthode.

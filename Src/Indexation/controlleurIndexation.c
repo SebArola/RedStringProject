@@ -52,6 +52,7 @@ void runIndexation(){
     for(int i=0; i<strlen(chemin)-1;++i){
         CHEMIN[i]=chemin[i+1];
     }
+    
     //Variable pour les commandes
     char cmd_touch[150] ;
     char cmd_ls[150] ;

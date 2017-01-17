@@ -7,8 +7,8 @@
 #include "../Indexation/indexationTexte.h"
 #include "../Indexation/indexationSon.h"
 
-
-
+//Cette méthode va lire dans le fichier config le seuil pour le pourcentage
+void init_comparaison();
 /*
 Ces méthodes permettent de comparer un fichier a un autre de la base.
 */

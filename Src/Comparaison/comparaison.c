@@ -2,7 +2,41 @@
 #include <stdlib.h>
 #include "comparaison.h"
 
-#define seuil 90
+int seuil;
+char CHEMIN[100];
+
+void init_comparaison(){
+    //Variable pour le chemin et recupération dans le fichier config.txt
+    char chemin[150];
+    system("cat ../config.txt | grep chemin>temp.txt");
+    FILE * ptr_ficChemin;
+    ptr_ficChemin = fopen("temp.txt","r");
+    while(!feof(ptr_ficChemin)){
+        fscanf(ptr_ficChemin,"%s",chemin);
+    }
+    fclose(ptr_ficChemin);
+    system("rm temp.txt");
+    strtok(chemin,":");
+    for(int i=0; i<strlen(chemin)-1;++i){
+        CHEMIN[i]=chemin[i+1];
+    }
+
+    //Variable pour le seuil et recupération dans le fichier config.txt
+    char seuil_txt[10];
+    char seuiTXTBON[4];
+    system("cat ../config.txt | grep seuil>temp.txt");
+    FILE * ptr_tempSeuil;
+    ptr_tempSeuil = fopen("temp.txt","r");
+    while(!feof(ptr_tempSeuil)){
+        fscanf(ptr_tempSeuil,"%s",seuil_txt);
+    }
+    fclose(ptr_ficChemin);
+    system("rm temp.txt");
+    strtok(seuil_txt,":");
+    seuiTXTBON[0] =seuil_txt[1] ;
+    seuiTXTBON[1] = seuil_txt[2];
+    sscanf(seuiTXTBON,"%d",&seuil);
+}
 
 int comparaisonImage(t_Fichier fichierCompare, t_PileDescripteur pileImage,t_PileDescripteur * descripteur_similaire){
     char * fichierDonne;//Descripteur du fichier a comparer.
@@ -84,7 +118,7 @@ int comparaisonTexte(t_Fichier fichierCompare, t_PileDescripteur pileTexte,t_Pil
     init_pile(&descripteurs_ficCompare);
     init_pile(descripteur_similaire);
 
-    genDescripteurTexte(fichierCompare, &descripteurs_ficCompare);
+    genDescripteurTexte(fichierCompare, &descripteurs_ficCompare, CHEMIN);
     fichierDonne = descripteurs_ficCompare.premier->descripteur;
 
     if(!pile_est_vide(pileTexte)){

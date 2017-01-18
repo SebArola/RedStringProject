@@ -130,10 +130,10 @@ int interfaceMoteur()
               //return seuilDescripSon;
             }
             break;
+
+          }while(continuerCompar==1);
           default:
               printf("\n\nVous n'avez pas fait le bon choix\n");
-          }while(continuerCompar==1);
-
         }
         if(continuer==0)
           printf("Merci d'etre passer!\n");
@@ -187,7 +187,7 @@ int interfaceMoteur()
         }
         break;
       default:
-        printf("Vous n'avez pas fait le bon choix!\n");
+        printf("Choix incorrect !\n");
     }
   //}
 

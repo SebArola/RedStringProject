@@ -143,7 +143,7 @@ int comparaisonTexte(t_Fichier fichierCompare, t_PileDescripteur pileTexte,t_Pil
 }
 
 int compareFichierImage(char * fichierDonne , char * fichierCompare){
-  FILE * ptr_ficDonne;
+  ILE * ptr_ficDonne;
   FILE * ptr_ficCompare;
   int valDonne, valCompare, nbCouleurDonne, nbCouleurCompare, cpt=0, diff=0;
   float resultat;
@@ -158,6 +158,7 @@ int compareFichierImage(char * fichierDonne , char * fichierCompare){
   ptr_ficCompare=fopen("tempCompare", "r");
   fscanf(ptr_ficDonne, "%*s %d", &nbCouleurDonne);
   fscanf(ptr_ficCompare, "%*s %d", &nbCouleurCompare);
+
   if(nbCouleurDonne==nbCouleurCompare)
   {
     while(!feof(ptr_ficDonne))
@@ -167,13 +168,18 @@ int compareFichierImage(char * fichierDonne , char * fichierCompare){
       cpt+=valDonne;
       diff+=abs(valDonne-valCompare);
     }
+
     fclose(ptr_ficDonne);
     fclose(ptr_ficCompare);
     resultat=(1-((float)diff/cpt))*100;
     diff=resultat;
     system("rm tempCompare");
     system("rm tempDonne");
-    return resultat;
+    if(resultat<0)
+    {
+      return 0;
+    }
+    return abs(resultat);
   }
   system("rm tempCompare");
   system("rm tempDonne");

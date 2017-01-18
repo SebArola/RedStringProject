@@ -74,7 +74,6 @@ int interfaceMoteur()
   t_PileDescripteur pile_texte;
   genPileDescripteur(&pile_image,"image");
   genPileDescripteur(&pile_texte,"texte");
-  affiche_pile(pile_texte);
 
   printf("\t++++++++++++++++++\n\t+Projet Fil Rouge+\n\t+RedStringGroupe 5        +\n\t++++++++++++++++++\n");
   /*cette fonction permet de réaliser des tests basiques dans notre appli*/
@@ -238,8 +237,8 @@ int interfaceMoteur()
                 scanf("%d", &continuer);
               break;
               case 2:
-                printf("Quel type d'images recherchez-vous?\n**1.noir/blanc\n**2.couleur");
-                //scanf("%d")
+                printf("Entrez le nom de l'image a comparer :  \n");
+                char nom[10];
 
                 printf("\nvoulez-vous poursuivre la recherche?\n**1:oui\n**0: non\n");
                 scanf("%d", &continuer);

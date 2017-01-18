@@ -317,13 +317,11 @@ void genDescripteurTexte(t_Fichier fichier, t_PileDescripteur *ptrPileTexte,char
 
 void afficher_tab_index(){
   int cpt,cpt2;
-  printf("\n\n------AFFICHAGE TAB INDEX----\n" );
   for(cpt=0;cpt<NB_MOT_INDEX-1;cpt++){
     printf("\n\nMOT=>%s  => %d\n\n",TAB_INDEX[cpt].mot,cpt);
     for(cpt2=0 ; cpt2<TAB_INDEX[cpt].nb_descipteur_correspondent ;cpt2++)
       printf("%d %s\n",TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].nb_recurrence,TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].mot);
   }
-  printf("\n\n----FIN--AFFICHAGE TAB INDEX----\n" );
 }
 
 void envoie_tableau(char* nom_document,char* mot,int nb_recurrence){
@@ -438,16 +436,21 @@ void conception_index(){
     ajout_mot_chaine("<mot>");
     ajout_mot_chaine(TAB_INDEX[cpt].mot);
     ajout_rc_chaine();
-    for (cpt2=0;cpt2<TAB_INDEX[cpt].nb_descipteur_correspondent;cpt2++){
-      ajout_chiffre_chaine(TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].nb_recurrence);
-      ajout_mot_chaine(" ");
-      ajout_mot_chaine(TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].mot);
-      ajout_rc_chaine();
+    for (cpt2=TAB_INDEX[cpt].nb_descipteur_correspondent+1;cpt2+1 >0;cpt2--){
+      if(TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].nb_recurrence !=0){
+        if(strcmp(TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].mot,TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2-1].mot)!=0){
+          if(strcmp(TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].mot,TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2-2].mot)!=0){
+            ajout_chiffre_chaine(TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].nb_recurrence);
+            ajout_mot_chaine(" ");
+            ajout_mot_chaine(TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].mot);
+            ajout_rc_chaine();
+          }
+        }
+      }
     }
     ajout_mot_chaine("</mot>");
     ajout_rc_chaine();
     ajout_rc_chaine();
-     printf("OK OK => \n\n%s",CHAINE_DESCRIPTEUR);
     fprintf(fic_index, "%s\n", CHAINE_DESCRIPTEUR);
     NB_CHAINE_DESCRIPTEUR=0;
     CHAINE_DESCRIPTEUR=calloc(TAILLE_MAX,sizeof(char));
@@ -462,20 +465,13 @@ void genTabIndex(t_PileDescripteur* pile_texte){
   int cpt=0;
 
   t_CellDescripteur *suivant;
-  printf("\n--------------Debut--------------\n\n");
   suivant = (*pile_texte).premier;
   while(suivant->p_suivant!=NULL){
-    printf("\n--------------TESTE--------------\n\n");
-    printf("LIGNE=>%s\n",suivant->descripteur);
     gere_tab_index(suivant->descripteur);
-    printf("\n----------FIN--TESTE--------------\n\n");
-    suivant = suivant->p_suivant;
+      suivant = suivant->p_suivant;
     cpt++;
-  //}while(cpt<2);
   }
- afficher_tab_index();
  conception_index();
-  printf("\n--------------FIN--------------\n\n");
 }
 //<mot>MOT
 //nb_iteration NOM_FICHIER

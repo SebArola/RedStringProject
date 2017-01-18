@@ -168,7 +168,6 @@ int compareFichierImage(char * fichierDonne , char * fichierCompare){
       cpt+=valDonne;
       diff+=abs(valDonne-valCompare);
     }
-
     fclose(ptr_ficDonne);
     fclose(ptr_ficCompare);
     resultat=(1-((float)diff/cpt))*100;
@@ -179,7 +178,7 @@ int compareFichierImage(char * fichierDonne , char * fichierCompare){
     {
       return 0;
     }
-    return abs(resultat);
+    return resultat;
   }
   system("rm tempCompare");
   system("rm tempDonne");

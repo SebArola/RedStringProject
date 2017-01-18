@@ -4,20 +4,41 @@
 #include "indexationTexte.h"
 
 
+/* tabindex*/
+#define LONGEUR_NOM 200 // Longeur nom fichier
+#define NB_FICHIER 60 // nb de fichier
+
+/*indextexte*/
 #define TAILLE_MAX 5000   //taille des chaine content les mots,
 #define TAILLE_BALISE 100 // Taille des chaine comptenant les balises
 #define TAILLE_MOT 50   // Taille max des mot lu
-#define LONGEUR_MOT_MIN 3 // Longeur minium des mot selectionné dnas le texte. (nb-1)
+#define LONGEUR_MOT_MIN 4 // Longeur minium des mot selectionné dnas le texte. (nb-1)
 #define TAILLE_CHAINE 5000 //Longeur des lignes max.(et du descipteur)
 #define NB_MOT_IMPORTANT_CHOISI 5 // Nombre de mot gardé dans le top recurrence.
-//#define CHEMIN "/home/sebastien/Documents/UPSSITECH/RedStringProject"
+#define TAILLE_LIGNE 1000 // TAille LIGNE des descipteur
+
 char CHEMIN[100];
+/*indextexte*/
+
 typedef struct{
-  char mot[TAILLE_MOT];
+  char mot[LONGEUR_NOM];
   int nb_recurrence;
 }MOT_RECURRENCE;  // Structure des mot recurrent
 
+/* tabindex*/
+
+typedef struct{
+  char mot[TAILLE_MOT];
+  int nb_descipteur_correspondent;
+  MOT_RECURRENCE TAB_INDEX_MOT[NB_FICHIER];
+}MOT_TAB_INDEX;
+
+MOT_TAB_INDEX TAB_INDEX[TAILLE_MAX];  // Tab des mot index
+int NB_MOT_INDEX=0; // nombre de mot diff dans tab index
+
+/*indextexte*/
 MOT_RECURRENCE TAB_RECURRENCE[TAILLE_MAX];  // Tab des mot recurrent
+
 
 char** TAB_LIGNE;  // tab content la ligne lu
 char* CHAINE_DESCRIPTEUR; // Le descripteur
@@ -25,7 +46,6 @@ int TOTAL_MOT=0; // Total mot dans le TEXTE
 int NB_MOT=0; // Nombre de mot lu et gardé
 int NB_MOT_RECU=0; // Nombre de mot dans le tableau recurrent
 int NB_CHAINE_DESCRIPTEUR=0; //Nombre de caractere dans le descripteur
-
 
 void ajout_mot_chaine(char* mot){
   int cpt,longeur;
@@ -52,7 +72,7 @@ void ajout_mot_important_chaine(){
   int fin= NB_MOT_IMPORTANT_CHOISI;
 
   for(cpt=0;cpt<fin;cpt++){
-    if((strcmp(TAB_RECURRENCE[cpt].mot,"dans")==0) || (strcmp(TAB_RECURRENCE[cpt].mot,"plus")==0) || (strcmp(TAB_RECURRENCE[cpt].mot,"pour")==0) || (strcmp(TAB_RECURRENCE[cpt].mot,"Pour")==0) || (strcmp(TAB_RECURRENCE[cpt].mot,"avoir")==0))
+    if((strcmp(TAB_RECURRENCE[cpt].mot,"dans")==0) || (strcmp(TAB_RECURRENCE[cpt].mot,"plus")==0) || (strcmp(TAB_RECURRENCE[cpt].mot,"pour")==0) || (strcmp(TAB_RECURRENCE[cpt].mot,"avec")==0) || (strcmp(TAB_RECURRENCE[cpt].mot,"avoir")==0) || (strcmp(TAB_RECURRENCE[cpt].mot,"avait")==0))
         fin++;
     else{
       ajout_mot_chaine(strcat (TAB_RECURRENCE[cpt].mot," "));
@@ -152,8 +172,9 @@ void suppr_ponctuation(char* ligne){
     if(lettre==' ' && ligne[cpt+1]==' ')
       for(i = cpt ; i<longeur_ligne ; i++)
         ligne[i] = ligne[i+1];
+    if((lettre>=65)  && (lettre <= 90))
+      ligne[cpt]=ligne[cpt]+32;
   }
-
  }
 
 void suppr_carac(char* ligne,int nb){
@@ -164,7 +185,7 @@ void suppr_carac(char* ligne,int nb){
 }
 
 void ligne_tableau(char* ligne, int* retour){
-  int cpt,longeur_balise,longeur_mot,longeur_ligne;
+  int cpt,i,longeur_balise,longeur_mot,longeur_ligne;
   char balise[TAILLE_BALISE]="";
   char mot[TAILLE_MOT]="";
   char lettre;
@@ -265,13 +286,17 @@ void conception_descripteur(char* nom_fichier){
   calcul_recurrence(); // CALCUL DES MOTS RECURENTS
   ajout_chiffre_chaine(TOTAL_MOT);//AJOUTE LE NOMBRE TOTAL DE MOT DANS LE DESCRIPTEUR
   ajout_rc_chaine();
+  ajout_mot_chaine("<mot>");
+  ajout_rc_chaine();
   ajout_mot_important_chaine(); // AJOUT DES MOTS RÉCURRENTS DANS LE DESCRIPTEUR
+  ajout_mot_chaine("</mot>");
+  ajout_rc_chaine();
   ajout_mot_chaine("</descripteur>"); // BALISE FIN DESCRIPTEUR
-
+  ajout_rc_chaine();
 }
 
-void genDescripteurTexte(t_Fichier fichier, t_PileDescripteur *ptrPileTexte, char * chemin){
-    strcpy(CHEMIN,chemin);
+void genDescripteurTexte(t_Fichier fichier, t_PileDescripteur *ptrPileTexte,char* chemin){
+  strcpy(CHEMIN,chemin);
 
   TOTAL_MOT=0;
   NB_MOT=0;
@@ -287,62 +312,192 @@ void genDescripteurTexte(t_Fichier fichier, t_PileDescripteur *ptrPileTexte, cha
   conception_descripteur(fichier.chemin_nom);
   //printf("\n\n%s\n",CHAINE_DESCRIPTEUR);
   empile(ptrPileTexte,CHAINE_DESCRIPTEUR);
-
 }
 
 
+void afficher_tab_index(){
+  int cpt,cpt2;
+  printf("\n\n------AFFICHAGE TAB INDEX----\n" );
+  for(cpt=0;cpt<NB_MOT_INDEX-1;cpt++){
+    printf("\n\nMOT=>%s  => %d\n\n",TAB_INDEX[cpt].mot,cpt);
+    for(cpt2=0 ; cpt2<TAB_INDEX[cpt].nb_descipteur_correspondent ;cpt2++)
+      printf("%d %s\n",TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].nb_recurrence,TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].mot);
+  }
+  printf("\n\n----FIN--AFFICHAGE TAB INDEX----\n" );
+}
 
-/*int main(){
-  t_Fichier fichier1;
-  fichier1.chemin_nom="/Bureau/projet/FICHIER_PROJET/Textes/29-Ligue_des_champions___Lyon.xml";
-  fichier1.chemin_info=" ";
-  fichier1.type="xml";
-  printf("COUCOUCOCUCOUCOU");
+void envoie_tableau(char* nom_document,char* mot,int nb_recurrence){
+  int cpt,cpt2;
+  int new_mot=1;
+  int valid=0;
 
-  t_PileDescripteur *ptrPileTexte1;
-  init_pile(ptrPileTexte1);
-  genDescripteurTexte(fichier1, ptrPileTexte1);
 
-}*/
-// int main(){
-//   char nom_fichier[]="jj.xml"; //"22-Sursaut_des_Monégasques_après_le.xml";
-//   conception_descripteur(nom_fichier);
-// printf("\n\n%s\n",CHAINE_DESCRIPTEUR);
-//
-//
-//
-//   // AFFICHAGE POUR LE DEBUG
-// /*int cpt;
-//   int val=0;
-//   printf("\n\n");
-//   afficher_tab_ligne();
-//   printf("\n\n");
-//   afficher_tab_recurrence();
-//
-//
-//   printf("\n  TOTAL MOT TABLEAU = %d\n  ",NB_MOT);
-//   printf("TOTAL MOT = %d\n  ",TOTAL_MOT);
-//   printf("TOTAL MOT RECU = %d\n  ",NB_MOT_RECU);
-//   for(cpt=0;cpt<NB_MOT_RECU;cpt++)
-//     val=val+TAB_RECURRENCE[cpt].nb_recurrence;
-//   printf("TOTAL MOT RECU ADD = %d\n  ",val);
-//   printf(" DESCRIPTEUR => \n\n%s\n",CHAINE_DESCRIPTEUR);*/
-//
-// }
-//
-//
-//
+
+  for(cpt=0;cpt<NB_MOT_INDEX;cpt++)
+    if(strcmp(mot,TAB_INDEX[cpt].mot)==0){
+      new_mot=0;
+    }
+
+  if(new_mot ==1){
+    strcpy (TAB_INDEX[cpt].mot,mot);
+    TAB_INDEX[NB_MOT_INDEX].nb_descipteur_correspondent=1;
+    strcpy (TAB_INDEX[NB_MOT_INDEX].TAB_INDEX_MOT[0].mot,nom_document);
+    TAB_INDEX[NB_MOT_INDEX].TAB_INDEX_MOT[0].nb_recurrence=nb_recurrence;
+    NB_MOT_INDEX++;
+  }
+  else{
+    for(cpt=0;cpt<NB_MOT_INDEX;cpt++)
+      if(strcmp(mot,TAB_INDEX[cpt].mot)==0){
+        for(cpt2=0;cpt2<TAB_INDEX[cpt].nb_descipteur_correspondent;cpt2++)
+        {
+          if(TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].nb_recurrence>nb_recurrence ){
+            strcpy (TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].mot,nom_document);
+            TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].nb_recurrence=nb_recurrence;
+            TAB_INDEX[cpt].nb_descipteur_correspondent++;
+            valid=1;
+          }
+        }
+        if(valid==0){
+          strcpy (TAB_INDEX[cpt].TAB_INDEX_MOT[TAB_INDEX[cpt].nb_descipteur_correspondent].mot,nom_document);
+          TAB_INDEX[cpt].TAB_INDEX_MOT[TAB_INDEX[cpt].nb_descipteur_correspondent].nb_recurrence=nb_recurrence;
+          TAB_INDEX[cpt].nb_descipteur_correspondent++;
+        }
+        cpt=NB_MOT_INDEX;
+      }
+  }
+}
+
+void gere_tab_index(char* ligne){
+  int cpt,cpt_mot;
+  char mot[TAILLE_MOT];
+  char txt_nb_recurrence[4];
+  int nb_recurrence;
+  char nom_document[LONGEUR_NOM];
+  char lettre;
+  cpt=0;
+  do {
+    cpt++;
+  } while(ligne[cpt] != '>');
+  cpt++;
+
+  cpt_mot=0;
+  while(ligne[cpt]!=10){
+    nom_document[cpt_mot]=ligne[cpt];
+    cpt_mot++;
+    cpt++;
+  }
+  nom_document[cpt_mot]='\0';
+  //printf("\n Nom Doc=> -%s-",nom_document);
+
+  do {
+    cpt++;
+  } while(ligne[cpt] != '<' || ligne[cpt+1]!='m');
+  cpt +=6;
+
+  while(ligne[cpt] != '<' || ligne[cpt+1]!='/'){
+    cpt_mot=0;
+    do {
+      lettre=ligne[cpt];
+      mot[cpt_mot]=lettre;
+      cpt++;
+      cpt_mot++;
+    } while(lettre != ' ');
+    mot[cpt_mot-1]='\0';
+
+    cpt_mot=0;
+    while(ligne[cpt]!=10){
+      txt_nb_recurrence[cpt_mot]=ligne[cpt];
+      cpt_mot++;
+      cpt++;
+    }
+    cpt++;
+    txt_nb_recurrence[cpt_mot]='\0';
+
+    sscanf(txt_nb_recurrence,"%d",&nb_recurrence);
+    envoie_tableau(nom_document,mot,nb_recurrence);
+
+  }
+}
+
+
+void conception_index(){
+  int cpt,cpt2;
+  NB_CHAINE_DESCRIPTEUR=0;
+  char cmd_touch[100];
+  strcpy(cmd_touch,"touch ");
+  strcat(cmd_touch,CHEMIN);
+  system(strcat(cmd_touch,"/Data/tab_index.txt"));
+  char index_path[100];
+  strcpy(index_path,CHEMIN);
+  strcat(index_path,"/Data/tab_index.txt");
+  FILE * fic_index;
+  fic_index = fopen(index_path,"w");
+
+  CHAINE_DESCRIPTEUR=malloc(sizeof(char)*TAILLE_MAX);
+  for (cpt=0;cpt<NB_MOT_INDEX;cpt++){
+    ajout_mot_chaine("<mot>");
+    ajout_mot_chaine(TAB_INDEX[cpt].mot);
+    ajout_rc_chaine();
+    for (cpt2=0;cpt2<TAB_INDEX[cpt].nb_descipteur_correspondent;cpt2++){
+      ajout_chiffre_chaine(TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].nb_recurrence);
+      ajout_mot_chaine(" ");
+      ajout_mot_chaine(TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].mot);
+      ajout_rc_chaine();
+    }
+    ajout_mot_chaine("</mot>");
+    ajout_rc_chaine();
+    ajout_rc_chaine();
+     printf("OK OK => \n\n%s",CHAINE_DESCRIPTEUR);
+    fprintf(fic_index, "%s\n", CHAINE_DESCRIPTEUR);
+    NB_CHAINE_DESCRIPTEUR=0;
+    CHAINE_DESCRIPTEUR=calloc(TAILLE_MAX,sizeof(char));
+
+  }
+  fclose(fic_index);
+}
+
+void genTabIndex(t_PileDescripteur* pile_texte){
+  char* descripteur;//[TAILLE_LIGNE];
+  int longeur_descripteur;
+  int cpt=0;
+
+  t_CellDescripteur *suivant;
+  printf("\n--------------Debut--------------\n\n");
+  suivant = (*pile_texte).premier;
+  while(suivant->p_suivant!=NULL){
+    printf("\n--------------TESTE--------------\n\n");
+    printf("LIGNE=>%s\n",suivant->descripteur);
+    gere_tab_index(suivant->descripteur);
+    printf("\n----------FIN--TESTE--------------\n\n");
+    suivant = suivant->p_suivant;
+    cpt++;
+  //}while(cpt<2);
+  }
+ afficher_tab_index();
+ conception_index();
+  printf("\n--------------FIN--------------\n\n");
+}
+//<mot>MOT
+//nb_iteration NOM_FICHIER
+//nb_iteration NOM_FICHIER
+//.....
+//nb_iteration NOM_FICHIER
+//</mot>
+
+
 // //////FORMA DESCRIPETEUR/////////
 // /*
 // <descripteur>NOM_FICHIER
-// NB_MOT_DU_TEXTE
 // NOM_AUTEUR
-// MOT_RECURENT_1 Nb_recurrence
-// MOT_RECURENT_2 Nb_recurrence
-// MOT_RECURENT_3 Nb_recurrence
-// MOT_RECURENT_4 Nb_recurrence
+// NB_MOT_DU_TEXTE
+//<mot>
+// MOT_RECURENT_1 nb_recurrence
+// MOT_RECURENT_2 nb_recurrence
+// MOT_RECURENT_3 nb_recurrence
+// MOT_RECURENT_4 nb_recurrence
 // ..etc..
-// MOT_RECURENT_X Nb_recurrence
+// MOT_RECURENT_X nb_recurrence
+//</mot>
 // </descripteur>
 
 //*/

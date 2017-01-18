@@ -1,12 +1,4 @@
-#include <stdio.h>
-#include "pileDescripteur.h"
-#include "Fichier.h"
-#include <stdlib.h>
-#include <string.h>
-#include "indexationTexte.h"
-#include "indexationImage.h"
-#include "indexationSon.h"
-
+#include "controlleurIndexation.h"
 //Constante contenant le chemin en local. Sera remplacé par le fichier de
 //configuration.
 //#define CHEMIN "/home/sebastien/Documents/UPSSITECH/RedStringProject"
@@ -52,7 +44,6 @@ void runIndexation(){
     for(int i=0; i<strlen(chemin)-1;++i){
         CHEMIN[i]=chemin[i+1];
     }
-
     //Variable pour les commandes
     char cmd_touch[150] ;
     char cmd_ls[150] ;
@@ -217,7 +208,7 @@ void runIndexation(){
 
 
 // //Main de test.
-int main(){
+/*int main(){
     printf("Lancement indexation. RETIREZ MOI AVANT LA RECETTE\n");
     runIndexation();
-}
+}*/

@@ -1,7 +1,8 @@
 #include <stdio.h>
-#include<stdlib.h>
-#include<string.h>
+#include <stdlib.h>
+#include <string.h>
 #include "interfaceMoteur.h"
+#include "../Indexation/controlleurIndexation.h"
 
 #define TAILLECHAINE 500
 
@@ -12,6 +13,23 @@ int *seuilDescripImg1=NULL;
 
 int interfaceMoteur()
 {
+    char CHEMIN[100];
+    char chemin[150];
+    system("cat ../config.txt | grep chemin>temp.txt");
+    FILE * ptr_ficChemin;
+    ptr_ficChemin = fopen("temp.txt","r");
+    while(!feof(ptr_ficChemin)){
+        fscanf(ptr_ficChemin,"%s",chemin);
+    }
+    fclose(ptr_ficChemin);
+    system("rm temp.txt");
+    strtok(chemin,":");
+    for(int i=0; i<strlen(chemin)-1;++i){
+        CHEMIN[i]=chemin[i+1];
+    }
+
+  //printf("Mise à jour de la base, veuillez patienter\n");
+  runIndexation();
   printf("\t++++++++++++++++++\n\t+Projet Fil Rouge+\n\t+RedStringGroupe 5        +\n\t++++++++++++++++++\n");
   /*cette fonction permet de réaliser des tests basiques dans notre appli*/
   char choixUser;
@@ -28,7 +46,7 @@ int interfaceMoteur()
   //while(continuer)
   //{
   while(1){
-      
+
       printf("\n\nQuel type d'utilisateur etes-vous?\n*1.Admin\n*2.Utilisateur\n");
       scanf("%s", &choixUser);
       system("clear");
@@ -198,12 +216,13 @@ int interfaceMoteur()
 
       }
   }
-
+  return 1;
   //}
 
 }
 
 int main(int argc, char const *argv[]) {
-  int seuil= interfaceMoteur();
+
+  int resultat= interfaceMoteur();
   return 0;
 }

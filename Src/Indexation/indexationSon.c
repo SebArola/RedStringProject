@@ -130,13 +130,19 @@ void genDescripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
 	add++;
 	strcat(descripteur, "Nombre fenetres:");
 	sprintf(descripteur,"%d",DescSon->nbWindows);
+	printf("DEBUG 4\n");
+	printf("%d\n",DescSon->nbWindows );
 	for(int i=0;i<DescSon->nbWindows;i++){
 		for(int j=0; j<nb_Intervalles; j++){
+			//printf("DEBUG 4.%d\n",i);
 			sprintf(descripteur,"%d",DescSon->histogram[i][j]);
 			strcat(descripteur," |");
 		}
 		strcat(descripteur,"\n");
 	}
+	printf("%s",descripteur);
+	printf("DEBUG 5\n");
+
 	free(DescSon);
 	fclose(ptr_ficSon);
 	empile(ptr_PileSon, descripteur);

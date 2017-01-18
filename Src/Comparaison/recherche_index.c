@@ -70,7 +70,7 @@ void recherche_motcle(char * mot, char ** resultat){
 }
 
 
-int main(){
+/*int main(){
     init_recherche_index();
     char ** resultat = malloc(sizeof(char*)*10);
     char mot[20];
@@ -79,7 +79,7 @@ int main(){
     for(int i=0;i<10;i++){
         printf("R :%s\n",resultat[i] );
     }
-}
+}*/
 /*
 Fomre du fichier index :
 <mot>MOT

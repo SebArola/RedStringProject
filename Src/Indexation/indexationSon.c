@@ -4,17 +4,17 @@
 #include <math.h>
 #include "indexationSon.h"
 
-	char add = 1;
-	taille_fenetre = 1024; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! taille des fenêtres fixe pour le moment
-	nb_Intervalles = 50;   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! intervalle entre -1 et 1 fixe aussi
-	valMax = 1.;
-	valMin = -1.;
+	int add = 1;
+	int taille_fenetre = 1024; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! taille des fenêtres fixe pour le moment
+	int nb_Intervalles = 50;   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! intervalle entre -1 et 1 fixe aussi
+	double valMax = 1.;
+	double valMin = -1.;
 
 /*Renvoie la taille du fichier binaire passé en paramètre*/
 int fileSize(FILE* file){
   	int size;
-  	fseek(file, 0, SEEK_END); 
-  	size = ftell(file);	  
+  	fseek(file, 0, SEEK_END);
+  	size = ftell(file);
 	fseek(file, 0, SEEK_SET);
 	return size;
 }
@@ -24,40 +24,50 @@ double Swap_double(double dbl)
 	char ch[8];
 	double dblRet;
 	memcpy(ch, &dbl, 8); // copie de "dbl" vers "ch"
-	ch[0] ^= ch[7] ^= ch[0] ^= ch[7]; // échange entre ch[0] et ch[7]
-	ch[1] ^= ch[6] ^= ch[1] ^= ch[6]; // 	     entre ch[1] et ch[6]
-	ch[2] ^= ch[5] ^= ch[2] ^= ch[5]; // 	     entre ch[2] et ch[5]
-	ch[3] ^= ch[4] ^= ch[3] ^= ch[4]; //         entre ch[3] et ch[4]
+	//Echange entre 0 et 7
+	char temp;
+	temp = ch[0];
+	ch[0] = ch[7];
+	ch[7] = temp;
+	//Echange entre 1 et 6
+	temp = ch[1];
+	ch[1] = ch[6];
+	ch[6] = temp;
+	//Echange entre 3 et4
+	temp = ch[3];
+	ch[3] = ch[4];
+	ch[4] = temp;
+
 	memcpy(&dblRet, ch, 8); // copie de "ch" vers "dblRet"
 	return dblRet;
 }
 
 /*Créer un descripteur son de type t_DescSon*/
-t_DescSon * CreerDescSon(FILE* file){ 
+t_DescSon * CreerDescSon(FILE* file){
 	//contient la taille d'une variable de type double
-	int doubleSize = sizeof(double); 
+	int doubleSize = sizeof(double);
 
 	//contient la type du fichier
-	int fSize = fileSize(file); 
+	int fSize = fileSize(file);
 	double *tmp = malloc(sizeof(*tmp));
 	double *seuil = malloc(sizeof(*seuil)*nb_Intervalles);
 	//Création du descSon
 	t_DescSon * desc = malloc(sizeof(*desc));
 	//indices
-	int ind_Interval, ind_Elem, ind_Window;	 
+	int ind_Interval, ind_Elem, ind_Window;
 
 	// nombre de fenetres k
-	int nbWindows = (fSize/doubleSize) / taille_fenetre + 2; 
-	// init du nombre de fenetres du descripteur 
-	desc->nbWindows = nbWindows; 
+	int nbWindows = (fSize/doubleSize) / taille_fenetre + 2;
+	// init du nombre de fenetres du descripteur
+	desc->nbWindows = nbWindows;
 	//histogramme de taille k*m
 	desc->histogram = malloc(sizeof(int*) * nbWindows);
 	for(ind_Interval = 0; ind_Interval < nb_Intervalles; ind_Interval++)
 	{
 		seuil[ind_Interval]=((ind_Interval+1)/(double)nb_Intervalles)*(valMax-valMin)+valMin;
 	}
-	
-	//Histogramme initialisé à zéro 
+
+	//Histogramme initialisé à zéro
 	for(ind_Window = 0; ind_Window < nbWindows; ind_Window++)
 	{
 		desc->histogram[ind_Window] = malloc(sizeof(int) * nb_Intervalles);
@@ -65,7 +75,7 @@ t_DescSon * CreerDescSon(FILE* file){
 			desc->histogram[ind_Window][ind_Interval] = 0;
 	}
 	free(desc->histogram[ind_Window-1]);
-	desc->histogram[ind_Window-1] = NULL;	
+	desc->histogram[ind_Window-1] = NULL;
 	ind_Elem = 0;
 	ind_Window = 0;
 	ind_Interval = 0;
@@ -86,9 +96,10 @@ t_DescSon * CreerDescSon(FILE* file){
 				if(*tmp <= seuil[ind_Interval])
 				{
 					(desc->histogram[ind_Window][ind_Interval])++;
-					break;		
-				}				
+					break;
+				}
 			}
+
 			if(*tmp > seuil[nb_Intervalles-1])
 				(desc->histogram[ind_Window][nb_Intervalles-1])++;
 		}
@@ -99,21 +110,29 @@ t_DescSon * CreerDescSon(FILE* file){
 	return desc;
 
 }
-void genDecripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
+void genDescripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
+	printf("DEBUG 1\n");
 	FILE * ptr_ficSon; // fichier son binaire fourni
 	t_DescSon * DescSon; // descripteur de type t_DescSon
+	printf("DEBUG 2\n");
+
 	ptr_ficSon = fopen(fichier.chemin_info,"r");
 	char * descripteur = malloc(4000*sizeof(char));
+	printf("DEBUG 3\n");
+
 	DescSon = CreerDescSon(ptr_ficSon); // DescSon de type t_DescSon
+	printf("DEBUG 3\n");
+
 	strcat(descripteur, fichier.chemin_nom);
 	strcat(descripteur, "\nInd:");
-	strcat(descripteur, (DescSon->address)+add);
+	sprintf(DescSon->address,"%d",add);
+	strcat(descripteur, DescSon->address);
 	add++;
 	strcat(descripteur, "Nombre fenetres:");
-	strcat(descripteur, DescSon->nbWindows);
+	sprintf(descripteur,"%d",DescSon->nbWindows);
 	for(int i=0;i<DescSon->nbWindows;i++){
 		for(int j=0; j<nb_Intervalles; j++){
-			strcat(descripteur,desc->histogram[i][j]);
+			sprintf(descripteur,"%d",DescSon->histogram[i][j]);
 			strcat(descripteur," |");
 		}
 		strcat(descripteur,"\n");
@@ -129,11 +148,10 @@ void genDecripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
   printf("Ind: %d\n", DescSon->address);
   printf("Nombre fenetres: %d\n", DescSon->nbWindows);
   ///////////////////
-  int nbWindows = (fileSize(fichierTestBinaire)/8) / 4096 + 2; 
+  int nbWindows = (fileSize(fichierTestBinaire)/8) / 4096 + 2;
   for(int iWindow = 0; iWindow < nbWindows; iWindow++)
 	{
 		for(int iInterval = 0; iInterval < 50; iInterval++)
 			printf("%d|", DescSon->histogram[iWindow][iInterval]);
 		printf("\n");
 	}*/
-

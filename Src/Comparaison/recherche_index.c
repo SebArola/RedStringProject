@@ -50,7 +50,20 @@ void recherche_motcle(char * mot, char ** resultat){
         if( strrchr(ligne,'<')!= NULL && strlen(strrchr(ligne,'<'))>6){
             strremove(ligne,5);
             if(strcmp(ligne,mot)==0){
-                printf("%s\n",ligne );
+                char nbOcc[10];
+                char nomFic[30];
+                int i=0;
+                fscanf(ptr_ficIndex,"%s",nbOcc);
+                fscanf(ptr_ficIndex,"%s",nomFic);
+                while(strcmp(nbOcc,"</mot>")!=0){
+                    strcat(nbOcc," ");
+                    strcat(nbOcc,nomFic);
+                    resultat[i] = malloc(sizeof(char)*(strlen(nbOcc)));
+                    strcpy(resultat[i],nbOcc);
+                    fscanf(ptr_ficIndex,"%s",nbOcc);
+                    fscanf(ptr_ficIndex,"%s",nomFic);
+                    i++;
+                }
             }
         }
     }
@@ -63,6 +76,9 @@ int main(){
     char mot[20];
     scanf("%s",mot);
     recherche_motcle(mot,resultat);
+    for(int i=0;i<10;i++){
+        printf("R :%s\n",resultat[i] );
+    }
 }
 /*
 Fomre du fichier index :

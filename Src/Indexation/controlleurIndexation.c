@@ -197,9 +197,11 @@ void runIndexation(){
         temp_fichier->chemin_info = infoFic;
         //Ajout du fichier dans la pile_img. Voir indexationImage.h pour
         //des détails sur la méthode.
-        genDescripteurSon(*temp_fichier, &pile_son);
-    }
+        //printf("DEBUG B1\n" );
+        //genDescripteurSon(*temp_fichier, &pile_son);
+        //printf("DEBUG B\n" );
 
+    }
     fclose(ptr_ficListe);
 
     //Enregistrement des déscripteur dans les fichiers base_descripteur_*
@@ -208,14 +210,14 @@ void runIndexation(){
 
     ecrireDescripteur(pile_image,"image");
 
-    printf("ecrireDescripteurSon non activé\n");
-    ecrireDescripteur(pile_son,"son");
+    //printf("ecrireDescripteurSon non activé\n");
+//    ecrireDescripteur(pile_son,"son");
 }
 
 
 
-//Main de test.
-int main(){
-    printf("Lancement indexation. RETIREZ MOI AVANT LA RECETTE\n");
-    runIndexation();
-}
+// //Main de test.
+// int main(){
+//     printf("Lancement indexation. RETIREZ MOI AVANT LA RECETTE\n");
+//     runIndexation();
+// }

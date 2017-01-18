@@ -224,8 +224,14 @@ void ligne_tableau(char* ligne, int* retour){
        cpt++;
      } while(lettre !='<');
      mot[cpt-1] = '\0';
-     ajout_mot_chaine(mot);
-     ajout_rc_chaine();
+     if(cpt!=1){
+       ajout_mot_chaine(mot);
+       ajout_rc_chaine();
+     }
+     else{
+       ajout_mot_chaine("INCONNU");
+       ajout_rc_chaine();
+   }
   }
   else if(strcmp(balise,"<texte>")==0){
     //printf("Ne rien faire2");

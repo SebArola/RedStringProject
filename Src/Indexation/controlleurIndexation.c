@@ -5,7 +5,7 @@
 #include <string.h>
 #include "indexationTexte.h"
 #include "indexationImage.h"
-#include "indexationSon.h"
+//#include "indexationSon.h"
 
 //Constante contenant le chemin en local. Sera remplacé par le fichier de
 //configuration.
@@ -197,7 +197,7 @@ void runIndexation(){
         temp_fichier->chemin_info = infoFic;
         //Ajout du fichier dans la pile_img. Voir indexationImage.h pour
         //des détails sur la méthode.
-        genDescripteurSon(*temp_fichier, &pile_son);
+        //genDescripteurSon(*temp_fichier, &pile_son);
     }
 
     fclose(ptr_ficListe);
@@ -208,8 +208,8 @@ void runIndexation(){
 
     ecrireDescripteur(pile_image,"image");
 
-//    printf("ecrireDescripteurSon non activé\n");
-    ecrireDescripteur(pile_son,"son");
+    printf("ecrireDescripteurSon non activé\n");
+//    ecrireDescripteur(pile_son,"son");
 }
 
 

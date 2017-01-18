@@ -171,8 +171,12 @@ int compareFichierImage(char * fichierDonne , char * fichierCompare){
     fclose(ptr_ficCompare);
     resultat=(1-((float)diff/cpt))*100;
     diff=resultat;
+    system("rm tempCompare");
+    system("rm tempDonne");
     return resultat;
   }
+  system("rm tempCompare");
+  system("rm tempDonne");
   return -1;
 }
 

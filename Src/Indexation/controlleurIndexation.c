@@ -23,7 +23,7 @@ void ecrireDescripteur(t_PileDescripteur pileDescripteur, char * type){
         fprintf(base_descripteur,"%s;\n",suivant->descripteur);
         suivant = suivant->p_suivant;
     }
-    fprintf(base_descripteur,"%s", suivant->descripteur);
+    fprintf(base_descripteur,"%s;", suivant->descripteur);
 
     fclose(base_descripteur);
 }

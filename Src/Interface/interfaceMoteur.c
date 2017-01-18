@@ -9,11 +9,50 @@
 int* choixIndexation=NULL;
 int* choixDescripComp=NULL;//memorise le choix du type de descripteurs a tester
 int *seuilDescripImg1=NULL;
+char CHEMIN[100];
 
+void genPileDescripteur(t_PileDescripteur *pile, char * type){
+    FILE * ptr_ficBaseDesc;
+    char base_path[100];
+    strcpy(base_path,CHEMIN);
+    strcat(base_path,"/Data/base_descripteur_");
+    strcat(base_path,type);
+    strcat(base_path,".txt");
+
+    char cmd_wc[110];
+    int nbLigne;
+    strcpy(cmd_wc,"wc -l ");
+    strcat(cmd_wc,base_path);
+    system(strcat(cmd_wc," > temp_wc.txt"));
+    FILE * temp_file;
+    temp_file = fopen("temp_wc.txt","r");
+    fscanf(temp_file,"%d",&nbLigne);
+    fclose(temp_file);
+    //system("rm temp_wc.txt");
+    printf("DEBUG 1\n" );
+    ptr_ficBaseDesc = fopen(base_path,"r");
+    char * descripteur;
+    char * ligne;
+    while(!feof(ptr_ficBaseDesc)){
+        ligne = malloc(sizeof(char)*100);
+        descripteur = malloc(sizeof(char)*5000);
+        fgets(ligne,strlen(CHEMIN)+10,ptr_ficBaseDesc);
+        while(strpbrk(ligne,";")==NULL){
+            strcat(descripteur,ligne);
+            fgets(ligne,100,ptr_ficBaseDesc);
+        }
+        printf("%s\n",descripteur );
+        empile(pile,descripteur);
+        free(descripteur);
+        free(ligne);
+    //    printf("DEBUG 1.4\n" );
+    }
+    printf("Fin fct\n");
+}
 
 int interfaceMoteur()
 {
-    char CHEMIN[100];
+
     char chemin[150];
     system("cat ../config.txt | grep chemin>temp.txt");
     FILE * ptr_ficChemin;
@@ -30,6 +69,12 @@ int interfaceMoteur()
 
   //printf("Mise à jour de la base, veuillez patienter\n");
   runIndexation();
+  t_PileDescripteur pile_image;
+  t_PileDescripteur pile_texte;
+  genPileDescripteur(&pile_image,"image");
+  genPileDescripteur(&pile_texte,"texte");
+  affiche_pile(pile_texte);
+
   printf("\t++++++++++++++++++\n\t+Projet Fil Rouge+\n\t+RedStringGroupe 5        +\n\t++++++++++++++++++\n");
   /*cette fonction permet de réaliser des tests basiques dans notre appli*/
   char choixUser;
@@ -42,7 +87,7 @@ int interfaceMoteur()
   int continuerCompar=0;
   int choixUser1;//represente, le type de fichiers que l'user recherche.
   char chaine[TAILLECHAINE];//tableau contenant le critere de recherche de,
-  char *position = NULL;//(capte la position du "\n" dana la chaine recu de l'entrée")
+ // char *position = NULL;//(capte la position du "\n" dana la chaine recu de l'entrée")
   //while(continuer)
   //{
   while(1){
@@ -223,6 +268,6 @@ int interfaceMoteur()
 
 int main(int argc, char const *argv[]) {
 
-  int resultat= interfaceMoteur();
+  interfaceMoteur();
   return 0;
 }

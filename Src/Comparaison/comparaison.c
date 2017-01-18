@@ -142,7 +142,8 @@ int comparaisonTexte(t_Fichier fichierCompare, t_PileDescripteur pileTexte,t_Pil
     return 0;
 }
 
-int compareFichierImage(char * fichierDonne , char * fichierCompare){
+int compareFichierImage(char * fichierDonne , char * fichierCompare)
+{
   ILE * ptr_ficDonne;
   FILE * ptr_ficCompare;
   int valDonne, valCompare, nbCouleurDonne, nbCouleurCompare, cpt=0, diff=0;
@@ -153,7 +154,6 @@ int compareFichierImage(char * fichierDonne , char * fichierCompare){
   ptr_ficCompare=fopen("tempCompare", "w");
   fprintf(ptr_ficCompare, "%s", fichierCompare);
   fclose(ptr_ficCompare);
-
   ptr_ficDonne=fopen("tempDonne", "r");
   ptr_ficCompare=fopen("tempCompare", "r");
   fscanf(ptr_ficDonne, "%*s %d", &nbCouleurDonne);
@@ -185,11 +185,40 @@ int compareFichierImage(char * fichierDonne , char * fichierCompare){
   return -1;
 }
 
-int compareFichierSon(char * fichierDonne , char * fichierCompare){
+int compareFichierSon(char * fichierDonne , char * fichierCompare)
+{
     //TODO
     return 0;
 }
-int compareFichierTexte(char * fichierDonne , char * fichierCompare){
-    //TODO
-    return 0;
+int compareFichierTexte(char * fichierDonne , char * fichierCompare)
+{
+  FILE * ptr_ficDonne;
+  char mot[100]=rien;
+  int nbCommun=0, nbMots=0;
+  ptr_ficDonne=fopen("tempDonne", "w");   //création d'un fichier contenant le premier desc
+  fprintf(ptr_ficDonne, "%s", fichierDonne);    //on écrit le 1er desc dans le fichier
+  fclose(ptr_ficDonne);
+  ptr_ficDonne=fopen("tempDonne", "r");
+
+  while(mot!=<mot>)   //on passe tout ce qui est avant la liste de mot
+  {
+    fscanf(ptr_ficDonne, "%s", mot);
+  }
+
+  while(mot!=</mot>)
+  {
+    fscanf(ptr_ficDonne, "%s", mot);    //on lit le mot
+    if(mot!=</mot>)
+    {
+      fscanf(ptr_ficDonne, "%*s");    //on ignore le nombre d'occurences
+      nbMots++;   //on incrémente le nombre de mots
+      if (strstr(fichierCompare, mot) != NULL)    //si le 2eme desc contient le mot
+      {
+        nbCommun++;   //on incrémente le nombre de mots communs entre les 2
+      }
+    }
+  }
+  pourcentage=(100*nbCommun)/nbMots;    //pourcentage de ressemblance
+  system("rm tempDonne");   //on supprime le fichier temp qui contenait le 1er descripteur
+  return pourcentage;
 }

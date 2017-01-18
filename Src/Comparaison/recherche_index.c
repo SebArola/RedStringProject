@@ -22,10 +22,48 @@ void init_recherche_index(){
     }
 }
 
-void recherche_motcle(char * mot, char ** resultat){
-    
+void strremove(char * string, int n){
+    char * temp = malloc(sizeof(char*)*(strlen(string)-n));
+    for (int i=0; i<strlen(string);i++){
+        if(i>=n){
+                temp[i-n]=string[i];
+                //printf("%c",temp[i-n] );
+        }
+    }
+
+    for (int i=0; i<strlen(string);i++){
+        string[i] = temp[i];
+
+    }
+    //free(temp);
 }
 
+void recherche_motcle(char * mot, char ** resultat){
+    FILE * ptr_ficIndex;
+    char index_path[100];
+    strcpy(index_path,CHEMIN);
+    strcat(index_path,"/Data/tab_index.txt");
+    ptr_ficIndex = fopen(index_path,"r");
+    while(!feof(ptr_ficIndex)){
+        char ligne[20];
+        fscanf(ptr_ficIndex,"%s",ligne);
+        if( strrchr(ligne,'<')!= NULL && strlen(strrchr(ligne,'<'))>6){
+            strremove(ligne,5);
+            if(strcmp(ligne,mot)==0){
+                printf("%s\n",ligne );
+            }
+        }
+    }
+}
+
+
+int main(){
+    init_recherche_index();
+    char ** resultat = malloc(sizeof(char*)*10);
+    char mot[20];
+    scanf("%s",mot);
+    recherche_motcle(mot,resultat);
+}
 /*
 Fomre du fichier index :
 <mot>MOT

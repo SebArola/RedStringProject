@@ -323,24 +323,27 @@ void genDescripteurTexte(t_Fichier fichier, t_PileDescripteur *ptrPileTexte,char
 
 void afficher_tab_index(){
   int cpt,cpt2;
-  for(cpt=0;cpt<NB_MOT_INDEX-1;cpt++){
-    printf("\n\nMOT=>%s  => %d\n\n",TAB_INDEX[cpt].mot,cpt);
-    for(cpt2=0 ; cpt2<TAB_INDEX[cpt].nb_descipteur_correspondent ;cpt2++)
-      printf("%d %s\n",TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].nb_recurrence,TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].mot);
-  }
+  //for(cpt=0;cpt<NB_MOT_INDEX-1;cpt++){
+    printf("\n\nMOTT=>%s  => %d =>coucou=> %d\n\n",TAB_INDEX[32].mot,cpt,TAB_INDEX[32].nb_descipteur_correspondent);
+    for(cpt2=0 ; cpt2<TAB_INDEX[32].nb_descipteur_correspondent ;cpt2++)
+      printf("%d %s\n",TAB_INDEX[32].TAB_INDEX_MOT[cpt2].nb_recurrence,TAB_INDEX[32].TAB_INDEX_MOT[cpt2].mot);
+  //}
 }
 
 void envoie_tableau(char* nom_document,char* mot,int nb_recurrence){
   int cpt,cpt2;
   int new_mot=1;
   int valid=0;
-
-
+  int position=0;
+  int position_des=0;
 
   for(cpt=0;cpt<NB_MOT_INDEX;cpt++)
     if(strcmp(mot,TAB_INDEX[cpt].mot)==0){
       new_mot=0;
+      position=cpt;
     }
+
+
 
   if(new_mot ==1){
     strcpy (TAB_INDEX[cpt].mot,mot);
@@ -350,24 +353,29 @@ void envoie_tableau(char* nom_document,char* mot,int nb_recurrence){
     NB_MOT_INDEX++;
   }
   else{
-    for(cpt=0;cpt<NB_MOT_INDEX;cpt++)
-      if(strcmp(mot,TAB_INDEX[cpt].mot)==0){
-        for(cpt2=0;cpt2<TAB_INDEX[cpt].nb_descipteur_correspondent;cpt2++)
-        {
-          if(TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].nb_recurrence>nb_recurrence ){
-            strcpy (TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].mot,nom_document);
-            TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].nb_recurrence=nb_recurrence;
-            TAB_INDEX[cpt].nb_descipteur_correspondent++;
-            valid=1;
-          }
-        }
-        if(valid==0){
-          strcpy (TAB_INDEX[cpt].TAB_INDEX_MOT[TAB_INDEX[cpt].nb_descipteur_correspondent].mot,nom_document);
-          TAB_INDEX[cpt].TAB_INDEX_MOT[TAB_INDEX[cpt].nb_descipteur_correspondent].nb_recurrence=nb_recurrence;
-          TAB_INDEX[cpt].nb_descipteur_correspondent++;
-        }
-        cpt=NB_MOT_INDEX;
+    position_des=TAB_INDEX[position].nb_descipteur_correspondent;
+
+    for(cpt=0;cpt<TAB_INDEX[position].nb_descipteur_correspondent;cpt++){
+      if(TAB_INDEX[position].TAB_INDEX_MOT[cpt].nb_recurrence<nb_recurrence){
+        position_des=cpt;
+        cpt=TAB_INDEX[position].nb_descipteur_correspondent;
       }
+    }
+    if( position_des==TAB_INDEX[position].nb_descipteur_correspondent){
+      strcpy (TAB_INDEX[position].TAB_INDEX_MOT[position_des].mot,nom_document);
+      TAB_INDEX[position].TAB_INDEX_MOT[position_des].nb_recurrence=nb_recurrence;
+      TAB_INDEX[position].nb_descipteur_correspondent++;
+    }
+    else{
+      //afficher_tab_index();
+      for(cpt2=TAB_INDEX[position].nb_descipteur_correspondent;cpt2>position_des;cpt2--){
+        strcpy (TAB_INDEX[position].TAB_INDEX_MOT[cpt2].mot,TAB_INDEX[position].TAB_INDEX_MOT[cpt2-1].mot);
+        TAB_INDEX[position].TAB_INDEX_MOT[cpt2].nb_recurrence=TAB_INDEX[position].TAB_INDEX_MOT[cpt2-1].nb_recurrence;
+      }
+      strcpy (TAB_INDEX[position].TAB_INDEX_MOT[position_des].mot,nom_document);
+      TAB_INDEX[position].TAB_INDEX_MOT[position_des].nb_recurrence=nb_recurrence;
+      TAB_INDEX[position].nb_descipteur_correspondent++;
+    }
   }
 }
 
@@ -442,16 +450,12 @@ void conception_index(){
     ajout_mot_chaine("<mot>");
     ajout_mot_chaine(TAB_INDEX[cpt].mot);
     ajout_rc_chaine();
-    for (cpt2=TAB_INDEX[cpt].nb_descipteur_correspondent+1;cpt2+1 >0;cpt2--){
+    for (cpt2=0;cpt2<TAB_INDEX[cpt].nb_descipteur_correspondent;cpt2++){
       if(TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].nb_recurrence !=0){
-        if(strcmp(TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].mot,TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2-1].mot)!=0){
-          if(strcmp(TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].mot,TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2-2].mot)!=0){
-            ajout_chiffre_chaine(TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].nb_recurrence);
-            ajout_mot_chaine(" ");
-            ajout_mot_chaine(TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].mot);
-            ajout_rc_chaine();
-          }
-        }
+        ajout_chiffre_chaine(TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].nb_recurrence);
+        ajout_mot_chaine(" ");
+        ajout_mot_chaine(TAB_INDEX[cpt].TAB_INDEX_MOT[cpt2].mot);
+        ajout_rc_chaine();
       }
     }
     ajout_mot_chaine("</mot>");
@@ -468,16 +472,16 @@ void conception_index(){
 void genTabIndex(t_PileDescripteur* pile_texte){
   char* descripteur;//[TAILLE_LIGNE];
   int longeur_descripteur;
-  int cpt=0;
 
   t_CellDescripteur *suivant;
   suivant = (*pile_texte).premier;
-  while(suivant->p_suivant!=NULL){
+
+while(suivant!=NULL){
     gere_tab_index(suivant->descripteur);
       suivant = suivant->p_suivant;
-    cpt++;
   }
  conception_index();
+ //afficher_tab_index();
 }
 //<mot>MOT
 //nb_iteration NOM_FICHIER

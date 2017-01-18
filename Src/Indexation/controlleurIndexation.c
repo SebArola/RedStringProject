@@ -217,7 +217,7 @@ void runIndexation(){
 
 
 // //Main de test.
-// int main(){
-//     printf("Lancement indexation. RETIREZ MOI AVANT LA RECETTE\n");
-//     runIndexation();
-// }
+int main(){
+    printf("Lancement indexation. RETIREZ MOI AVANT LA RECETTE\n");
+    runIndexation();
+}

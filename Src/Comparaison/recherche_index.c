@@ -22,8 +22,8 @@ void init_recherche_index(){
     }
 }
 
-void recherche_motcle(char * mot,char ** resultat){
-
+void recherche_motcle(char * mot, char ** resultat){
+    
 }
 
 /*

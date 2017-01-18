@@ -143,8 +143,37 @@ int comparaisonTexte(t_Fichier fichierCompare, t_PileDescripteur pileTexte,t_Pil
 }
 
 int compareFichierImage(char * fichierDonne , char * fichierCompare){
-    //TODO
-    return 0;
+  FILE * ptr_ficDonne;
+  FILE * ptr_ficCompare;
+  int valDonne, valCompare, nbCouleurDonne, nbCouleurCompare, cpt=0, diff=0;
+  float resultat;
+  ptr_ficDonne=fopen("tempDonne", "w");
+  fprintf(ptr_ficDonne, "%s", fichierDonne);
+  fclose(ptr_ficDonne);
+  ptr_ficCompare=fopen("tempCompare", "w");
+  fprintf(ptr_ficCompare, "%s", fichierCompare);
+  fclose(ptr_ficCompare);
+
+  ptr_ficDonne=fopen("tempDonne", "r");
+  ptr_ficCompare=fopen("tempCompare", "r");
+  fscanf(ptr_ficDonne, "%*s %d", &nbCouleurDonne);
+  fscanf(ptr_ficCompare, "%*s %d", &nbCouleurCompare);
+  if(nbCouleurDonne==nbCouleurCompare)
+  {
+    while(!feof(ptr_ficDonne))
+    {
+      fscanf(ptr_ficDonne, "%*d %d", &valDonne);
+      fscanf(ptr_ficCompare, "%*d %d", &valCompare);
+      cpt+=valDonne;
+      diff+=abs(valDonne-valCompare);
+    }
+    fclose(ptr_ficDonne);
+    fclose(ptr_ficCompare);
+    resultat=(1-((float)diff/cpt))*100;
+    diff=resultat;
+    return resultat;
+  }
+  return -1;
 }
 
 int compareFichierSon(char * fichierDonne , char * fichierCompare){

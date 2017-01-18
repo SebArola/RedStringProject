@@ -36,15 +36,16 @@ void genPileDescripteur(t_PileDescripteur *pile, char * type){
     while(!feof(ptr_ficBaseDesc)){
         ligne = malloc(sizeof(char)*100);
         descripteur = malloc(sizeof(char)*5000);
-        fgets(ligne,strlen(CHEMIN)+10,ptr_ficBaseDesc);
+        strcpy(descripteur,"");
+        fgets(ligne,strlen(CHEMIN)+20,ptr_ficBaseDesc);
         while(strpbrk(ligne,";")==NULL){
             strcat(descripteur,ligne);
             fgets(ligne,100,ptr_ficBaseDesc);
         }
-        printf("%s\n",descripteur );
+        //printf("%s\n",descripteur );
         empile(pile,descripteur);
-        free(descripteur);
-        free(ligne);
+        // free(descripteur);
+        // free(ligne);
     //    printf("DEBUG 1.4\n" );
     }
     printf("Fin fct\n");

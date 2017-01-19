@@ -174,6 +174,7 @@ void genDescripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
 	char * descripteur = malloc(5000*sizeof(char));
 	printf("DEBUG 3\n");
 	DescSon = CreerDescSon(ptr_fichierSonBin); // DescSon de type t_DescSon
+	fclose(ptr_fichierSonBin);
 	printf("DEBUG sorti CreerDescSon\n");
 	strcpy(descripteur, fichier.chemin_nom);
 	printf("DEBUG 1er strcat\n");
@@ -187,7 +188,6 @@ void genDescripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
 	strcat(descripteur, "Nombre fenetres:");
 	sprintf(descripteur,"%d",DescSon->nbWindows);
 	printf("DEBUG 5\n");
-	printf("%d\n", DescSon->histogram[41][0]);
 	for(int i=0;i<(DescSon->nbWindows);i++){
 		for(int j=0; j<nb_Intervalles; j++){
 			sprintf(charTemp,"%d",DescSon->histogram[i][j]);
@@ -196,12 +196,10 @@ void genDescripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
 		}
 		strcat(descripteur,"\n");
 	}
-	printf("%s",descripteur);
+	//printf("%s",descripteur);
 	printf("DEBUG 6\n");
 	//free(DescSon);
-
-	ptr_fichierSonBin=NULL;
-	//fclose(ptr_fichierSonBin);
+	//fflush(stdout);
 	printf("DEBUG 7\n");
 	empile(ptr_PileSon, descripteur);
 	printf("DEBUG 8\n");

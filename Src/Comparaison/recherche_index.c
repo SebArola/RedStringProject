@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "recherche_index.h"
+#include "../Librairies/string_perso.h"
 
 char CHEMIN[100];
 
@@ -22,22 +23,6 @@ void init_recherche_index(){
     }
 }
 
-void strremove(char * string, int n){
-    char * temp = malloc(sizeof(char*)*(strlen(string)-n));
-    for (int i=0; i<strlen(string);i++){
-        if(i>=n){
-                temp[i-n]=string[i];
-                //printf("%c",temp[i-n] );
-        }
-    }
-
-    for (int i=0; i<strlen(string);i++){
-        string[i] = temp[i];
-
-    }
-    //free(temp);
-}
-
 void recherche_motcle(char * mot, char ** resultat){
     FILE * ptr_ficIndex;
     char index_path[100];
@@ -45,17 +30,17 @@ void recherche_motcle(char * mot, char ** resultat){
     strcat(index_path,"/Data/tab_index.txt");
     ptr_ficIndex = fopen(index_path,"r");
     while(!feof(ptr_ficIndex)){
-        char ligne[20];
-        fscanf(ptr_ficIndex,"%s",ligne);
-        if( strrchr(ligne,'<')!= NULL && strlen(strrchr(ligne,'<'))>6){
+        char ligne[50];
+        fgets(ligne,50,ptr_ficIndex);
+        if( strstr(ligne,"<mot>")){
             strremove(ligne,5);
-            if(strcmp(ligne,mot)==0){
+            if(strstr(ligne,mot)!=NULL){
                 char nbOcc[10];
                 char nomFic[30];
                 int i=0;
                 fscanf(ptr_ficIndex,"%s",nbOcc);
                 fscanf(ptr_ficIndex,"%s",nomFic);
-                while(strcmp(nbOcc,"</mot>")!=0){
+                while(strstr(nbOcc,"</mot>")==NULL){
                     strcat(nbOcc," ");
                     strcat(nbOcc,nomFic);
                     resultat[i] = malloc(sizeof(char)*(strlen(nbOcc)));

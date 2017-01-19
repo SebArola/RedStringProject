@@ -7,7 +7,7 @@ EXEC_TEST=test_pile
 DIREXEC=./Exec/
 DIRSRC=./Src/
 DIRTEST=./Test/
-SRC=$(DIRSRC)Interface/interfaceMoteur.c $(wildcard ./Src/Indexation/*.c) $(wildcard ./Src/Comparaison/*.c)
+SRC=$(DIRSRC)Interface/interfaceMoteur.c $(wildcard ./Src/Indexation/*.c) $(wildcard ./Src/Comparaison/*.c) $(wildcard ./Src/Librairies/*.c)
 OBJS=$(SRC:.c=.o)
 SRC_INDEXATION=$(wildcard ./Src/Indexation/*.c)
 OBJS_INDEXATION=$(SRC_INDEXATION:.c=.o)

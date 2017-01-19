@@ -53,7 +53,6 @@ void genPileDescripteur(t_PileDescripteur *pile, char * type){
     fscanf(temp_file,"%d",&nbLigne);
     fclose(temp_file);
     //system("rm temp_wc.txt");
-    printf("DEBUG 1\n" );
     ptr_ficBaseDesc = fopen(base_path,"r");
     char * descripteur;
     char * ligne;
@@ -72,7 +71,6 @@ void genPileDescripteur(t_PileDescripteur *pile, char * type){
         // free(ligne);
     //    printf("DEBUG 1.4\n" );
     }
-    printf("Fin fct\n");
 }
 
 int interfaceMoteur()
@@ -308,6 +306,7 @@ int interfaceMoteur()
 
                  char ext[5];
                 char nom[30];
+                int fic_trouve = 1;
                 do{
                       printf("Entrez le nom de l'image (avec extension):\n");
                       if (fgets(cheminImage, TAILLECHAINE, stdin)!=NULL) {
@@ -335,26 +334,58 @@ int interfaceMoteur()
 
                               }
                               t_Fichier temp;
-                              printf("%s\n",cheminImage );
                               temp.chemin_nom = malloc(sizeof(char)*strlen(chemin)+20);
                               temp.chemin_info = malloc(sizeof(char)*strlen(chemin)+20);
 
                               strcpy(temp.chemin_nom,chemin) ;
                               strcat(temp.chemin_nom,strcat(strcat(cheminImage,"."),ext));
-                              printf("%s\n",temp.chemin_nom );
+                              printf("Recherche d'image semblable à :%s\n",cheminImage );
                               strcpy(temp.chemin_info,chemin);
                               strcat(temp.chemin_info,nom);
                               strcat(temp.chemin_info,".txt");
-                              printf("%s\n",temp.chemin_info );
-                              temp.type = "image";
-                              t_PileDescripteur t;
-                              init_pile(&t);
-                              comparaisonImage(temp, pile_image,&t);
-                              affiche_pile(t);
+                              if(fopen(temp.chemin_info,"r")!=NULL){
+
+                                  temp.type = "image";
+                                  t_PileDescripteur resultat;
+                                  init_pile(&resultat);
+                                  comparaisonImage(temp, pile_image,&resultat);
+                                  if(!pile_est_vide(resultat)){
+                                      t_CellDescripteur *suivant;
+                                      suivant = resultat.premier;
+                                      char * ligne;
+                                      char currentCar;
+                                      int i;
+                                      while(suivant->p_suivant!=NULL){
+                                          ligne = malloc(sizeof(char)*200);
+                                          i=0;
+                                          currentCar = suivant->descripteur[i];
+                                          while(currentCar != '\n'){
+                                              strcat(ligne,&currentCar);
+                                              i++;
+                                              currentCar = suivant->descripteur[i];
+                                          }
+                                          printf("%s\n",ligne );
+                                          suivant = suivant->p_suivant;
+                                      }
+                                      ligne = malloc(sizeof(char)*200);
+                                      i=0;
+                                      currentCar = suivant->descripteur[i];
+                                      while(currentCar != '\n'){
+                                          strcat(ligne,&currentCar);
+                                          i++;
+                                          currentCar = suivant->descripteur[i];
+                                      }
+                                      printf("%s\n",ligne );
+                                  }
+                                  //affiche_pile(resultat);
+                              }else{
+                                  printf("ERREUR : Fichier introuvable.\n" );
+                                  fic_trouve = 0;
+                              }
                           }
 
                       }
-                }while(strlen(ext)<=0);
+                }while(strlen(ext)<=0 ||fic_trouve == 0);
                 //     printf("\tICI affichage des images correspondant au chemin saisie par l'user!\n");
 
                 break;

@@ -61,7 +61,6 @@ int comparaisonImage(t_Fichier fichierCompare, t_PileDescripteur pileImage,t_Pil
             pourcentage = compareFichierImage(fichierDonne,suivant->descripteur );
             //On compare le pourcentage au seuil passé en paramètre
             if(pourcentage >= seuil){
-                printf("%d == %d",pourcentage,seuil);
                 //Si vrai on rajoute le descripteur dans la pile des descripteur similaire.
                 empile(descripteur_similaire,suivant->descripteur);
             }

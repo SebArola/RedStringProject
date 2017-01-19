@@ -194,20 +194,28 @@ void runIndexation(){
     char all_SON_Path[150];//Chemin vers le fichier all_SON
     strcpy(all_SON_Path,CHEMIN);
     strcat(all_SON_Path,"/Data/all_SON.txt");
-
+    char baseSon[100];
+    strcpy(baseSon ,CHEMIN);
+    strcat(baseSon, "/Data/all_SON.txt")
     ptr_ficListe = fopen(all_SON_Path, "r");
-
+    FILE * ptr_baseSon = fopen("")
     while(!feof(ptr_ficListe)){//Tant qu'on est pas a la fin du document
 
-        fscanf(ptr_ficListe, "%s", nomFic);//On recupère la ligne courante
-        //t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
-        temp_fichier->chemin_nom = nomFic;//Création du fichier
+        t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
         fscanf(ptr_ficListe, "%s", infoFic);//On recupère le nom du fichier info
         temp_fichier->chemin_info = infoFic;
+        printf("%s\n", temp_fichier->chemin_info);
+        fscanf(ptr_ficListe, "%*s");
+        fscanf(ptr_ficListe, "%s", nomFic);//On recupère la ligne courante
+        temp_fichier->chemin_nom = nomFic;//Création du fichier
+
+
+
         //Ajout du fichier dans la pile_img. Voir indexationImage.h pour
         //des détails sur la méthode.
         //printf("DEBUG B1\n" );
-        //genDescripteurSon(*temp_fichier, &pile_son);
+        if()
+        genDescripteurSon(*temp_fichier, &pile_son);
         //printf("DEBUG B\n" );
 
     }
@@ -220,7 +228,7 @@ void runIndexation(){
     ecrireDescripteur(pile_image,"image");
 
     //printf("ecrireDescripteurSon non activé\n");
-//    ecrireDescripteur(pile_son,"son");
+    ecrireDescripteur(pile_son,"son");
 }
 
 

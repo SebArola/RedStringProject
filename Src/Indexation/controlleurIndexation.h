@@ -10,8 +10,11 @@
 #include "indexationImage.h"
 #include "indexationSon.h"
 
-void runIndexation();
-void ecrireDescripteur(t_PileDescripteur pileDescripteur, char * type);
 
+void ecrireDescripteur(t_PileDescripteur pileDescripteur, char * type);
+void indexationImage(t_PileDescripteur *pile_image);
+void indexationTexte(t_PileDescripteur *pile_texte, int NBMOT);
+void indexationSon(t_PileDescripteur *pile_son);
+void runIndexation();
 
 #endif

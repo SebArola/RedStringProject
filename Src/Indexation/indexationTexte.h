@@ -19,7 +19,7 @@ void suppr_ponctuation(char* ligne);
 void suppr_carac(char* ligne,int nb);
 void ligne_tableau(char* ligne, int* retour);
 void conception_descripteur(char* nom_fichier);
-void genDescripteurTexte(t_Fichier fichier, t_PileDescripteur *ptrPileTexte,char* chemin);
+void genDescripteurTexte(t_Fichier fichier, t_PileDescripteur *ptrPileTexte,char* chemin, int nbMot);
 
 void afficher_tab_index();
 void envoie_tableau(char* nom_document,char* mot,int nb_recurrence);

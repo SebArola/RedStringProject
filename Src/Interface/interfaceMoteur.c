@@ -73,6 +73,91 @@ void genPileDescripteur(t_PileDescripteur *pile, char * type){
     }
 }
 
+void comparaison_moteur_texte(t_PileDescripteur pile_texte){
+
+  int fic_trouve_txt =1 ;
+  do{
+      fic_trouve_txt = 1;
+      printf("Entrez le nom du fichier :\n");
+      char nomFic[50];
+      scanf("%s",nomFic);
+      if(strpbrk(nomFic,".")==NULL){
+          strcat(nomFic,".xml");
+      }
+      char chemin_fic[200];
+      strcpy(chemin_fic,CHEMIN);
+      strcat(chemin_fic,"/Data/Textes/");
+      strcat(chemin_fic,nomFic);
+  //    printf("DEBUG 1\n" );
+      if(fopen(chemin_fic,"r")!=NULL){
+          t_Fichier temp;
+          t_PileDescripteur pile_resultat;
+          init_pile(&pile_resultat);
+          temp.chemin_nom = nomFic;
+          comparaisonTexte(temp, pile_texte,&pile_resultat);
+          printf("\nRésultat :\n\n" );
+          if(!pile_est_vide(pile_resultat)){
+              t_CellDescripteur *suivant;
+              suivant = pile_resultat.premier;
+              char * ligne;
+              char currentCar;
+              int i;
+              while(suivant->p_suivant!=NULL){
+                  ligne = malloc(sizeof(char)*200);
+                  i=0;
+                  strremove(suivant->descripteur,13);
+                  currentCar = suivant->descripteur[i];
+                  while(currentCar != '\n'){
+                      strcat(ligne,&currentCar);
+                      i++;
+                      currentCar = suivant->descripteur[i];
+                  }
+                  if(strstr(temp.chemin_nom,ligne)==NULL)
+                        printf("%s\n",ligne );
+                  suivant = suivant->p_suivant;
+              }
+              ligne = malloc(sizeof(char)*200);
+              i=0;
+              strremove(suivant->descripteur,13);
+              currentCar = suivant->descripteur[i];
+              while(currentCar != '\n'){
+                  strcat(ligne,&currentCar);
+                  i++;
+                  currentCar = suivant->descripteur[i];
+              }
+              if(strstr(temp.chemin_nom,ligne)==NULL)
+                    printf("%s\n",ligne );
+          }
+      }else{
+          printf("ERREUR : fichier introuvable\n");
+          fic_trouve_txt = 0;
+      }
+  }while (fic_trouve_txt == 0);
+}
+
+void recherche_index(t_PileDescripteur pile_texte){
+    char mot_cles[25];
+    int c;
+    char **resultat = malloc(sizeof(char*)*20);
+    printf("Entrez un mot a rechercher :\n" );
+    if(scanf("%s",mot_cles)!=0){
+        while ( ((c = getchar()) != '\n') && c != EOF);
+        recherche_motcle(mot_cles,resultat);
+        printf("\nRésultat (nb occurence par fichier):\n");
+        if(resultat[0]==NULL){
+            printf("Aucun résutat\n" );
+        }else{
+            for(int i=0;i<20;i++){
+                if(resultat[i]==NULL){
+                    i=20;
+                }else{
+                    printf("->%s\n",resultat[i] );
+                }
+            }
+        }
+    }
+}
+
 int interfaceMoteur()
 {
 
@@ -96,6 +181,8 @@ int interfaceMoteur()
   init_recherche_index();
   t_PileDescripteur pile_image;
   t_PileDescripteur pile_texte;
+  t_PileDescripteur * temp_texte;
+  t_PileDescripteur * temp_image;
   init_pile(&pile_image);
   init_pile(&pile_texte);
 
@@ -104,172 +191,136 @@ int interfaceMoteur()
 
   printf("\t++++++++++++++++++\n\t+Projet Fil Rouge+\n\t+RedStringGroupe 5        +\n\t++++++++++++++++++\n");
   /*cette fonction permet de réaliser des tests basiques dans notre appli*/
-  int  seuilIndexTexte=0;
-  int nbitQuantif=0;//correspond au mode choisi par l'user
+  char  seuilIndexTexte[4];
 
-  char choixIndexation1[2],  choixTestDescrip[2], choixUser1[2], continuer[2];//(permet de choisir de continuer ou non le test);;
+  char choixIndexation1[2],  choixUser1[2], continuer[2];//(permet de choisir de continuer ou non le test);;
   char choixMode[2];
-  char continuerCompar[2]={'0', '\0'};
-
-  int seuilDescripImg=0;  //correspond au seuil de Comparaison descripteurs images
-  int seuilDescripText=0; //correspond au seuil de Comparaison descripteurs textes
-  int seuilDescripSon=0;  //correspond au seuil de Comparaison descripteurs Sons
-  int nbreEchantillon=0, nbreIntervalles=0; //parametre pour creer descripteurs son.
+ // char continuerCompar[2]={'0', '\0'};
   int c;//pour le vidage du buffer d'entrée
 
-  char chaine[TAILLECHAINE]={'a'};//tableau contenant le critere de recherche de,
-  //char chaineSansEspace[TAILLECHAINE]={'a'};//nvelle chaine contenant le critere de recherche
-  char imageRecherchee[2], cheminImage[TAILLECHAINE], cheminFicAudio[TAILLECHAINE];           //type d'image recherchee par l'user et chemin de l'imagee
+  char  cheminImage[TAILLECHAINE];           //type d'image recherchee par l'user et chemin de l'imagee
   char resumePartie[2];
-//  char *positionEntree=NULL;
-
   do{
     int choixAdmin = 1;
     do{
+        int retour = 1;
+        do{
+
+        }while(retour == 0);
         system("clear");
         printf("\t++++++++++++++++++\n\t+Projet Fil Rouge+\n\t+RedStringGroupe 5+\n\t++++++++++++++++++\n");
-        printf("\n\nQuel type d'utilisateur etes-vous?\n*1.Admin\n*2.Utilisateur\n");
+        printf("\n\nQuel type d'utilisateur etes-vous?\n*1.Admin\n*2.Utilisateur\n*3.Quitter\n");
         scanf("%s", choixMode);
         printf("%s\n", choixMode);
         while ( ((c = getchar()) != '\n') && c != EOF);
         system("clear");
 
-            choixAdmin = 1;switch (choixMode[0]) {
+        choixAdmin = 1;
+        switch (choixMode[0]) {
               case '1':
                 do /*|| (continuerCompar=='1')*/
                 {
                   printf("+++++++Vous etes en mode administrateur!++++++++\n\n");
-                  printf("\t+++++++++++++++++++++++++\n\t+Que voulez-vous tester?+\n\t+++++++++++++++++++++++++\n\n");
-                  printf("*1.Indexation image\n*2.Indexation texte\n*3.Indexation son\n*4.Comparaison\n");
+                  printf("\t+++++++++++++++++++++++++\n\t+Que voulez-vous faire ?+\n\t+++++++++++++++++++++++++\n\n");
+                  printf("*1.Indexation image\n*2.Indexation texte\n*3.Indexation son\n*4.Fichier config\n*5.Quitter\n");
                   scanf("%s", choixIndexation1);
                   while ( ((c = getchar()) != '\n') && c != EOF);
                   switch (choixIndexation1[0])
                   {
                     case '1':
-                      nbitQuantif=0;
-                      printf("Definir le nombre de bits pour la quantification! ");
-                      scanf("%d",&nbitQuantif);
-                      while ( ((c = getchar()) != '\n') && c != EOF);
-                      //choixIndexation=&choixIndexation1;
-                      if (nbitQuantif>0) {
-                        //indexationImage(nbitQuantif);
-                        printf("\n\t//ICI affichage des descripteurs images apres execution\n\n");
-                        //visualisation des descripteurs apres execution de la fonction precedente.
-                      }
-                      else {
-                        printf("\tLe nombre de bits de quantification doit etre un nombre positif\n");
-                      }
-                      break;
+                        printf("Indexation des images ...\n" );
+                        temp_image = malloc(sizeof(t_PileDescripteur));
+                        init_pile(temp_image);
+                        indexationImage(temp_image);
+                        int nbDesc = 0;
+                        do{
+                            printf("%d ont été généré, combien voulez-vous en afficher ?\n",taille_pile(*temp_image) );
+                            char nbDesc_ch[10];
+                            scanf("%s",nbDesc_ch);
+                            while ( ((c = getchar()) != '\n') && c != EOF);
+                            nbDesc = strtol(nbDesc_ch,(char**)NULL,10);
+                        }while(nbDesc>taille_pile(*temp_image));
+                        int i = 0;
+                        if(!pile_est_vide(*temp_image)){
+                    		t_CellDescripteur *suivant;
+                    		suivant = temp_image->premier;
+                    		while(suivant->p_suivant!=NULL && i<nbDesc-1){
+                    			printf("%s \n",suivant->descripteur);
+                                i++;
+                    			suivant = suivant->p_suivant;
+                                printf("Entrer pour continuer...");
+                                while((c = getchar())!= '\n' && c!=EOF);
+                                system("clear");
+                    		}
+                    		printf("%s", suivant->descripteur);
+                    	}
+                        free(temp_image);
+
+                    break;
 
                     case '2':
-                      seuilIndexTexte=0;//on reinitialise
-                      printf("Definir le seuil de l'indexation!(nbres d'occs de mots) ");
-                      scanf("%d", &seuilIndexTexte);
+                      printf("Entrer le nombre de mot récurrent maximum (0<nbMot<6):\n");
+                      scanf("%s", seuilIndexTexte);
                       while ( ((c = getchar()) != '\n') && c != EOF);
-                      //choixIndexation=&choixIndexation1;
-                      if(seuilIndexTexte>0) {
-                        //indexationTexte(seuilIndexTexte);
-                        //visualisation des descripteurs textes apres cette fonction
-                        printf("\n\tICI********visualisation des descripteurs textes\n\n");
-                      }
-                      else{
-                        printf("\n\tVous n'avez pas choisi un bon seuil d'indexation!\n");
-                      }
+                      int nbMot = 5;
+                      nbMot = strtol(seuilIndexTexte,(char**)NULL,10);
+                      int correct = 1;
+                      do{
+                          correct = 1;
+                          if(nbMot>0 && nbMot <6){
+                                  printf("Indexation des textes ...\n" );
+                                  temp_texte = malloc(sizeof(t_PileDescripteur));
+                                  init_pile(temp_texte);
+                                  indexationTexte(temp_texte, nbMot);
+                                  int nbDesc = 0;
+                                  do{
+                                      printf("%d ont été généré, combien voulez-vous en afficher?\n",taille_pile(*temp_texte) );
+                                      char nbDesc_ch[10];
+                                      scanf("%s",nbDesc_ch);
+                                      while ( ((c = getchar()) != '\n') && c != EOF);
+                                      nbDesc = strtol(nbDesc_ch,(char**)NULL,10);
+                                  }while(nbDesc>taille_pile(*temp_texte));
+                                  int i = 0;
+                                  if(!pile_est_vide(*temp_texte)){
+                                      t_CellDescripteur *suivant;
+                                      suivant = temp_texte->premier;
+                                      while(suivant->p_suivant!=NULL && i<nbDesc-1){
+                                          printf("%s \n",suivant->descripteur);
+                                          i++;
+                                          suivant = suivant->p_suivant;
+                                          printf("Entrer pour continuer...");
+                                          while((c = getchar())!= '\n' && c!=EOF);
+                                          system("clear");
+                                      }
+                                      printf("%s", suivant->descripteur);
+                                  }
+                                  free(temp_texte);
+                          }else{
+                            printf("\n\tVous n'avez pas choisi un bon seuil d'indexation!\n");
+                            correct = 0;
+                          }
+                      }while(correct == 0);
                       break;
 
                     case '3':
-                      nbreEchantillon=0;
-                      nbreIntervalles=0;
-                      //choixIndexation=&choixIndexation1;
-                      printf("Definir le nombre d'echantillon(s) pour une fenetre! ");
-                      scanf("%d", &nbreEchantillon);
-                      while ( ((c = getchar()) != '\n') && c != EOF);
-                      printf("Definir le nombre d'intervalle(s) pour le calcul de l'histogramme ");
-                      scanf("%d", &nbreIntervalles);
-                      while ( ((c = getchar()) != '\n') && c != EOF);
-                      if (nbreEchantillon>0 && nbreIntervalles>0) {
-                        //indexationSon(nbreEchantillon, nbreIntervalles);
-                        //on appele la fonction d'indexationSon et on lui passe les param de configuration.
-                        printf("\n\tICI********visualisation des descripteurs\n\n");
-                      }
-                      else{
-                        printf("\tCes deux valeurs doivent etre positives!\n");
-                      }
-                      break;
+                        printf("WORK IN PROGRESS\n");
+                    break;
                     case '4':
-                      system("clear");
-                      do
-                      {
-                        printf("+++++++Vous etes en mode administrateur!++++++++\n\n");//on reecrit vous etes en mode admin
-                        //choixIndexation=&choixIndexation1;
-                        printf("\t\n+++++Test de la Comparaison++++++\n\n");
-                        printf("\t++++++++++++++++++++++++++++++++++++++++\n\t+Quels descripteurs voulez-vous tester?+\n\t++++++++++++++++++++++++++++++++++++++++\n");
-                        printf("**1.Descripteur image\n**2.Descripteur texte\n**3.Descripteur son\n");
-                        scanf("%s",choixTestDescrip);
-
-                        switch (choixTestDescrip[0])
-                        {
-                          case '1':
-                            //choixDescripComp=&choixTestDescrip;
-                            seuilDescripImg=0;
-                            printf("Entrez le seuil de Comparaison des descripteurs type image\n");
-                            scanf("%d", &seuilDescripImg);
-                            while ( ((c = getchar()) != '\n') && c != EOF);
-                            if (seuilDescripImg>0) {
-                              //valeur a envoyer a la fonction de comparaison
-                              //en retour, affichage de descripteurs similaires
-                              printf("\n\tICI***affichage des descripteurs similaires!\n\n");
-                            }
-                            else{
-                              printf("\tVous n'avez pas entre le bon seuil de comparaison!\n");
-                            }
-                            break;
-
-                          case '2':
-                            //choixDescripComp=&choixTestDescrip;
-                            seuilDescripText=0;
-                            printf("Entrez le seuil de Comparaison des descripteurs type textes\n");
-                            scanf("%d", &seuilDescripText);
-                            while ( ((c = getchar()) != '\n') && c != EOF);
-                            if (seuilDescripText>0) {
-                              //valeur a envoyer a la fonction de comparaison
-                              //en retour, affichage de descripteurs similaires
-                              printf("\n\tICI***affichage des descripteurs similaires!\n\n");
-                            }
-                            else{
-                              printf("\tLe seuil doit etre un nombre positif \n");
-                            }
-                            break;
-
-                          case '3':
-                            //choixDescripComp=&choixTestDescrip;
-                            seuilDescripSon=0;
-                            printf("Entrez le seuil de Comparaison des descripteurs type son\n");
-                            scanf("%d", &seuilDescripSon);
-                            while ( ((c = getchar()) != '\n') && c != EOF);
-                            if (seuilDescripSon) {
-                              //valeur a envoyer a la fonction de comparaison
-                              //en retour, affichage de descripteurs similaires
-                              printf("\n\tICI***affichage des descripteurs similaires!\n\n");
-                            }
-                            else{
-                              printf("\tLe seuil doit etre un nombre positif!\n");
-                            }
-
-                            break;
-                          default:
-                            printf("\tVous n'avez pas fait le bon choix du type de descripteurs a tester\n");
-                        }
-                        printf("\nvoulez-vous poursuivre le test des descripteurs ?\n**1:oui\n**0: non\n");
-                        scanf("%s", continuerCompar);
-                        while ( ((c = getchar()) != '\n') && c != EOF);
-                        system("clear");
-                      }while(continuerCompar[0]=='1');
-                      break;
+                        printf("Ouverture du fichier config.txt");
+                        char chemin[100];
+                        strcpy(chemin,"gedit ");
+                        strcat(chemin,CHEMIN);
+                        strcat(chemin,"/config.txt");
+                        strcat(chemin, " &");
+                        system(chemin);
+                    break;
+                    case '5':
+                    break;
                     default:
                         printf("\n\nVous n'avez pas fait le bon choix du type d'indexation!\n");
+                    break;
                   }
-                  printf("\nvoulez-vous poursuivre le test de l'indexation et de la comparaison?\n**1:oui\n**0: non\n");
+                  printf("\nvoulez-vous oursuivre les textes ?\n**1:oui\n**0: non\n");
                   scanf("%s", continuer);
                   while ( ((c = getchar()) != '\n') && c != EOF);
                   system("clear");
@@ -285,7 +336,7 @@ int interfaceMoteur()
                   printf("\t+++++++++++++++++++++++++++++\n\t+Que voulez-vous rechercher?+\n\t+++++++++++++++++++++++++++++\n");
                   printf("\n**1.Fichier Texte\n");
                   printf("**2.Fichier Image\n");
-                  printf("**3.Fichier Audio\n");
+                  printf("**3.Fichier Audio\n**.4Quitter\n");
                   scanf("%s", choixUser1);
                   while ( ((c = getchar()) != '\n') && c != EOF);
                   switch (choixUser1[0])
@@ -294,7 +345,6 @@ int interfaceMoteur()
                       printf("\t+++++++++recherche d'un fichier texte++++++++++\n");
                       char choixTexte[10];
                       int choix_incorrect =1;
-                      int fic_trouve_txt =1 ;
                       do{
                           choix_incorrect=1;
                           printf("**1.Comparaison de document\n**2.Recherche mot cles\n");
@@ -302,85 +352,10 @@ int interfaceMoteur()
                               while ( ((c = getchar()) != '\n') && c != EOF);
                               switch(choixTexte[0]){
                                   case '1' :
-                                      do{
-                                          fic_trouve_txt = 1;
-                                          printf("Entrez le nom du fichier :\n");
-                                          char nomFic[50];
-                                          scanf("%s",nomFic);
-                                          if(strpbrk(nomFic,".")==NULL){
-                                              strcat(nomFic,".xml");
-                                          }
-                                          char chemin_fic[200];
-                                          strcpy(chemin_fic,CHEMIN);
-                                          strcat(chemin_fic,"/Data/Textes/");
-                                          strcat(chemin_fic,nomFic);
-                                      //    printf("DEBUG 1\n" );
-                                          if(fopen(chemin_fic,"r")!=NULL){
-                                              t_Fichier temp;
-                                              t_PileDescripteur pile_resultat;
-                                              init_pile(&pile_resultat);
-                                              temp.chemin_nom = nomFic;
-                                              comparaisonTexte(temp, pile_texte,&pile_resultat);
-                                              printf("\nRésultat :\n\n" );
-                                              if(!pile_est_vide(pile_resultat)){
-                                                  t_CellDescripteur *suivant;
-                                                  suivant = pile_resultat.premier;
-                                                  char * ligne;
-                                                  char currentCar;
-                                                  int i;
-                                                  while(suivant->p_suivant!=NULL){
-                                                      ligne = malloc(sizeof(char)*200);
-                                                      i=0;
-                                                      strremove(suivant->descripteur,13);
-                                                      currentCar = suivant->descripteur[i];
-                                                      while(currentCar != '\n'){
-                                                          strcat(ligne,&currentCar);
-                                                          i++;
-                                                          currentCar = suivant->descripteur[i];
-                                                      }
-                                                      if(strstr(temp.chemin_nom,ligne)==NULL)
-                                                            printf("%s\n",ligne );
-                                                      suivant = suivant->p_suivant;
-                                                  }
-                                                  ligne = malloc(sizeof(char)*200);
-                                                  i=0;
-                                                  strremove(suivant->descripteur,13);
-                                                  currentCar = suivant->descripteur[i];
-                                                  while(currentCar != '\n'){
-                                                      strcat(ligne,&currentCar);
-                                                      i++;
-                                                      currentCar = suivant->descripteur[i];
-                                                  }
-                                                  if(strstr(temp.chemin_nom,ligne)==NULL)
-                                                        printf("%s\n",ligne );
-                                              }
-                                          }else{
-                                              printf("ERREUR : fichier introuvable\n");
-                                              fic_trouve_txt = 0;
-                                          }
-                                      }while (fic_trouve_txt == 0);
+                                        comparaison_moteur_texte(pile_texte);
                                   break;
                                   case '2':
-                                      printf(" ");
-                                      char mot_cles[25];
-                                      char **resultat = malloc(sizeof(char*)*20);
-                                      printf("Entrez un mot a rechercher :\n" );
-                                      if(scanf("%s",mot_cles)!=0){
-                                          while ( ((c = getchar()) != '\n') && c != EOF);
-                                          recherche_motcle(mot_cles,resultat);
-                                          printf("\nRésultat (nb occurence par fichier):\n");
-                                          if(resultat[0]==NULL){
-                                              printf("Aucun résutat\n" );
-                                          }else{
-                                              for(int i=0;i<20;i++){
-                                                  if(resultat[i]==NULL){
-                                                      i=20;
-                                                  }else{
-                                                      printf("->%s\n",resultat[i] );
-                                                  }
-                                              }
-                                          }
-                                      }
+                                        recherche_index(pile_texte);
                                   break;
                                   default :
                                       printf("ERREUR : choix incorrect\n" );
@@ -394,7 +369,7 @@ int interfaceMoteur()
                       system("clear");
                       printf("++++++++ mode utilisateur!++++++++\n\n++++++++ Image ++++++++\n\n");
 
-                       char ext[5];
+                      char ext[5];
                       char nom[30];
                       int fic_trouve = 1;
                       do{
@@ -475,7 +450,7 @@ int interfaceMoteur()
                       }while(strlen(ext)<=0 || fic_trouve == 0);
                       break;
                     case '3':
-                      printf("WORK IN PROGRESS\n\nRecherche de fichier non implémentée.");
+                      printf("WORK IN PROGRESS\n\nRecherche de fichier son non implémentée.");
                       /*printf("Entrez le chemin du fichier Audio a rechercher!\n");
                       if (fgets(cheminFicAudio, TAILLECHAINE, stdin)!=NULL) {
                         retirerEspaceChaine(cheminFicAudio);
@@ -483,8 +458,11 @@ int interfaceMoteur()
                         printf("%s\n", chaineSansEspace);
                     }*/
                       break;
+                    case '4':
+                    break;
                     default:
-                    printf("\tVous n'avez pas fait le bon choix du type de fichier a rechercher!\n");
+                        printf("\tVous n'avez pas fait le bon choix du type de fichier a rechercher!\n");
+                    break;
                   }
                   printf("\nvoulez-vous poursuivre la recherche?\n**1:oui\n**0: non\n");
                   scanf("%s", continuer);
@@ -493,6 +471,8 @@ int interfaceMoteur()
                 }while (continuer[0]=='1');
                 break;
 
+              case '3':
+              break;
               default:
                 printf("Vous n'avez pas fait le bon choix de mode!\n");
                 choixAdmin = 0;

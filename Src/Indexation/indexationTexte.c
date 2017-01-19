@@ -14,7 +14,7 @@
 #define TAILLE_MOT 50   // Taille max des mot lu
 #define LONGEUR_MOT_MIN 4 // Longeur minium des mot selectionné dnas le texte. (nb-1)
 #define TAILLE_CHAINE 5000 //Longeur des lignes max.(et du descipteur)
-#define NB_MOT_IMPORTANT_CHOISI 5 // Nombre de mot gardé dans le top recurrence.
+int NB_MOT_IMPORTANT_CHOISI; // Nombre de mot gardé dans le top recurrence.
 #define TAILLE_LIGNE 1000 // TAille LIGNE des descipteur
 
 char CHEMIN[100];
@@ -185,7 +185,7 @@ void suppr_carac(char* ligne,int nb){
 }
 
 void ligne_tableau(char* ligne, int* retour){
-  int cpt,i,longeur_balise,longeur_mot,longeur_ligne;
+  int cpt,longeur_balise,longeur_mot,longeur_ligne;
   char balise[TAILLE_BALISE]="";
   char mot[TAILLE_MOT]="";
   char lettre;
@@ -301,9 +301,9 @@ void conception_descripteur(char* nom_fichier){
   ajout_rc_chaine();
 }
 
-void genDescripteurTexte(t_Fichier fichier, t_PileDescripteur *ptrPileTexte,char* chemin){
+void genDescripteurTexte(t_Fichier fichier, t_PileDescripteur *ptrPileTexte,char* chemin, int nbMot){
   strcpy(CHEMIN,chemin);
-
+  NB_MOT_IMPORTANT_CHOISI = nbMot;
   TOTAL_MOT=0;
   NB_MOT=0;
   NB_MOT_RECU=0;
@@ -323,6 +323,7 @@ void genDescripteurTexte(t_Fichier fichier, t_PileDescripteur *ptrPileTexte,char
 
 void afficher_tab_index(){
   int cpt,cpt2;
+  cpt=0;
   //for(cpt=0;cpt<NB_MOT_INDEX-1;cpt++){
     printf("\n\nMOTT=>%s  => %d =>coucou=> %d\n\n",TAB_INDEX[32].mot,cpt,TAB_INDEX[32].nb_descipteur_correspondent);
     for(cpt2=0 ; cpt2<TAB_INDEX[32].nb_descipteur_correspondent ;cpt2++)
@@ -333,7 +334,6 @@ void afficher_tab_index(){
 void envoie_tableau(char* nom_document,char* mot,int nb_recurrence){
   int cpt,cpt2;
   int new_mot=1;
-  int valid=0;
   int position=0;
   int position_des=0;
 
@@ -470,9 +470,6 @@ void conception_index(){
 }
 
 void genTabIndex(t_PileDescripteur* pile_texte){
-  char* descripteur;//[TAILLE_LIGNE];
-  int longeur_descripteur;
-
   t_CellDescripteur *suivant;
   suivant = (*pile_texte).premier;
 

@@ -1,1 +1,2 @@
-chemin : /home/etienne/RedStringProject
+chemin :/home/sebastien/Documents/UPSSITECH/RedStringProject
+seuil :30

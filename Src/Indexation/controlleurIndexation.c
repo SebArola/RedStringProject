@@ -196,7 +196,7 @@ void indexationSon(t_PileDescripteur *pile_son){
         //des détails sur la méthode.
         //printf("DEBUG B1\n" );
 //        if()
-        genDescripteurSon(*temp_fichier, &pile_son);
+        genDecripteurSon(*temp_fichier, pile_son);
         //printf("DEBUG B\n" );
 
     }

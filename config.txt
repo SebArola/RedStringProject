@@ -1,2 +1,5 @@
+(NE PAS LAISSER D'ESPACE APRES LES :, RESPECTEZ LE FORMAT ACTUELLE)
 chemin :/home/sebastien/Documents/UPSSITECH/RedStringProject
 seuil :30
+nbMot :5
+

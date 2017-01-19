@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "comparaison.h"
 
-int seuil;
+int seuil ;
 char CHEMIN[100];
 
 void init_comparaison(){
@@ -45,7 +45,7 @@ int comparaisonImage(t_Fichier fichierCompare, t_PileDescripteur pileImage,t_Pil
     //Initialisation des piles
     t_PileDescripteur descripteurs_ficCompare;//Pile utilisée pour gen le descripteur du fichier donné.
     init_pile(&descripteurs_ficCompare);
-    init_pile(descripteur_similaire);
+    //init_pile(descripteur_similaire);
 
     //Génération du déscripteur du fichier donné
     genDescripteurImage(fichierCompare, &descripteurs_ficCompare);
@@ -54,23 +54,25 @@ int comparaisonImage(t_Fichier fichierCompare, t_PileDescripteur pileImage,t_Pil
     if(!pile_est_vide(pileImage)){
 		t_CellDescripteur *suivant;
 		suivant = pileImage.premier;
-
-		while(suivant->p_suivant!=NULL){//On parcours la pile
+		while(suivant->p_suivant!=NULL){//On parseucours la pile
             //Comparaison du fichier courant a celui donné en paramétre.
+        //    printf("Fic donnee :\n%s\n",fichierDonne );
+        //    printf("Fic base :\n%s\n",suivant->descripteur );
             pourcentage = compareFichierImage(fichierDonne,suivant->descripteur );
             //On compare le pourcentage au seuil passé en paramètre
             if(pourcentage >= seuil){
+                printf("%d == %d",pourcentage,seuil);
                 //Si vrai on rajoute le descripteur dans la pile des descripteur similaire.
                 empile(descripteur_similaire,suivant->descripteur);
             }
 			suivant = suivant->p_suivant;
 		}
+
         //Comparaison avec le dernier descripteur.
          pourcentage = compareFichierImage(fichierDonne,suivant->descripteur );
          if(pourcentage >= seuil){
              empile(descripteur_similaire,suivant->descripteur);
          }
-
          return 1;//Vrai si tout c'est bien passé
 	}
     return 0;//Faux si la pile de descripteur est vide.
@@ -144,7 +146,7 @@ int comparaisonTexte(t_Fichier fichierCompare, t_PileDescripteur pileTexte,t_Pil
 
 int compareFichierImage(char * fichierDonne , char * fichierCompare)
 {
-  ILE * ptr_ficDonne;
+  FILE * ptr_ficDonne;
   FILE * ptr_ficCompare;
   int valDonne, valCompare, nbCouleurDonne, nbCouleurCompare, cpt=0, diff=0;
   float resultat;

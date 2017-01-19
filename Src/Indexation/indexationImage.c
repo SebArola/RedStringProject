@@ -72,6 +72,7 @@ void genDescripteurImage(t_Fichier fichier, t_PileDescripteur *ptrPileImage)
     }
     strcat(descripteur, fichier.chemin_nom);	//écriture du descripteur
     strcat(descripteur, "\n");
+    strcat(descripteur, "1\n");
     for(i=0; i<256; i++)
     {
   	  sprintf(nombreChar, "%d", i);
@@ -117,6 +118,7 @@ void genDescripteurImage(t_Fichier fichier, t_PileDescripteur *ptrPileImage)
     }
     strcat(descripteur, fichier.chemin_nom);	//écriture du descripteur
     strcat(descripteur, "\n");
+    strcat(descripteur, "3\n");
     for(i=0; i<dim; i++)
     {
   	  sprintf(nombreChar, "%d", i);

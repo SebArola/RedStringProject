@@ -9,7 +9,7 @@
 typedef struct DescSon{
   char *address;      /*  adresse dans la base descripteur */
   int nbWindows;     /*  nombre de fenêtre dans l'histogramme */
-  int** histogram;   /*  Histogram de taille k*m.
+  int ** histogram;   /*  Histogram de taille k*m.
                             k : nombre fenetre
                             m : nombre intervalles entre -1 et 1*/
 }t_DescSon;

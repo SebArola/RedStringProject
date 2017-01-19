@@ -117,13 +117,13 @@ void genDescripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
 	printf("DEBUG 2\n");
 
 	ptr_ficSon = fopen(fichier.chemin_info,"r");
-	char * descripteur = malloc(4000*sizeof(char));
+	char descripteur[500];
 	printf("DEBUG 3\n");
 
 	DescSon = CreerDescSon(ptr_ficSon); // DescSon de type t_DescSon
 	printf("DEBUG 3\n");
 
-	strcat(descripteur, fichier.chemin_nom);
+	strcpy(descripteur, fichier.chemin_nom);
 	strcat(descripteur, "\nInd:");
 	sprintf(DescSon->address,"%d",add);
 	strcat(descripteur, DescSon->address);
@@ -132,20 +132,29 @@ void genDescripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon){
 	sprintf(descripteur,"%d",DescSon->nbWindows);
 	printf("DEBUG 4\n");
 	printf("%d\n",DescSon->nbWindows );
-	for(int i=0;i<DescSon->nbWindows;i++){
+	printf("%d\n",nb_Intervalles );
+
+	for(int i=0;i<DescSon->nbWindows-1;i++){
 		for(int j=0; j<nb_Intervalles; j++){
-			//printf("DEBUG 4.%d\n",i);
-			sprintf(descripteur,"%d",DescSon->histogram[i][j]);
+			char t[5];
+			sprintf(t,"%d",DescSon->histogram[i][j]);
+			//printf("->%s\n",t );
+			strcat(descripteur,t);
 			strcat(descripteur," |");
+			//printf("%d\n",DescSon->histogram[i][j]);
 		}
 		strcat(descripteur,"\n");
 	}
-	printf("%s",descripteur);
+	//printf("%s",descripteur);
 	printf("DEBUG 5\n");
 
-	free(DescSon);
+	//free(DescSon);
 	fclose(ptr_ficSon);
+	printf("DEBUG 6\n");
+
 	empile(ptr_PileSon, descripteur);
+	printf("DEBUG 7\n");
+
 }
 /*int main(){
 }

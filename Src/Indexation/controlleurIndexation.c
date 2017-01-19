@@ -124,9 +124,18 @@ void runIndexation(){
     strcpy(allimgPath,CHEMIN);
     strcat(allimgPath,"/Data/all_IMG_NG.txt");
 
+    nbLigne = 0;
+    strcpy(cmd_wc,"wc -l ");
+    strcat(cmd_wc,allimgPath);
+    system(strcat(cmd_wc," > temp_wc.txt"));
+    temp_file = fopen("temp_wc.txt","r");
+    fscanf(temp_file,"%d",&nbLigne);
+    fclose(temp_file);
+    system("rm temp_wc.txt");
+
     ptr_ficListe = fopen(allimgPath, "r");
     temp_fichier= malloc(sizeof(t_Fichier));
-    while(!feof(ptr_ficListe)){//Tant qu'on est pas a la fin du document
+    for(int i=0; i<nbLigne/2; i++){//Tant qu'on est pas a la fin du document
         fscanf(ptr_ficListe, "%s", nomFic);//On recupère le nom du fichier
         temp_fichier->chemin_nom = nomFic;//Création du fichier
         fscanf(ptr_ficListe, "%s", infoFic);//On recupère le nom du fichier info
@@ -150,9 +159,18 @@ void runIndexation(){
     strcpy(all_IMG_RGB_Path,CHEMIN);
     strcat(all_IMG_RGB_Path,"/Data/all_IMG_RGB.txt");
 
+    nbLigne =0;
+    strcpy(cmd_wc,"wc -l ");
+    strcat(cmd_wc,all_IMG_RGB_Path);
+    system(strcat(cmd_wc," > temp_wc.txt"));
+    temp_file = fopen("temp_wc.txt","r");
+    fscanf(temp_file,"%d",&nbLigne);
+    fclose(temp_file);
+    system("rm temp_wc.txt");
+    printf("%d",nbLigne);
     ptr_ficListe = fopen(all_IMG_RGB_Path, "r");
     temp_fichier= malloc(sizeof(t_Fichier));
-    while(!feof(ptr_ficListe)){//Tant qu'on est pas a la fin du document
+    for(int i=0; i<nbLigne/2; i++){//Tant qu'on est pas a la fin du document
         fscanf(ptr_ficListe, "%s", nomFic);//On recupère la ligne courante
         temp_fichier->chemin_nom = nomFic;//Création du fichier
         fscanf(ptr_ficListe, "%s", infoFic);//On recupère le nom du fichier info

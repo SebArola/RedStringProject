@@ -30,7 +30,7 @@ void affiche_pile(t_PileDescripteur pileDescripteur){
 	printf("[");
 	if(!pile_est_vide(pileDescripteur)){
 		t_CellDescripteur *suivant;
-		suivant = pileDescripteur.premier;;
+		suivant = pileDescripteur.premier;
 		while(suivant->p_suivant!=NULL){
 			printf("%s ; ",suivant->descripteur);
 			suivant = suivant->p_suivant;

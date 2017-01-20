@@ -5,7 +5,7 @@
 #include <math.h>
 #include "indexationSon.h"
 
-	int taille_fenetre = 1024; // taille des fenêtres fixe pour le moment
+	int taille_fenetre = 8192; // taille des fenêtres fixe pour le moment
 	int nb_Intervalles = 50;   // intervalle entre -1 et 1 fixe aussi
 	double valMax = 1.;
 	double valMin = -1.;

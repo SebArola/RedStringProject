@@ -4,6 +4,15 @@
 #include "recherche_index.h"
 #include "../Librairies/string_perso.h"
 
+/*
+Forme du fichier index :
+<mot>MOT
+nb_iteration NOM_FICHIER
+nb_iteration NOM_FICHIER
+.....
+nb_iteration NOM_FICHIER
+</mot>
+*/
 char CHEMIN[100];
 
 /*
@@ -26,6 +35,7 @@ void init_recherche_index(){
         CHEMIN[i]=chemin[i+1];
     }
 }
+
 /*
 * Cette fonction cerche tous les textes qui contiennent le paramètre mot
 * et rempli le tableau résultat avec les résultats.
@@ -63,7 +73,7 @@ void recherche_motcle(char * mot, char ** resultat){
     }
 }
 
-
+//Main de test
 /*int main(){
     init_recherche_index();
     char ** resultat = malloc(sizeof(char*)*10);
@@ -74,18 +84,3 @@ void recherche_motcle(char * mot, char ** resultat){
         printf("R :%s\n",resultat[i] );
     }
 }*/
-/*
-Fomre du fichier index :
-<mot>MOT
-nb_iteration NOM_FICHIER
-nb_iteration NOM_FICHIER
-.....
-nb_iteration NOM_FICHIER
-</mot>
-
-<mot>MOT
-nb_iteration NOM_FICHIER
-nb_iteration NOM_FICHIER
-.....
-nb_iteration NOM_FICHIER
-</mot>*/

@@ -1,12 +1,11 @@
 #include "controlleurIndexation.h"
 #include "../Librairies/string_perso.h"
-//Constante contenant le chemin en local. Sera remplacé par le fichier de
-//configuration.
-//#define CHEMIN "/home/sebastien/Documents/UPSSITECH/RedStringProject"
-//#define CHEMIN "/users/1anneesri/dlt1727a/RedStringProject-master"
-//#define CHEMIN "/home/etienne/RedStringProject"
+
 char CHEMIN[100];
-//Méthode ecrivant les déscripteur dans le fichier de la base descripteur
+
+/*
+* Méthode ecrivant les déscripteur dans le fichier de la base descripteur
+*/
 void ecrireDescripteur(t_PileDescripteur pileDescripteur, char * type){
     char chemin[100];
     FILE * base_descripteur;
@@ -29,6 +28,9 @@ void ecrireDescripteur(t_PileDescripteur pileDescripteur, char * type){
     fclose(base_descripteur);
 }
 
+/*
+* Méthode permettant de générer tout les descripteurs images
+*/
 void indexationImage(t_PileDescripteur *pile_image){
 
     FILE * ptr_ficListe;
@@ -93,7 +95,7 @@ void indexationImage(t_PileDescripteur *pile_image){
     fscanf(temp_file,"%d",&nbLigne);
     fclose(temp_file);
     system("rm temp_wc.txt");
-    printf("%d",nbLigne);
+
     ptr_ficListe = fopen(all_IMG_RGB_Path, "r");
     temp_fichier= malloc(sizeof(t_Fichier));
     for(int i=0; i<nbLigne/2; i++){//Tant qu'on est pas a la fin du document
@@ -111,6 +113,10 @@ void indexationImage(t_PileDescripteur *pile_image){
 
 }
 
+
+/*
+* Méthode permettant de générer tout les dexcripteur texte
+*/
 void indexationTexte(t_PileDescripteur * pile_texte, int NBMOT){
 
     //Variable pour les commandes
@@ -157,6 +163,9 @@ void indexationTexte(t_PileDescripteur * pile_texte, int NBMOT){
     genTabIndex(pile_texte);
 }
 
+/*
+* Méthode permettant de générer tout les descripteurs son
+*/
 void indexationSon(t_PileDescripteur *pile_son){
     char cmd_ls[150] ;
     FILE * ptr_ficListe;
@@ -185,24 +194,20 @@ void indexationSon(t_PileDescripteur *pile_son){
         t_Fichier *temp_fichier= malloc(sizeof(t_Fichier));
         fscanf(ptr_ficListe, "%s", infoFic);//On recupère le nom du fichier info
         temp_fichier->chemin_info = infoFic;
-        printf("%s\n", temp_fichier->chemin_info);
+
         fscanf(ptr_ficListe, "%*s");
         fscanf(ptr_ficListe, "%s", nomFic);//On recupère la ligne courante
         temp_fichier->chemin_nom = nomFic;//Création du fichier
-
-
-
         //Ajout du fichier dans la pile_img. Voir indexationImage.h pour
         //des détails sur la méthode.
-        //printf("DEBUG B1\n" );
-//        if()
-        genDecripteurSon(*temp_fichier, pile_son);
-        //printf("DEBUG B\n" );
-
+        genDescripteurSon(*temp_fichier, pile_son);
     }
     fclose(ptr_ficListe);
 }
 
+/*
+* Fonction récupérant le chemin dans le fichier de configuration
+*/
 void set_CHEMIN(){
     //Variable pour le chemin et recupération dans le fichier config.txt
     char chemin[150];
@@ -220,6 +225,10 @@ void set_CHEMIN(){
     }
 }
 
+
+/*
+* Fonction récupérant le nb de mot a garder pour l'indexation texte dans le fichier de configuration
+*/
 int set_NBMOT(){
     //Variable pour le chemin et recupération dans le fichier config.txt
     int NBMOT = 0;
@@ -237,7 +246,10 @@ int set_NBMOT(){
     NBMOT = strtol(chemin,(char**)NULL,10);
     return NBMOT;
 }
-//Méthode gérant l'indexation de toute la base.
+
+/*
+* Méthode gérant l'indexation de toute la base.
+*/
 void runIndexation(){
     set_CHEMIN();
     int NBMOT = set_NBMOT();
@@ -270,19 +282,17 @@ void runIndexation(){
     indexationSon(&pile_son);
 
        //Enregistrement des déscripteur dans les fichiers base_descripteur_*
-   //    printf("ecrireDescripteurTexte non activé\n");
        ecrireDescripteur(pile_texte, "texte");
 
        ecrireDescripteur(pile_image,"image");
 
-       //printf("ecrireDescripteurSon non activé\n");
        ecrireDescripteur(pile_son,"son");
    }
 
 
 
 
-// //Main de test.
+//Main de test.
 /*int main(){
     printf("Lancement indexation. RETIREZ MOI AVANT LA RECETTE\n");
     runIndexation();

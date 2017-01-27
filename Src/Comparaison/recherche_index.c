@@ -6,6 +6,10 @@
 
 char CHEMIN[100];
 
+/*
+* Cette fonction initialise la Variable global CHEMIN en recupérant le chemin
+* dans le fichier de configuration.
+*/
 void init_recherche_index(){
     //Variable pour le chemin et recupération dans le fichier config.txt
     char chemin[150];
@@ -22,28 +26,33 @@ void init_recherche_index(){
         CHEMIN[i]=chemin[i+1];
     }
 }
-
+/*
+* Cette fonction cerche tous les textes qui contiennent le paramètre mot
+* et rempli le tableau résultat avec les résultats.
+*/
 void recherche_motcle(char * mot, char ** resultat){
     FILE * ptr_ficIndex;
     char index_path[100];
     strcpy(index_path,CHEMIN);
-    strcat(index_path,"/Data/tab_index.txt");
-    ptr_ficIndex = fopen(index_path,"r");
-    while(!feof(ptr_ficIndex)){
+    strcat(index_path,"/Data/tab_index.txt");//Chemin vers la table d'index
+    ptr_ficIndex = fopen(index_path,"r"); //Ouverture du fichier
+    while(!feof(ptr_ficIndex)){//Tant qu'on est pas a la fin du fichier
         char ligne[50];
         fgets(ligne,50,ptr_ficIndex);
         if( strstr(ligne,"<mot>")){
             strremove(ligne,5);
-            if(strstr(ligne,mot)!=NULL){
+            if(strstr(ligne,mot)!=NULL){//Si on la ligne courante contient le mot
                 char nbOcc[10];
                 char nomFic[30];
                 int i=0;
-                fscanf(ptr_ficIndex,"%s",nbOcc);
-                fscanf(ptr_ficIndex,"%s",nomFic);
+                fscanf(ptr_ficIndex,"%s",nbOcc); //On récupère le nombre d'occurence
+                fscanf(ptr_ficIndex,"%s",nomFic);//Et le nom du fichier
+                //Tant qu'on a pas atteint la fin des textes dans lesquels le mot est présent
                 while(strstr(nbOcc,"</mot>")==NULL){
                     strcat(nbOcc," ");
                     strcat(nbOcc,nomFic);
                     resultat[i] = malloc(sizeof(char)*(strlen(nbOcc)));
+                     // On copie le récultat dans la case courante du tableau
                     strcpy(resultat[i],nbOcc);
                     fscanf(ptr_ficIndex,"%s",nbOcc);
                     fscanf(ptr_ficIndex,"%s",nomFic);

@@ -16,6 +16,5 @@ int readStruct(FILE* file, void * wStruct, size_t structSize);
 int fileSize(FILE* file); // renvoie la taille du fichier passer en paramètre
 double Swap_double(double dbl); // memcpy d'un double vers un autre double
 t_DescSon * CreerDescSon(FILE* file); // créer un t_DescSon ave un fichier binaire
-void genDecripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon);
+void genDescripteurSon(t_Fichier fichier, t_PileDescripteur *ptr_PileSon);
 #endif
-
